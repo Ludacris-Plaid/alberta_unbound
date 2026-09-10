@@ -1,0 +1,7 @@
+# Never deploy local/infra files to production
+.freebuff/
+.vercel/
+supabase/migrations/
+supabase/schema.sql
+*.log
+.DS_Store

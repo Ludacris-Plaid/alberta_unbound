@@ -1,0 +1,9 @@
+# Local/infra files — never commit
+.vercel/
+.freebuff/
+*.log
+.DS_Store
+node_modules/
+.claude/
+
+supabase/.temp/
