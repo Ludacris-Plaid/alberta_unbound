@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Alberta Unbound is an independent, non-partisan platform for benefits navigation, shared knowledge, and organized public accountability.">
     <title>Alberta Unbound — Practical tools. Shared knowledge. Public pressure.</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/favicon.svg">
+    <meta name="theme-color" content="#102B4E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -155,7 +158,7 @@
         .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xl { box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 20px 65px rgba(0,0,0,.18) !important; }
         .rounded-xl, .rounded-2xl { border-radius: 1.5rem !important; }
         .rounded-lg { border-radius: 1rem !important; }
-        .bg-primary\\/5 { background: rgba(26,82,118,.06) !important; } .bg-primary\\/10 { background: rgba(26,82,118,.10) !important; } .bg-accent\\/10 { background: rgba(216,169,41,.10) !important; } .bg-warm\\/10 { background: rgba(26,82,118,.08) !important; }
+        .bg-primary\\/5 { background: rgba(26,82,118,.06) !important; } .bg-primary\\/10 { background: rgba(26,82,118,.10) !important; } .bg-accent\/10 { background: rgba(216,169,41,.10) !important; } .bg-warm\\/10 { background: rgba(26,82,118,.08) !important; }
         .hover\\:bg-gray-50:hover, .hover\\:bg-gray-100:hover, .hover\\:bg-gray-200:hover { background: rgba(255,255,255,.07) !important; }
         .text-primary { color: var(--blue) !important; } .text-accent-700, .text-accent-800 { color: var(--gold) !important; } .text-warm-700 { color: var(--blue) !important; }
         .text-red-100, .text-red-200, .text-red-300, .text-red-500, .text-red-600, .text-red-700 { color: var(--blue) !important; }
@@ -222,7 +225,7 @@
         #page-action .text-red-500, #page-action .text-red-600 { color: var(--red) !important; }
         #page-action .bg-red-950\/40 p, #page-action .bg-red-950\/40 strong, #page-action .bg-red-950\/40 h2 { color: var(--copy) !important; }
         #page-action .bg-red-50, #page-action .bg-red-100 { background: color-mix(in srgb, var(--red) 10%, var(--panel)) !important; }
-        #page-action .text-accent-700, #page-action .text-accent-800 { color: #D8A929 !important; }
+        #page-action .text-accent-700, #page-action .text-accent-800 { color: var(--gold) !important; }
         #page-home > div.bg-gradient-to-r { background: #102B4E !important; }
         /* Footer stays a navy island in both themes (like the nav) so its white/slate text stays legible. */
         #page-home footer, html[data-theme=light] #page-home footer, html[data-theme=dark] #page-home footer { background: #0B2035 !important; }
@@ -333,6 +336,8 @@
             --brand-text: #14507F;
             --gold: #7A5A10;
             --red: #B84038;
+            --red-small: #8C2F28;
+            --gold-small: #3F2D07;
             --success: #176B92;
         }
         html, body { background: var(--ink) !important; color: var(--copy) !important; }
@@ -344,9 +349,13 @@
         .text-primary { color: var(--brand-text) !important; }
         .border-primary { border-color: var(--brand-bg) !important; }
         .bg-accent { background-color: var(--gold) !important; }
+        /* Gold CTA: ink text on gold in both themes (light blue/navy text on gold fails contrast) */
+        .bg-accent.text-primary, button.bg-accent.text-primary, a.bg-accent.text-primary { color: #0B2035 !important; }
+        html[data-theme=light] .bg-accent.text-primary, html[data-theme=light] button.bg-accent.text-primary, html[data-theme=light] a.bg-accent.text-primary { color: #FFF8E5 !important; }
+
         .text-accent, .text-accent-700, .text-accent-800 { color: var(--gold) !important; }
         .bg-warm\\/10, .bg-primary\\/5, .bg-primary\\/10 { background-color: color-mix(in srgb, var(--blue) 10%, transparent) !important; }
-        .bg-accent\\/10 { background-color: color-mix(in srgb, var(--gold) 14%, transparent) !important; }
+        .bg-accent\/10, .bg-accent\/15, .bg-accent\/20 { background-color: color-mix(in srgb, var(--gold) 14%, transparent) !important; }
         .text-warm-700 { color: var(--blue) !important; }
         /* In dark mode the base blue is too dark for text on the navy panel; use the light brand blue for warm-700 labels, chips, and numbers. */
         html[data-theme=dark] .text-warm-700 { color: var(--brand-text) !important; }
@@ -391,6 +400,7 @@
         .text-slate-900 { color: var(--copy) !important; }
         .text-slate-700 { color: color-mix(in srgb, var(--copy) 88%, var(--muted)) !important; }
         .text-slate-600, .text-slate-500 { color: var(--muted) !important; }
+        html[data-theme=dark] .text-slate-500, html[data-theme=dark] .text-slate-400 { color: var(--muted) !important; }
         .text-slate-400 { color: color-mix(in srgb, var(--muted) 75%, var(--ink)) !important; }
         .border-surface-border, .border-gray-50, .border-gray-100, .border-gray-200, .border-slate-800 { border-color: var(--line) !important; }
         input, select, textarea { color: var(--copy) !important; background-color: var(--panel) !important; border-color: var(--line-bright) !important; }
@@ -606,6 +616,45 @@
         /* Final route-specific normalization prevents legacy page selectors from reintroducing old tones. */
         #page-action .text-red-100, #page-action .text-red-200, #page-action .text-red-300, #page-desk .text-red-100, #page-desk .text-red-200, #page-desk .text-red-300 { color: var(--copy) !important; }
         #page-action .text-red-500, #page-action .text-red-600, #page-action .text-red-700, #page-desk .text-red-500, #page-desk .text-red-600, #page-desk .text-red-700 { color: var(--blue) !important; }
+        /* Dark mode: the mapped 'blue' is too dark on navy panels — use the light brand text blue; keep true danger red for red-chip contexts. */
+        html[data-theme=dark] #page-action .text-red-500, html[data-theme=dark] #page-action .text-red-600, html[data-theme=dark] #page-desk .text-red-500, html[data-theme=dark] #page-desk .text-red-600 { color: var(--brand-text) !important; }
+        /* Light mode: navy hero islands keep white copy (var(--copy) flips dark and vanishes on navy). */
+        html[data-theme=light] #page-action .text-red-100, html[data-theme=light] #page-action .text-red-200, html[data-theme=light] #page-action .text-red-300,
+        html[data-theme=light] #page-desk .text-red-100, html[data-theme=light] #page-desk .text-red-200, html[data-theme=light] #page-desk .text-red-300,
+        html[data-theme=light] #page-vault .text-red-100, html[data-theme=light] #page-vault .text-red-200,
+        html[data-theme=light] #page-campaigns .text-red-100, html[data-theme=light] #page-campaigns .text-red-200,
+        html[data-theme=light] #page-manifesto .text-red-100, html[data-theme=light] #page-manifesto .text-red-200,
+        html[data-theme=light] #page-manifesto .text-white\/80, html[data-theme=light] #page-manifesto .text-white\/75 { color: rgba(255,255,255,.82) !important; }
+        /* Light mode: navy hero islands make plain dark token text vanish. Force white-ish family text through the hero containers. */
+        html[data-theme=light] #page-action > div:first-child .text-slate-600,
+        html[data-theme=light] #page-action > div:first-child .text-slate-500, !important;}
+        html[data-theme=light] #page-desk > div:first-child .text-slate-600,
+        html[data-theme=light] #page-desk > div:first-child .text-slate-500, !important;}
+        html[data-theme=light] #page-vault > div:first-child .text-slate-600,
+        html[data-theme=light] #page-vault > div:first-child .text-slate-500, !important;}
+        html[data-theme=light] #page-campaigns > div:first-child .text-slate-600,
+        html[data-theme=light] #page-campaigns > div:first-child .text-slate-500, !important;}
+        html[data-theme=light] #page-manifesto > div:first-child .text-slate-600,
+        html[data-theme=light] #page-manifesto > div:first-child .text-slate-500 { color: rgba(255,255,255,.86) !important; }
+        /* Small red/green status chips need stronger contrast on tinted panels (12px text). */
+        html[data-theme=dark] .bg-red-500\/10 { background-color: color-mix(in srgb, var(--red) 20%, transparent) !important; }
+        html[data-theme=light] .bg-red-500\/10 { background-color: color-mix(in srgb, var(--red) 14%, transparent) !important; }
+        html[data-theme=light] .bg-red-500\/10.text-red-500, html[data-theme=light] span.bg-red-500\/10 { color: #8C2F28 !important; }
+        html[data-theme=dark] .text-emerald-600 { color: #8FBF9F !important; }
+        html[data-theme=dark] .bg-emerald-500 { background-color: #4F9B6C !important; }
+        html[data-theme=dark] .bg-emerald-400 { background-color: #4F9B6C !important; }
+        html[data-theme=light] .text-emerald-600 { color: #20624A !important; }
+        /* 12px small text needs 4.5:1 — darken gold/red labels and chips in light mode. */
+        html[data-theme=light] .text-accent-700, html[data-theme=light] .text-accent-800 { color: var(--gold-small) !important; }
+        html[data-theme=light] .bg-red-50 .text-red-500, html[data-theme=light] span.bg-red-50, html[data-theme=light] .bg-red-50 { color: var(--red-small) !important; }
+        html[data-theme=light] .bg-red-50 { background-color: color-mix(in srgb, var(--red-small) 12%, transparent) !important; }
+        html[data-theme=light] .text-red-400 { color: var(--red-small) !important; }
+        html[data-theme=dark] .text-red-400 { color: var(--red) !important; }
+        /* Safety-callout cards on navy heroes: inner text must stay light in light mode too. */
+        html[data-theme=light] #page-action .bg-red-950\/40 p, html[data-theme=light] #page-action .bg-red-950\/40 h2,
+        html[data-theme=light] #page-action .bg-red-950\/40 .text-slate-600, html[data-theme=light] #page-action .bg-red-950\/40 .text-slate-500,
+        html[data-theme=light] #page-desk .bg-red-950\/40 p, html[data-theme=light] #page-desk .bg-red-950\/40 h2,
+        html[data-theme=light] #page-desk .bg-red-950\/40 .text-slate-600, html[data-theme=light] #page-desk .bg-red-950\/40 .text-slate-500 { color: rgba(255,255,255,.85) !important; }
         #page-action .bg-red-950\\/40, #page-desk .bg-red-950\\/40 { background-color: color-mix(in srgb, var(--panel) 88%, transparent) !important; border-color: var(--line) !important; }
         #page-action .bg-red-50, #page-action .bg-red-100, #page-desk .bg-red-50, #page-desk .bg-red-100 { background-color: color-mix(in srgb, var(--blue) 12%, transparent) !important; }
         #page-desk .checklist-item[aria-pressed="true"] .check-icon { border-color: var(--brand-bg) !important; background: var(--brand-bg) !important; color: #FFFFFF !important; }
@@ -1159,8 +1208,8 @@
         <div class="bg-primary text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <div class="max-w-4xl">
-                    <p class="text-red-200 font-heading font-semibold text-sm tracking-widest uppercase mb-4">Collective advocacy · Public accountability</p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6">Build the base.<br><span class="text-white underline decoration-accent decoration-4">Move the target.</span></h1>
+                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Collective advocacy · Public accountability</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Build the base.</span><br>Move the target.</h1>
                     <p class="text-lg sm:text-xl text-red-100 leading-relaxed max-w-3xl">Take Action is for organized public pressure—not individual casework. Build a crew around one demand, choose a winnable action, make participation accessible, and keep going until the decision-maker responds.</p>
                     <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/75"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Collective</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Disciplined</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Nonviolent pressure</span></div>
                 </div>
@@ -1188,7 +1237,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <div class="max-w-4xl">
                     <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Case Command Center</p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6">Every date. Every name.<br><span class="text-accent">Every promise, on record.</span></h1>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Every date. Every name.</span><br>Every promise, on record.</h1>
                     <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">One private case file for everything: a dated timeline of every contact, an evidence index, the people you deal with, and the deadlines that decide your appeals. When the system loses your paperwork, yours is the record that holds.</p>
                     <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65">
                         <span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Private to your account</span>
@@ -1397,7 +1446,7 @@
         <div class="bg-primary-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Collective advocacy · Public accountability</p>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6">Turn shared harm<br><span class="text-accent">into organized public pressure.</span></h1>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Turn shared harm</span><br>into organized public pressure.</h1>
                 <p class="text-lg text-white/75 leading-relaxed max-w-3xl">This is the collective-action manual: choose a winnable demand, build a base, escalate visibly, and keep pressure sustained. Traditional tactics—petitions, delegations, teach-ins, pickets, public testimony, boycotts, and strikes—work when they are disciplined, accessible, and nonviolent.</p>
                 <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Peaceful</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Lawful</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Escalation</span></div>
             </div>
@@ -1419,7 +1468,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <div class="max-w-4xl">
                     <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Members Only · $10 CAD/month</p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6">The Vault.<br><span class="text-accent">One sharp tool a month.</span></h1>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">The Vault.</span><br>One sharp tool a month.</h1>
                     <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">Every month, members receive one carefully researched field note on lawful benefits navigation, privacy, documentation, appeals, and collective advocacy—the practical details that are easy to miss when a system is already overwhelming.</p>
                     <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65">
                         <span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Members only</span>
@@ -1521,7 +1570,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <div class="max-w-4xl">
                     <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Alberta Unbound · Statement</p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6">A public record of<br><span class="text-accent">what we believe.</span></h1>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">A public record of</span><br>what we believe.</h1>
                     <p class="text-lg sm:text-xl text-white/80 leading-relaxed max-w-3xl">This page holds the case for dignity, adequate support, accountable public systems, and the political agency of people who are too often expected to stay quiet. The final statement will be handwritten and published here.</p>
                 </div>
             </div>
