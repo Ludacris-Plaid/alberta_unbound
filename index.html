@@ -277,6 +277,16 @@
             border-color: rgba(255,255,255,.14);
             box-shadow: inset 0 1px 0 rgba(255,255,255,.10), 0 14px 38px rgba(16,42,67,.18);
         }
+        /* The row carries eight destinations now, so let it wrap inside the pill
+           instead of running off the side of the viewport. */
+        #more-nav-menu > div { flex-wrap: wrap; row-gap: .3rem; }
+        @media (max-width: 1180px) {
+            #more-nav-menu > div > span[aria-hidden="true"] { display: none; }
+            #more-nav-menu > div { column-gap: .25rem; }
+        }
+        @media (max-width: 900px) {
+            #more-nav-menu .nav-more-item { padding: .45rem .7rem; font-size: .78rem; }
+        }
         #more-nav-menu .nav-more-item {
             display: inline-flex;
             align-items: center;
@@ -867,11 +877,153 @@
         @media (prefers-reduced-motion: reduce) {
             .hover\:-translate-y-\[1px\]:hover, .hover\:translate-x-1:hover, .hover\:scale-105:hover { transform: none !important; }
         }
+        /* ============================================================
+           STATS ENGINE — momentum + command dashboards
+           Shared by #page-momentum (members) and #page-stats (mods/admins)
+           ============================================================ */
+        .stat-grid { display: grid; gap: 1rem; }
+        .stat-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .stat-grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .stat-grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        @media (max-width: 1023px) {
+            .stat-grid.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .stat-grid.cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 559px) {
+            .stat-grid.cols-2, .stat-grid.cols-3, .stat-grid.cols-4 { grid-template-columns: 1fr; }
+        }
+
+        .stat-card {
+            position: relative; overflow: hidden; isolation: isolate;
+            display: flex; flex-direction: column;
+            background: var(--panel-raised);
+            border: 1px solid var(--line);
+            border-radius: 1.25rem;
+            padding: 1.1rem 1.15rem 1.2rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+            transition: transform .55s cubic-bezier(.32,.72,0,1), border-color .55s cubic-bezier(.32,.72,0,1);
+        }
+        .stat-card::after {
+            content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+            background: radial-gradient(130% 100% at 100% 0%, color-mix(in srgb, var(--gold) 17%, transparent), transparent 62%);
+            opacity: 0; transition: opacity .65s cubic-bezier(.32,.72,0,1);
+        }
+        .stat-card:hover { transform: translateY(-3px); border-color: var(--line-bright); }
+        .stat-card:hover::after { opacity: 1; }
+        .stat-card.is-signal { border-color: color-mix(in srgb, var(--gold) 42%, transparent); }
+
+        .stat-label { display: block; font-size: .66rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin-bottom: .5rem; }
+        .stat-value { display: block; font-size: 2.05rem; line-height: 1.05; font-weight: 800; color: var(--copy); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+        .stat-value.gold { color: var(--gold); }
+        .stat-value.blue { color: var(--brand-text); }
+        .stat-value.small { font-size: 1.45rem; }
+        .stat-sub { display: block; margin-top: auto; padding-top: .4rem; font-size: .74rem; line-height: 1.4; color: var(--muted); }
+        .stat-trend { display: inline-flex; align-items: center; gap: .3rem; margin-top: .45rem; font-size: .72rem; font-weight: 700; }
+        .stat-trend.up { color: color-mix(in srgb, var(--success) 88%, var(--copy)); }
+        .stat-trend.flat { color: var(--muted); }
+
+        /* Sparkline */
+        .spark { display: block; width: 100%; height: 2.7rem; margin-top: .7rem; overflow: visible; }
+        .spark .spark-area { fill: color-mix(in srgb, var(--gold) 22%, transparent); stroke: none; }
+        .spark.blue .spark-area { fill: color-mix(in srgb, var(--brand-text) 22%, transparent); }
+        .spark .spark-line { fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+        .spark .spark-dot { fill: var(--gold); }
+        .spark.blue .spark-line { stroke: var(--brand-text); }
+        .spark.blue .spark-dot { fill: var(--brand-text); }
+        .spark-line { stroke-dasharray: var(--len, 1000); stroke-dashoffset: var(--len, 1000); animation: spark-draw 1.5s cubic-bezier(.32,.72,0,1) forwards; }
+        @keyframes spark-draw { to { stroke-dashoffset: 0; } }
+
+        /* Weekly trend bars */
+        .trend { display: flex; align-items: flex-end; gap: .45rem; height: 9rem; padding-top: .5rem; }
+        .trend-col { flex: 1 1 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: .35rem; height: 100%; min-width: 0; }
+        .trend-stack { width: 100%; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; height: 100%; }
+        .trend-bar { width: 100%; min-height: 3px; border-radius: .3rem; background: color-mix(in srgb, var(--brand-text) 62%, transparent); transform: scaleY(0); transform-origin: bottom; transition: transform .85s cubic-bezier(.32,.72,0,1), background .3s ease; }
+        .trend-bar.b2 { background: color-mix(in srgb, var(--gold) 78%, transparent); }
+        .trend-col:hover .trend-bar { background: var(--gold); }
+        .trend-x { font-size: .58rem; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+        /* Narrow screens: 12 columns cannot carry 12 date labels without colliding,
+           so surface every third week and let the rest stay blank. */
+        @media (max-width: 767px) {
+            .trend { gap: .28rem; }
+            .trend-x { display: none; }
+            .trend-col:nth-child(3n+2) .trend-x { display: block; font-size: .54rem; }
+        }
+        .trend-legend { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .9rem; font-size: .7rem; color: var(--muted); }
+        .trend-legend span { display: inline-flex; align-items: center; gap: .4rem; }
+        .trend-swatch { width: .7rem; height: .7rem; border-radius: .2rem; background: color-mix(in srgb, var(--brand-text) 62%, transparent); }
+        .trend-swatch.gold { background: color-mix(in srgb, var(--gold) 78%, transparent); }
+
+        /* Distribution rows */
+        .dist { display: grid; gap: .6rem; }
+        .dist-row { display: grid; grid-template-columns: 9.5rem 1fr 3.2rem; align-items: center; gap: .75rem; }
+        .dist-name { font-size: .76rem; font-weight: 600; color: var(--copy); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .dist-track { height: .55rem; border-radius: 9999px; background: color-mix(in srgb, var(--muted) 20%, transparent); overflow: hidden; }
+        .dist-fill { display: block; height: 100%; border-radius: 9999px; background: linear-gradient(90deg, var(--brand-text), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.32,.72,0,1); }
+        .dist-val { font-size: .74rem; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; text-align: right; }
+        @media (max-width: 559px) { .dist-row { grid-template-columns: 6.5rem 1fr 2.6rem; gap: .5rem; } }
+
+        /* Action turnout chart */
+        .turnout { display: grid; gap: .55rem; }
+        .turnout-row { display: grid; grid-template-columns: 1fr 2.6rem; align-items: center; gap: .7rem; }
+        .turnout-bar { position: relative; height: 1.6rem; border-radius: .5rem; background: color-mix(in srgb, var(--muted) 16%, transparent); overflow: hidden; }
+        .turnout-fill { position: absolute; inset: 0; border-radius: .5rem; background: linear-gradient(90deg, color-mix(in srgb, var(--brand-text) 80%, transparent), color-mix(in srgb, var(--gold) 80%, transparent)); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(.32,.72,0,1); }
+        .turnout-fill.done { background: linear-gradient(90deg, color-mix(in srgb, var(--success) 70%, transparent), color-mix(in srgb, var(--brand-text) 80%, transparent)); }
+        .turnout-title { position: relative; z-index: 1; padding: 0 .6rem; font-size: .72rem; font-weight: 600; color: var(--copy); line-height: 1.6rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .turnout-n { text-align: right; font-size: .78rem; font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
+
+        /* Standings rows (momentum) */
+        .stand { display: grid; gap: .1rem; }
+        .stand-row { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto auto; align-items: center; gap: .75rem; padding: .5rem .15rem; border-bottom: 1px solid var(--line); }
+        .stand-name { display: block; font-size: .85rem; font-weight: 700; color: var(--copy); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .stand-meta { font-size: .68rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .stand-role { font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: .2rem .5rem; border-radius: 9999px; background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); white-space: nowrap; }
+        .stand-score { font-weight: 800; color: var(--gold); font-variant-numeric: tabular-nums; }
+
+        /* Moderation log rows (command stats) */
+        .modlog { display: grid; gap: .1rem; }
+        .modlog-row { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) auto; align-items: baseline; gap: .75rem; padding: .45rem .15rem; border-bottom: 1px solid var(--line); }
+        .modlog-action { font-size: .7rem; font-weight: 700; color: var(--gold); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .modlog-note { font-size: .76rem; color: var(--copy); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .modlog-who { font-size: .68rem; color: var(--muted); white-space: nowrap; }
+        @media (max-width: 559px) {
+            .stand-row { grid-template-columns: auto minmax(0, 1fr) auto; }
+            .stand-role { display: none; }
+            .modlog-row { grid-template-columns: minmax(0, 1fr) auto; }
+            .modlog-action { grid-column: 1 / -1; }
+        }
+
+        /* Momentum action record */
+        .mrec { display: grid; grid-template-columns: 5.5rem 1fr auto; gap: .9rem; align-items: center; padding: .85rem 1rem; border-radius: 1rem; border: 1px solid var(--line); background: var(--panel-raised); transition: border-color .4s cubic-bezier(.32,.72,0,1); }
+        .mrec:hover { border-color: color-mix(in srgb, var(--gold) 40%, transparent); }
+        .mrec-date { font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+        .mrec-title { font-size: .86rem; font-weight: 700; color: var(--copy); }
+        .mrec-meta { font-size: .72rem; color: var(--muted); margin-top: .15rem; }
+        .mrec-turn { font-size: 1.05rem; font-weight: 800; color: var(--gold); font-variant-numeric: tabular-nums; text-align: right; }
+        @media (max-width: 559px) { .mrec { grid-template-columns: 1fr auto; } .mrec-date { grid-column: 1 / -1; } }
+
+        /* Stat gate (rundown for users who can't see the dashboard) */
+        .stat-gate { text-align: center; padding: 3rem 1.5rem; }
+        .stat-gate-ico { width: 3.2rem; height: 3.2rem; margin: 0 auto 1.1rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; background: color-mix(in srgb, var(--gold) 14%, transparent); border: 1px solid color-mix(in srgb, var(--gold) 32%, transparent); color: var(--gold); }
+
+        /* Section shell inside stats pages */
+        .stat-block { border: 1px solid var(--line); border-radius: 1.5rem; background: var(--panel); padding: 1.35rem 1.4rem 1.5rem; box-shadow: inset 0 1px 0 rgba(255,255,255,.05); }
+        .stat-block + .stat-block { margin-top: 1.15rem; }
+        .stat-block-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+        .stat-block-title { font-size: 1.05rem; font-weight: 800; color: var(--copy); letter-spacing: -.01em; }
+        .stat-block-note { font-size: .72rem; color: var(--muted); }
+        html[data-theme=light] .stat-card, html[data-theme=light] .stat-block, html[data-theme=light] .mrec { box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 14px 40px rgba(16,42,67,.06); }
+        @media (prefers-reduced-motion: reduce) {
+            .stat-card, .stat-card::after, .dist-fill, .trend-bar, .turnout-fill { transition: none !important; }
+            .spark-line { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+            .spark-line + .spark-area { opacity: 1; }
+        }
     </style>
+
 </head>        <body class="bg-gray-50 font-body antialiased">
 
 <!-- Skip link -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
+
 
 <!-- ==================== NAVBAR ==================== -->
 <nav class="fixed top-5 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-40 rounded-full bg-black/60 backdrop-blur-xl ring-1 ring-white/10" role="navigation" aria-label="Main navigation">
@@ -945,6 +1097,9 @@
             <button onclick="navigateFromMore('manifesto')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Manifesto</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
             <button onclick="navigateFromMore('resources')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Resources</button>
+            <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
+            <button onclick="navigateFromMore('momentum')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Our Momentum</button>
+            <button onclick="navigateFromMore('stats')" id="nav-more-stats" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors hidden" role="menuitem">Command Stats</button>
         </div>
     </div>
 
@@ -972,6 +1127,8 @@
                 <button onclick="navigateTo('campaigns');closeMobileMenu()" class="mm-item" role="menuitem">Take Action</button>
                 <button onclick="navigateTo('manifesto');closeMobileMenu()" class="mm-item" role="menuitem">Manifesto</button>
                 <button onclick="navigateTo('resources');closeMobileMenu()" class="mm-item" role="menuitem">Resources</button>
+                <button onclick="navigateTo('momentum');closeMobileMenu()" class="mm-item" role="menuitem">Our Momentum</button>
+                <button onclick="navigateTo('stats');closeMobileMenu()" id="mm-stats" class="mm-item hidden" role="menuitem">Command Stats</button>
                 <button id="mobile-menu-logout" onclick="logout();closeMobileMenu()" class="mm-item mm-logout" role="menuitem" hidden>Log out</button>
             </div>
         </div>
@@ -1034,10 +1191,11 @@
                         </button>
                     </div>
                     <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-8 mt-14 max-w-md mx-auto text-center">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 mt-14 max-w-2xl mx-auto text-center">
                         <div><p class="text-2xl font-heading font-bold text-accent"><span id="stat-members">--</span></p><p class="text-sm text-white/60">Members</p></div>
-                        <div><p class="text-2xl font-heading font-bold text-accent"><span id="stat-posts">--</span></p><p class="text-sm text-white/60">Stories</p></div>
-                        <div><p class="text-2xl font-heading font-bold text-accent"><span id="stat-replies">--</span></p><p class="text-sm text-white/60">Actions</p></div>
+                        <div><p class="text-2xl font-heading font-bold text-accent"><span id="stat-guides">--</span></p><p class="text-sm text-white/60">Guides</p></div>
+                        <div><p class="text-2xl font-heading font-bold text-accent"><span id="stat-posts">--</span></p><p class="text-sm text-white/60">Forum posts</p></div>
+                        <div><p class="text-2xl font-heading font-bold text-accent"><span id="stat-actions">--</span></p><p class="text-sm text-white/60">Actions live</p></div>
                     </div>
                 </div>
             </div>
@@ -1357,12 +1515,11 @@
 
         </div>
     </section>
-    </section>
 
     <!-- ============================================ -->
     <!-- LEVERAGE DESK -->
     <!-- ============================================ -->
-        <section id="page-desk" class="page-section">
+    <section id="page-desk" class="page-section">
         <div class="bg-primary-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <div class="max-w-4xl">
@@ -1804,6 +1961,46 @@
         </div>
     </section>
 
+    <!-- ============================================ -->
+    <!-- OUR MOMENTUM — member-facing progress dashboard -->
+    <!-- ============================================ -->
+    <section id="page-momentum" class="page-section">
+        <div class="bg-primary-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+                <div class="max-w-4xl">
+                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Our Momentum</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Our momentum.</span><br>The proof that organizing works.</h1>
+                    <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">They count on us being too sick, too poor and too scattered to keep score. So we keep score. Every member who joins, every action somebody shows up for, every interaction logged and every deadline tracked is one more number that says this bloc exists and is not going away.</p>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+            <div id="momentum-body">
+                <!-- JS fills this -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- COMMAND STATS — moderator / admin analytics -->
+    <!-- ============================================ -->
+    <section id="page-stats" class="page-section">
+        <div class="bg-primary-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+                <div class="max-w-4xl">
+                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Command Stats · Staff only</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Command Stats.</span><br>Everything the platform knows.</h1>
+                    <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">Membership, content, the action engine, casework, badges, subscriptions and the moderation record — one read on whether this thing is actually growing, and where it needs work.</p>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+            <div id="stats-body">
+                <!-- JS fills this -->
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <!-- ==================== AUTH MODAL ==================== -->
@@ -2154,7 +2351,7 @@ function navigateTo(page) {
     currentPostIndex = null;
 
     // Keep only the current destination visibly active; secondary pages activate Explore.
-    const explorePages = ['vault', 'desk', 'action', 'campaigns', 'manifesto', 'resources'];
+    const explorePages = ['vault', 'desk', 'action', 'campaigns', 'manifesto', 'resources', 'momentum', 'stats'];
     const headerActive = page !== 'member' && page !== 'profile';
     document.querySelectorAll('.nav-link, .nav-more-item, #mobile-menu [role="menuitem"]').forEach(l => {
         const itemPage = l.dataset.page || (l.getAttribute('onclick') || '').match(/navigate(?:To|FromMore)\('([a-z]+)'\)/i)?.[1];
@@ -2179,6 +2376,8 @@ function navigateTo(page) {
     if (page === 'member') renderMemberProfile();
     if (page === 'manifesto') renderManifesto();
     if (page === 'resources') renderResources();
+    if (page === 'momentum') renderMomentum();
+    if (page === 'stats') renderStats();
 
     // Animate newly revealed page content without a scroll handler.
     observeReveals(target);
@@ -2734,8 +2933,18 @@ function demoLogin(input, password) {
     finishLogin(user);
 }
 
+// Command Stats is staff-only: keep its nav entries out of sight for everyone else.
+function syncStatsNav(loggedIn) {
+    const staff = loggedIn && isMod();
+    ['nav-more-stats', 'mm-stats'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('hidden', !staff);
+    });
+}
+
 function finishLogin(user) {
     closeAuthModal();
+    invalidateStats();
     showToast('Welcome back, ' + user.username + '!', 'success');
     renderAuthUI();
     actionsLoaded = false;
@@ -2818,6 +3027,8 @@ function logout() {
     supabaseSession = null;
     currentUser = null;
     moderationReports = [];
+    invalidateStats();
+    if (currentPage === 'stats') navigateTo('home');
     showToast('You have been logged out.', 'success');
     renderAuthUI();
     if (currentPage === 'forum') renderForum();
@@ -2831,6 +3042,7 @@ function renderAuthUI() {
     renderStatusBanner();
     if (user && !actionsLoaded && supabaseSession) loadWeeklyActions();
     if (user && supabaseSession && !badgesLoaded) { loadMyBadges(); loadScoreboard(); }
+    syncStatsNav(!!user);
     const mobileLogout = document.getElementById('mobile-menu-logout');
     if (mobileLogout) mobileLogout.hidden = !user;
     const mmChip = document.getElementById('mm-user-chip');
@@ -2872,11 +3084,13 @@ function renderAuthUI() {
                             </div>
                         </div>
                         <button onclick="navigateTo('profile');toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">My workspace</button>
+                        <button onclick="navigateTo('momentum');toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Our Momentum</button>
                         <button onclick="openProfileEditModal();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Edit profile</button>
                         ${isAdminUser() ? `<button onclick="openBlogComposer();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Write a post</button>
                         <button onclick="navigateTo('forum');openModerationQueue();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Moderation queue</button>` : ''}
                         ${isMod() ? `<button onclick="openMemberPanel()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Member management</button>
-                        <button onclick="navigateTo('campaigns');openActionCreatorModal();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">New weekly action</button>` : ''}
+                        <button onclick="navigateTo('campaigns');openActionCreatorModal();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">New weekly action</button>
+                        <button onclick="navigateTo('stats');toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Command Stats</button>` : ''}
                         <div class="profile-menu-sep"></div>
                         <button onclick="logout();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors text-red-600 font-medium cursor-pointer">Log out</button>
                     </div>
@@ -5109,32 +5323,487 @@ async function saveProfile(e) {
 }
 
 // ============================================================
-// HOME STATS
+// STATS ENGINE — accurate public counters, momentum, command stats
 // ============================================================
+const STATS_CACHE = { pub: null, momentum: null, admin: null };
+
+function fmtNum(n) {
+    const v = Number(n || 0);
+    return v.toLocaleString('en-CA');
+}
+function fmtMoney(n) {
+    return '$' + Number(n || 0).toLocaleString('en-CA');
+}
+function statPct(part, whole) {
+    if (!whole) return 0;
+    return Math.round((Number(part || 0) / Number(whole)) * 100);
+}
+function prefersReducedMotion() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// Animate a <span data-count> up to its target. Idempotent per node.
+function animateStat(el, target, delay) {
+    const to = Number(target || 0);
+    const money = el.dataset.money === '1';
+    const fmt = (n) => (money ? '$' : '') + fmtNum(n);
+    el.dataset.counted = '1';
+    if (prefersReducedMotion() || to === 0) { el.textContent = fmt(to); return; }
+    const dur = 1150;
+    let start = null;
+    const tick = (now) => {
+        if (start === null) start = now;
+        const p = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(Math.round(to * eased));
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = fmt(to);
+    };
+    setTimeout(() => requestAnimationFrame(tick), delay || 0);
+}
+
+// Hydrate every [data-count] inside root, staggered so the row cascades.
+function hydrateCounters(root) {
+    const nodes = (root || document).querySelectorAll('[data-count]');
+    nodes.forEach((el, i) => {
+        if (el.dataset.counted === '1') return;
+        animateStat(el, Number(el.dataset.count || 0), i * 70);
+    });
+    if (prefersReducedMotion()) return;
+    // Grow the CSS-driven bars/dists once the element is on screen.
+    const bars = (root || document).querySelectorAll('[data-grow]');
+    bars.forEach((el) => { el.style.transform = 'scaleX(' + (el.dataset.grow || 0) + ')'; });
+    const vb = (root || document).querySelectorAll('[data-grow-y]');
+    vb.forEach((el) => { el.style.transform = 'scaleY(' + (el.dataset.growY || 0) + ')'; });
+}
+
+// ---- Inline sparkline (values -> SVG path) ----
+function sparklineSVG(values, opts) {
+    const o = opts || {};
+    const w = 100, h = 32, pad = 3.5;
+    let vals = (values || []).map((v) => Number(v || 0));
+    if (vals.length < 2) vals = vals.concat(vals.length ? [vals[0]] : [0, 0]);
+    const max = Math.max.apply(null, vals);
+    const min = Math.min.apply(null, vals.concat([0]));
+    const span = (max - min) || 1;
+    const step = (w - pad * 2) / (vals.length - 1);
+    const pts = vals.map((v, i) => [pad + i * step, h - pad - ((v - min) / span) * (h - pad * 2)]);
+    const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(2) + ' ' + p[1].toFixed(2)).join(' ');
+    const area = line + ' L ' + pts[pts.length - 1][0].toFixed(2) + ' ' + (h - pad) + ' L ' + pts[0][0].toFixed(2) + ' ' + (h - pad) + ' Z';
+    const cls = 'spark' + (o.blue ? ' blue' : '');
+    // Only shade the area when the series actually varies — on near-empty data the
+    // fill collapses into a wedge and reads as a broken graphic.
+    const distinct = new Set(vals).size;
+    const showArea = distinct >= 3;
+    return '<svg class="' + cls + '" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" role="img" aria-label="' + escapeAttr(o.label || 'trend') + '">'
+        + (showArea ? '<path class="spark-area" d="' + area + '"></path>' : '')
+        + '<path class="spark-line" d="' + line + '" style="--len:600"></path>'
+        + (o.dot && distinct >= 3 ? '<circle class="spark-dot" cx="' + pts[pts.length - 1][0].toFixed(2) + '" cy="' + pts[pts.length - 1][1].toFixed(2) + '" r="2.6"></circle>' : '')
+        + '</svg>';
+}
+
+function statCardHTML(o) {
+    const cls = 'stat-card' + (o.signal ? ' is-signal' : '');
+    const valCls = 'stat-value' + (o.tone ? ' ' + o.tone : '') + (o.small ? ' small' : '');
+    return '<div class="' + cls + '">'
+        + '<span class="stat-label">' + escapeHTML(o.label) + '</span>'
+        + '<span class="' + valCls + '" data-count="' + Number(o.value || 0) + '"' + (o.money ? ' data-money="1"' : '') + '>0</span>'
+        + (o.spark ? o.spark : '')
+        + (o.sub ? '<span class="stat-sub">' + o.sub + '</span>' : '')
+        + (o.trend ? '<span class="stat-trend ' + (o.trend.dir || 'flat') + '">' + escapeHTML(o.trend.text) + '</span>' : '')
+        + '</div>';
+}
+
+function statBlockHTML(title, note, inner) {
+    return '<div class="stat-block">'
+        + '<div class="stat-block-head"><span class="stat-block-title">' + escapeHTML(title) + '</span>'
+        + (note ? '<span class="stat-block-note">' + escapeHTML(note) + '</span>' : '') + '</div>'
+        + inner + '</div>';
+}
+
+// ---- Weekly bar chart (rows: { week, [key]: n }) ----
+function trendChartHTML(rows, series, opts) {
+    const o = opts || {};
+    const max = Math.max(1, ...rows.map((r) => series.reduce((s, k) => s + Number(r[k] || 0), 0)));
+    const cols = rows.map((r) => {
+        const bars = series.map((k, i) => {
+            const v = Number(r[k] || 0);
+            const h = Math.max(v > 0 ? 4 : 0, Math.round((v / max) * 100));
+            return '<div class="trend-bar' + (i ? ' b2' : '') + '" data-grow-y="' + (h / 100).toFixed(3) + '" style="height:' + h + '%"></div>';
+        }).join('');
+        const label = String(r.week || '').slice(5);
+        return '<div class="trend-col" title="Week of ' + escapeAttr(r.week || '') + '"><div class="trend-stack">' + bars + '</div><span class="trend-x">' + escapeHTML(label) + '</span></div>';
+    }).join('');
+    const legend = series.map((k, i) => '<span><i class="trend-swatch' + (i ? ' gold' : '') + '"></i>' + escapeHTML(o.labels ? o.labels[i] : k) + '</span>').join('');
+    return '<div class="trend">' + cols + '</div><div class="trend-legend">' + legend + '</div>';
+}
+
+function distRowsHTML(rows, opts) {
+    const o = opts || {};
+    const max = Math.max(1, ...rows.map((r) => Number(r.value || 0)));
+    return '<div class="dist">' + rows.map((r) => {
+        const frac = Number(r.value || 0) / max;
+        return '<div class="dist-row">'
+            + '<span class="dist-name" title="' + escapeAttr(r.name) + '">' + escapeHTML(r.name) + '</span>'
+            + '<span class="dist-track"><i class="dist-fill" data-grow="' + frac.toFixed(3) + '"></i></span>'
+            + '<span class="dist-val">' + (o.money ? fmtMoney(r.value) : fmtNum(r.value)) + '</span>'
+            + '</div>';
+    }).join('') + '</div>';
+}
+
+// ---- Member-standing avatar ----
+function miniAvatar(username, avatar, size) {
+    const s = size || 30;
+    const style = 'width:' + s + 'px;height:' + s + 'px;border-radius:9999px;flex-shrink:0;object-fit:cover;';
+    if (avatar) return '<img src="' + escapeAttr(avatar) + '" alt="" style="' + style + '" loading="lazy">';
+    const initial = String(username || '?').trim().charAt(0).toUpperCase() || '?';
+    return '<div class="avatar-fallback" style="' + style + 'font-size:' + Math.round(s * 0.42) + 'px;font-weight:700;">' + escapeHTML(initial) + '</div>';
+}
+
+// Badge names come from the single client-side catalog so labels never drift.
+function badgeLabel(id) {
+    const def = (typeof badgeDef === 'function') ? badgeDef(id) : null;
+    return (def && def.name) || String(id || '').replace(/_/g, ' ');
+}
+
+function memberGateRundown(what) {
+    return '<div class="stat-block stat-gate">'
+        + '<div class="stat-gate-ico"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 17V9m4.5 8V5m4.5 12v-7m4.5 7V7M21 17v-4"/></svg></div>'
+        + '<h2 class="text-2xl font-heading font-bold mb-3" style="color:var(--copy)">Members only</h2>'
+        + '<p class="text-sm leading-relaxed max-w-xl mx-auto mb-6" style="color:var(--muted)">' + escapeHTML(what) + '</p>'
+        + '<button onclick="openAuthModal(\'register\')" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-heading font-bold text-sm bg-accent text-primary hover:bg-accent-400 transition-colors cursor-pointer">Create a free account</button>'
+        + '</div>';
+}
+
+// ============================================================
+// PUBLIC COUNTERS (homepage hero) — real numbers for everyone
+// ============================================================
+async function fetchPublicStats() {
+    if (STATS_CACHE.pub) return STATS_CACHE.pub;
+    if (!supabaseClient) return null;
+    try {
+        const { data, error } = await supabaseClient.rpc('public_stats');
+        if (error || !data) return null;
+        STATS_CACHE.pub = data;
+        return data;
+    } catch (e) { return null; }
+}
+
 function renderHomeStats() {
-    const setStats = (members, threads, replies) => {
-        document.getElementById('stat-members').textContent = members;
-        document.getElementById('stat-posts').textContent = threads;
-        document.getElementById('stat-replies').textContent = replies;
+    const el = (id) => document.getElementById(id);
+    const apply = (s) => {
+        if (!s) return;
+        const map = {
+            'stat-members': s.members,
+            'stat-guides': s.guides,
+            'stat-posts': s.forum_posts,
+            'stat-actions': s.actions_open
+        };
+        Object.keys(map).forEach((id) => {
+            const node = el(id);
+            if (node && node.dataset.counted !== '1') animateStat(node, map[id], 0);
+        });
     };
-    const localCounts = () => {
-        const totalUsers = Object.keys(appData.users).length;
-        const totalThreads = appData.threads.length;
-        const totalReplies = appData.threads.reduce((sum, t) => sum + (t.replies || []).length, 0);
-        setStats(totalUsers, totalThreads, totalReplies);
-    };
-    if (supabaseClient) {
-        Promise.all([
-            supabaseClient.from('profiles').select('id', { count: 'exact', head: true }),
-            supabaseClient.from('threads').select('id', { count: 'exact', head: true }),
-            supabaseClient.from('replies').select('id', { count: 'exact', head: true })
-        ]).then(([u, t, r]) => {
-            if (u.error || t.error || r.error || u.count == null || t.count == null || r.count == null) { localCounts(); return; }
-            setStats(u.count, t.count, r.count);
-        }).catch(() => localCounts());
+    fetchPublicStats().then(apply).catch(() => {
+        // Offline: fall back to whatever local demo data exists.
+        apply({
+            members: Object.keys(appData.users || {}).length,
+            guides: (appData.posts || []).length,
+            forum_posts: (appData.threads || []).reduce((n, t) => n + 1 + (t.replies || []).length, 0),
+            actions_open: 0
+        });
+    });
+}
+
+// ============================================================
+// MOMENTUM PAGE (members) — proof that organizing is working
+// ============================================================
+async function fetchMomentum() {
+    if (STATS_CACHE.momentum) return STATS_CACHE.momentum;
+    if (!supabaseClient || !supabaseSession) return null;
+    try {
+        const { data, error } = await supabaseClient.rpc('momentum_stats');
+        if (error || !data) return null;
+        STATS_CACHE.momentum = data;
+        return data;
+    } catch (e) { return null; }
+}
+
+function momentumHTML(d) {
+    const t = d.totals || {};
+    const growth = d.growth || [];
+    const board = d.leaderboard || [];
+    const timeline = d.timeline || [];
+
+    const memberSeries = growth.map((g) => g.members);
+    const signupSeries = growth.map((g) => g.signups);
+    const gained = growth.length ? (growth[growth.length - 1].members - growth[0].members) : 0;
+
+    // 1. Headline KPIs
+    let html = '<div class="stat-grid cols-4">'
+        + statCardHTML({
+            label: 'Members organized', value: t.members, tone: 'gold', signal: true,
+            sub: gained > 0 ? '+' + fmtNum(gained) + ' in the last 12 weeks' : 'Every account is one more voice.'
+        })
+        + statCardHTML({ label: 'Badges earned', value: t.badges_awarded, tone: 'blue', sub: 'Proof of work members actually put in.' })
+        + statCardHTML({ label: 'Actions completed', value: t.actions_completed, tone: 'blue', sub: (t.actions_upcoming || 0) + ' running or scheduled right now.' })
+        + statCardHTML({ label: 'Case entries logged', value: t.case_entries, tone: 'blue', sub: 'Times, names and evidence members have on record.' })
+        + '</div>';
+
+    // 2. Participation
+    html += '<div class="stat-grid cols-3" style="margin-top:1rem">'
+        + statCardHTML({ label: 'Signups across actions', value: t.signups_total, tone: 'blue', sub: (t.signups_done || 0) + ' on actions that already ran.' })
+        + statCardHTML({ label: 'Forum posts', value: t.forum_posts, tone: 'blue', sub: 'Questions asked, answers given, pressure applied.' })
+        + statCardHTML({ label: 'Ideas pitched', value: t.suggestions, tone: 'blue', sub: (t.votes_cast || 0) + ' votes cast on what to do next.' })
+        + '</div>';
+
+    // 2b. Growth — both cards carry a sparkline so the row stays in rhythm
+    const firstMember = growth.length ? growth[0].members : 0;
+    const lastMember = growth.length ? growth[growth.length - 1].members : 0;
+    const firstSignup = growth.length ? growth[0].signups : 0;
+    const lastSignup = growth.length ? growth[growth.length - 1].signups : 0;
+    html += '<div class="stat-grid cols-2" style="margin-top:1rem">'
+        + statCardHTML({
+            label: 'Members over 12 weeks', value: lastMember, tone: 'gold',
+            sub: (lastMember - firstMember) >= 0 ? '+' + fmtNum(lastMember - firstMember) + ' net since the first week recorded.' : 'Every account is one more voice.',
+            spark: sparklineSVG(memberSeries, { label: 'Member count, last 12 weeks', dot: true })
+        })
+        + statCardHTML({
+            label: 'Signups over 12 weeks', value: lastSignup, tone: 'blue',
+            sub: 'Action signups accumulated week by week.',
+            spark: sparklineSVG(signupSeries, { blue: true, label: 'Action signups, last 12 weeks', dot: true })
+        })
+        + '</div>';
+
+    // 3. The action record
+    let record = '';
+    if (timeline.length) {
+        record = timeline.map((a) => {
+            const when = a.action_at ? new Date(a.action_at) : null;
+            const label = when ? when.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
+            const done = a.status === 'completed';
+            return '<div class="mrec">'
+                + '<span class="mrec-date">' + escapeHTML(label) + '</span>'
+                + '<div><div class="mrec-title">' + escapeHTML(a.title) + '</div>'
+                + '<div class="mrec-meta">' + escapeHTML(String(a.action_type || 'action').replace(/_/g, ' '))
+                + (done ? ' · completed' : ' · ' + escapeHTML(a.status || 'scheduled'))
+                + (a.results ? ' · ' + a.results + ' result' + (a.results === 1 ? '' : 's') + ' on the record' : '') + '</div></div>'
+                + '<span class="mrec-turn">' + fmtNum(a.turnout) + '<span style="display:block;font-size:.6rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">signed up</span></span>'
+                + '</div>';
+        }).join('');
+    } else {
+        record = '<p class="text-sm" style="color:var(--muted)">No actions on the calendar yet. Pitch the first one from Take Action.</p>';
+    }
+    html += '<div style="margin-top:1.15rem">' + statBlockHTML('The action record', 'Turnout, not talk', record) + '</div>';
+
+    // 4. Standings
+    let standings = '';
+    if (board.length) {
+        standings = '<div class="stand">' + board.map((m, i) => {
+            const name = m.username || 'Member';
+            const role = (m.role && m.role !== 'member') ? '<span class="stand-role">' + escapeHTML(m.role) + '</span>' : '<span></span>';
+            return '<div class="stand-row">'
+                + role
+                + '<span class="au-rank">' + (i + 1) + '</span>'
+                + '<span style="display:flex;align-items:center;gap:.75rem;min-width:0">'
+                + miniAvatar(name, m.avatar)
+                + '<span style="min-width:0"><span class="stand-name">' + escapeHTML(name) + '</span>'
+                + '<span class="stand-meta">' + fmtNum(m.badges) + ' badges · ' + fmtNum(m.actions_joined) + ' actions · ' + fmtNum(m.posts) + ' posts</span></span></span>'
+                + '<span class="stand-score">' + fmtNum(m.score) + '</span>'
+                + '</div>';
+        }).join('') + '</div>';
+    } else {
+        standings = '<p class="text-sm" style="color:var(--muted)">Standings appear once members start earning badges.</p>';
+    }
+    html += '<div style="margin-top:1.15rem">' + statBlockHTML('Standings', 'Points come from participation, not purchases', standings) + '</div>';
+
+    // 5. Call to action
+    html += '<div class="stat-grid cols-3" style="margin-top:1.15rem">'
+        + statCardHTML({ label: 'This week', value: (t.actions_upcoming || 0), tone: 'gold', sub: 'Actions you can still join. Grab one and show up.' })
+        + statCardHTML({ label: 'Your move', value: (t.suggestions || 0), tone: 'blue', sub: 'Ideas on the floor. Pitch one, or vote the next action up.' })
+        + statCardHTML({ label: 'Keep score', value: (t.badges_awarded || 0), tone: 'blue', sub: 'Badges are earned from real activity — signups, casework, posting.' })
+        + '</div>';
+
+    return html;
+}
+
+function renderMomentum() {
+    const host = document.getElementById('momentum-body');
+    if (!host) return;
+    if (!supabaseSession) {
+        host.innerHTML = memberGateRundown('Our Momentum shows what this bloc has actually done in numbers: how many members are organized, how many turned out for each action, and who is doing the work. Sign in to see the tally.');
         return;
     }
-    localCounts();
+    host.innerHTML = '<div class="stat-grid cols-4">' + Array(4).fill('<div class="stat-card" style="min-height:8.5rem"></div>').join('') + '</div>';
+    fetchMomentum().then((d) => {
+        if (!d) {
+            host.innerHTML = memberGateRundown('Momentum data is unavailable right now. Try again in a moment.');
+            return;
+        }
+        host.innerHTML = momentumHTML(d);
+        hydrateCounters(host);
+    });
+}
+
+// ============================================================
+// COMMAND STATS (mods + admins) — the whole platform
+// ============================================================
+async function fetchAdminStats() {
+    if (STATS_CACHE.admin) return STATS_CACHE.admin;
+    if (!supabaseClient || !supabaseSession) return null;
+    try {
+        const { data, error } = await supabaseClient.rpc('admin_stats');
+        if (error || !data) return null;
+        STATS_CACHE.admin = data;
+        return data;
+    } catch (e) { return null; }
+}
+
+function adminStatsHTML(d) {
+    const a = d.audience || {}, c = d.content || {}, e = d.engagement || {};
+    const ac = d.actions || {}, cw = d.casework || {}, m = d.money || {}, mod = d.moderation || {};
+    const trend = d.trend || [];
+    const badges = (d.badges || []).slice(0, 10).map((b) => ({ name: badgeLabel(b.badge_id), value: b.awarded }));
+
+    // ---- Headline ----
+    let html = '<div class="stat-grid cols-4">'
+        + statCardHTML({
+            label: 'Total members', value: a.total, tone: 'gold', signal: true,
+            sub: fmtNum(a.new_7d) + ' joined this week · ' + fmtNum(a.new_30d) + ' this month'
+        })
+        + statCardHTML({ label: 'Vault members', value: m.vault_members, tone: 'blue', sub: fmtNum(a.with_bio) + ' of ' + fmtNum(a.total) + ' profiles completed' })
+        + statCardHTML({ label: 'Monthly recurring', value: m.mrr_cad, tone: 'gold', money: true, small: true, sub: fmtNum(m.subs_active) + ' active · ' + fmtNum(m.subs_past_due) + ' past due · ' + fmtNum(m.churned_30d) + ' churned (30d)' })
+        + statCardHTML({ label: 'Action signups', value: ac.signups_total, tone: 'blue', sub: fmtNum(ac.unique_signers) + ' unique members · ' + fmtNum(ac.signups_30d) + ' in 30 days' })
+        + '</div>';
+
+    // ---- Audience ----
+    html += statBlockHTML('Audience', 'Who is actually on the platform',
+        '<div class="stat-grid cols-4">'
+        + statCardHTML({ label: 'Active', value: a.active, small: true, sub: fmtNum(statPct(a.active, a.total)) + '% of all accounts' })
+        + statCardHTML({ label: 'Mods', value: a.mods, small: true, sub: fmtNum(a.admins) + ' admin' + (a.admins === 1 ? '' : 's') + ' · ' + fmtNum(a.members) + ' plain members' })
+        + statCardHTML({ label: 'Suspended', value: a.suspended, small: true, sub: 'Currently blocked from posting' })
+        + statCardHTML({ label: 'Banned', value: a.banned, small: true, sub: 'Permanently removed from posting' })
+        + '</div>'
+        + '<div style="margin-top:1rem">' + distRowsHTML([
+            { name: 'Profile with bio', value: a.with_bio },
+            { name: 'Profile with avatar', value: a.with_avatar },
+            { name: 'Vault (paid)', value: a.vault_members },
+            { name: 'Joined last 30 days', value: a.new_30d }
+        ]) + '</div>');
+
+    // ---- Content + engagement ----
+    html += statBlockHTML('Content & engagement', '12-week activity',
+        '<div class="stat-grid cols-4">'
+        + statCardHTML({ label: 'Guides published', value: c.blog_total, small: true, sub: fmtNum(c.blog_public) + ' free · ' + fmtNum(c.blog_vault) + ' vault' })
+        + statCardHTML({ label: 'Threads', value: c.threads, small: true, sub: fmtNum(e.threads_7d) + ' this week · ' + fmtNum(e.threads_30d) + ' in 30 days' })
+        + statCardHTML({ label: 'Replies', value: c.replies, small: true, sub: fmtNum(e.replies_7d) + ' this week · ' + fmtNum(e.replies_30d) + ' in 30 days' })
+        + statCardHTML({ label: 'Active posters', value: e.active_posters_30d, small: true, sub: 'Distinct members posting in 30 days' })
+        + '</div>'
+        + '<div style="margin-top:1.1rem">' + trendChartHTML(trend, ['threads', 'replies'], { labels: ['New threads', 'Replies'] }) + '</div>');
+
+    // ---- Action engine ----
+    const recent = ac.recent || [];
+    const maxT = Math.max(1, ...recent.map((r) => Number(r.signups || 0)));
+    let turnout = '';
+    if (recent.length) {
+        turnout = '<div class="turnout">' + recent.map((r) => {
+            const frac = Number(r.signups || 0) / maxT;
+            const done = r.status === 'completed';
+            return '<div class="turnout-row">'
+                + '<div class="turnout-bar" title="' + escapeAttr(r.title) + '">'
+                + '<span class="turnout-fill' + (done ? ' done' : '') + '" data-grow="' + frac.toFixed(3) + '"></span>'
+                + '<span class="turnout-title">' + escapeHTML(r.title) + (done ? ' · completed' : '') + '</span>'
+                + '</div>'
+                + '<span class="turnout-n">' + fmtNum(r.signups) + '</span></div>';
+        }).join('') + '</div>';
+    } else {
+        turnout = '<p class="text-sm" style="color:var(--muted)">No actions created yet.</p>';
+    }
+    html += statBlockHTML('Action engine', 'Turnout per action, newest first',
+        '<div class="stat-grid cols-4" style="margin-bottom:1.1rem">'
+        + statCardHTML({ label: 'Actions total', value: ac.total, small: true, sub: fmtNum(ac.upcoming) + ' upcoming · ' + fmtNum(ac.completed) + ' completed' })
+        + statCardHTML({ label: 'Avg turnout', value: ac.avg_turnout, small: true, sub: 'Signups per action across the whole record' })
+        + statCardHTML({ label: 'Suggestions', value: ac.suggestions, small: true, sub: fmtNum(ac.suggestions_open) + ' open · ' + fmtNum(ac.suggestions_promoted) + ' promoted' })
+        + statCardHTML({ label: 'Results posted', value: ac.results_posted, small: true, sub: fmtNum(ac.reminders_sent) + ' reminders sent · ' + fmtNum(ac.reminder_optins) + ' opted in' })
+        + '</div>' + turnout);
+
+    // ---- Casework ----
+    html += statBlockHTML('Case Power Desk', 'Evidence members are keeping',
+        '<div class="stat-grid cols-4">'
+        + statCardHTML({ label: 'Timeline entries', value: cw.timeline, small: true, sub: 'Logged interactions with the system' })
+        + statCardHTML({ label: 'Evidence items', value: cw.evidence, small: true, sub: 'Records members have filed' })
+        + statCardHTML({ label: 'Contacts', value: cw.contacts, small: true, sub: 'Workers, offices and case numbers' })
+        + statCardHTML({ label: 'Open deadlines', value: cw.deadlines_open, small: true, sub: fmtNum(cw.deadlines_overdue) + ' overdue · ' + fmtNum(cw.files_active) + ' active case files' })
+        + '</div>');
+
+    // ---- Badges ----
+    html += statBlockHTML('Badge distribution', fmtNum(e.badges_distinct) + ' of 20 distinct earned · ' + fmtNum(e.badges_7d) + ' in the last week',
+        badges.length ? distRowsHTML(badges) : '<p class="text-sm" style="color:var(--muted)">No badges awarded yet.</p>');
+
+    // ---- Money ----
+    html += statBlockHTML('Financials', 'Canadians dollars, CAD',
+        '<div class="stat-grid cols-4">'
+        + statCardHTML({ label: 'MRR', value: m.mrr_cad, money: true, small: true, tone: 'gold', sub: 'Active + trialing at $10/month' })
+        + statCardHTML({ label: 'Subscriptions', value: m.subs_total, small: true, sub: fmtNum(m.subs_active) + ' active · ' + fmtNum(m.subs_trialing) + ' trialing' })
+        + statCardHTML({ label: 'Past due', value: m.subs_past_due, small: true, sub: fmtNum(m.subs_canceled) + ' canceled all time' })
+        + statCardHTML({ label: 'Churned (30d)', value: m.churned_30d, small: true, sub: 'Lifetime booked: ' + fmtMoney(m.revenue_lifetime_cad) })
+        + '</div>'
+        + '<p class="stat-block-note" style="margin-top:.9rem">' + (m.subs_total === 0 ? 'No subscriptions on record yet — the Vault checkout has not taken a payment.' : 'Figures come straight from the subscriptions table.') + '</p>');
+
+    // ---- Moderation ----
+    const log = mod.recent || [];
+    const logHTML = log.length ? '<div class="modlog">' + log.map((l) => {
+        const when = l.created_at ? new Date(l.created_at).toLocaleDateString('en-CA', { month: 'short', day: 'numeric' }) : '';
+        return '<div class="modlog-row">'
+            + '<span class="modlog-action">' + escapeHTML(l.action || '—') + '</span>'
+            + '<span class="modlog-note">' + escapeHTML(l.note || '—') + '</span>'
+            + '<span class="modlog-who">' + escapeHTML(l.moderator || 'system') + ' · ' + escapeHTML(when) + '</span>'
+            + '</div>';
+    }).join('') + '</div>' : '<p class="text-sm" style="color:var(--muted)">No moderation actions recorded.</p>';
+    html += statBlockHTML('Moderation & trust', fmtNum(mod.log_total) + ' logged actions · ' + fmtNum(mod.log_30d) + ' in 30 days',
+        '<div class="stat-grid cols-4" style="margin-bottom:1.1rem">'
+        + statCardHTML({ label: 'Open reports', value: mod.reports_open, small: true, sub: fmtNum(mod.reports_total) + ' reports all time' })
+        + statCardHTML({ label: 'Reports (30d)', value: mod.reports_30d, small: true, sub: 'Flagged content volume' })
+        + statCardHTML({ label: 'Active suspensions', value: mod.suspensions_active, small: true, sub: 'Temporarily blocked members' })
+        + statCardHTML({ label: 'Banned', value: mod.banned, small: true, sub: 'Permanent removals' })
+        + '</div>' + logHTML);
+
+    html += '<p class="stat-block-note" style="margin-top:1.1rem">Generated ' + escapeHTML((d.generated_at || '').replace('T', ' ').slice(0, 16)) + ' · refresh the page for a live read.</p>';
+    return html;
+}
+
+function renderStats() {
+    const host = document.getElementById('stats-body');
+    if (!host) return;
+    if (!supabaseSession) {
+        host.innerHTML = memberGateRundown('Command Stats is the moderator and admin view of the whole platform: membership, content, the action engine, casework, badges, subscriptions and the moderation log. It is restricted to staff accounts.');
+        return;
+    }
+    if (!isMod()) {
+        host.innerHTML = '<div class="stat-block stat-gate">'
+            + '<div class="stat-gate-ico"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2Zm10-9V7a4 4 0 1 0-8 0v4"/></svg></div>'
+            + '<h2 class="text-2xl font-heading font-bold mb-3" style="color:var(--copy)">Staff only</h2>'
+            + '<p class="text-sm leading-relaxed max-w-xl mx-auto mb-6" style="color:var(--muted)">Command Stats shows membership records, moderation history and financials, so it is limited to moderators and admins. Your own standing and the community tally are on Our Momentum.</p>'
+            + '<button onclick="navigateTo(\'momentum\')" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-heading font-bold text-sm bg-accent text-primary hover:bg-accent-400 transition-colors cursor-pointer">Open Our Momentum</button>'
+            + '</div>';
+        return;
+    }
+    host.innerHTML = '<div class="stat-grid cols-4">' + Array(4).fill('<div class="stat-card" style="min-height:8.5rem"></div>').join('') + '</div>';
+    fetchAdminStats().then((d) => {
+        if (!d) {
+            host.innerHTML = memberGateRundown('Stats are unavailable right now. Try again in a moment.');
+            return;
+        }
+        host.innerHTML = adminStatsHTML(d);
+        hydrateCounters(host);
+    });
+}
+
+// Invalidate cached stats so a revisit shows fresh numbers.
+function invalidateStats() {
+    STATS_CACHE.pub = null;
+    STATS_CACHE.momentum = null;
+    STATS_CACHE.admin = null;
 }
 
 // ============================================================
