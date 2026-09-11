@@ -754,6 +754,33 @@
         #ccc-search-results { max-height: 60vh; overflow-y: auto; }
         .ccc-empty { border: 1px dashed var(--line-bright); border-radius: 1.25rem; padding: 1.5rem; text-align: center; color: var(--muted); font-size: .85rem; }
         @media (max-width: 767px) { .ccc-tab { padding: .45rem .8rem; font-size: .72rem; } }
+
+        /* ---- Badges, levels, leaderboard, reminders ---- */
+        .au-badge { display: inline-flex; align-items: center; justify-content: center; border-radius: .9rem; background: var(--badge-fill); color: var(--badge-ink); box-shadow: inset 0 0 0 1px var(--badge-ring); transition: transform .5s cubic-bezier(.32,.72,0,1), box-shadow .5s cubic-bezier(.32,.72,0,1); flex-shrink: 0; }
+        .au-badge svg { width: 58%; height: 58%; }
+        .au-badge:hover { transform: translateY(-3px) scale(1.05); box-shadow: inset 0 0 0 1px var(--badge-ring), 0 12px 30px rgba(0,0,0,.25); }
+        .au-badge-card { display: flex; gap: .7rem; align-items: center; padding: .75rem; border-radius: 1.1rem; background: var(--panel-raised); border: 1px solid var(--line); position: relative; }
+        .au-badge-card.is-earned { border-color: rgba(232,179,60,.38); }
+        .au-badge-name { font-size: .82rem; font-weight: 700; font-family: 'Sora', system-ui, sans-serif; color: var(--copy); }
+        .au-badge-desc { font-size: .68rem; line-height: 1.35; color: var(--muted); }
+        .au-badge-xp { position: absolute; top: .5rem; right: .6rem; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+        .au-level-chip { display: inline-flex; align-items: center; padding: .1rem .5rem; border-radius: 999px; font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: rgba(232,179,60,.16); color: #E8B33C; box-shadow: inset 0 0 0 1px rgba(232,179,60,.3); }
+        html[data-theme=light] .au-level-chip { color: #7A5A10; background: rgba(122,90,16,.12); box-shadow: inset 0 0 0 1px rgba(122,90,16,.25); }
+        .au-xp-bar { height: 100%; background: linear-gradient(90deg, var(--blue), var(--gold)); transition: width .8s cubic-bezier(.32,.72,0,1); }
+        .au-score-card { padding: 1rem; border-radius: 1.2rem; background: var(--panel-raised); border: 1px solid var(--line); transition: transform .5s cubic-bezier(.32,.72,0,1), border-color .5s; }
+        .au-score-card:hover { transform: translateY(-3px); border-color: rgba(232,179,60,.35); }
+        .au-rank { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; font-size: .7rem; font-weight: 800; background: rgba(232,179,60,.18); color: #E8B33C; }
+        html[data-theme=light] .au-rank { color: #7A5A10; background: rgba(122,90,16,.12); }
+        .au-score-name { font-size: .85rem; font-weight: 700; color: var(--copy); }
+        .au-score-name:hover { color: #E8B33C; }
+        .au-reminder { display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; padding: .8rem 1rem; border-radius: 1rem; margin-bottom: 1.4rem; background: rgba(105,177,216,.10); border: 1px solid rgba(105,177,216,.28); }
+        .au-reminder.is-soon { background: rgba(232,179,60,.12); border-color: rgba(232,179,60,.4); }
+        .au-reminder-dot { width: .5rem; height: .5rem; border-radius: 999px; background: #69B1D8; box-shadow: 0 0 0 4px rgba(105,177,216,.18); }
+        .au-reminder.is-soon .au-reminder-dot { background: #E8B33C; box-shadow: 0 0 0 4px rgba(232,179,60,.2); animation: au-pulse 2.4s cubic-bezier(.32,.72,0,1) infinite; }
+        @keyframes au-pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: .65; } }
+        .au-reminder-btn { padding: .45rem .9rem; border-radius: 999px; font-size: .72rem; font-weight: 700; background: rgba(255,255,255,.08); color: var(--copy); border: 1px solid var(--line-bright); transition: background .4s cubic-bezier(.32,.72,0,1), transform .4s; }
+        .au-reminder-btn:hover { background: rgba(232,179,60,.18); color: #E8B33C; }
+        @media (prefers-reduced-motion: reduce) { .au-badge, .au-score-card, .au-reminder-dot, .au-xp-bar { transition: none !important; animation: none !important; } }
     </style>
     <style>
         /* ============================================================
@@ -1586,6 +1613,16 @@
                 <div id="action-archive" class="space-y-5" aria-live="polite"></div>
             </section>
 
+            <!-- Roll call -->
+            <section aria-labelledby="leaderboard-heading" class="mt-16">
+                <div class="mb-6">
+                    <p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Roll call · Who is putting in the work</p>
+                    <h2 id="leaderboard-heading" class="text-3xl font-heading font-bold text-slate-900">This month's standings</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-2xl">Badges are earned by showing up — actions signed, cases documented, pitches made, people brought in. Nobody can buy one, and nobody can award themselves one.</p>
+                </div>
+                <div id="action-leaderboard" aria-live="polite"></div>
+            </section>
+
         </div>
     </section>
 
@@ -2413,6 +2450,7 @@ async function fetchSupabaseProfile(userId) {
             region: data.region || '',
             interests: data.interests || '',
             is_admin: !!data.is_admin,
+            actionEmails: data.action_emails !== false,
             role: data.role || (data.is_admin ? 'admin' : 'member'),
             status: data.status || 'active',
             suspendedUntil: data.suspended_until || null,
@@ -2479,6 +2517,7 @@ async function ensureMemberProfiles(names) {
                 const key = lower(p.username);
                 if (!appData.users[key]) {
                     appData.users[key] = {
+                        id: p.id,
                         username: p.username,
                         email: '',           // never exposed by the view
                         bio: p.bio || '',
@@ -2493,6 +2532,10 @@ async function ensureMemberProfiles(names) {
     } catch (e) { /* offline — initials fallback remains */ }
     missing.forEach(n => memberProfilesInFlight.delete(lower(n)));
     if (fetched) {
+        if (typeof ensureBadgesForIds === 'function') {
+            const ids = names.map(n => appData.users[lower(n)]?.id).filter(Boolean);
+            ensureBadgesForIds(ids).then(badgeFetched => { if (badgeFetched) refreshBadgeSurfaces(); });
+        }
         saveData(appData);
         // refresh whatever is on screen
         if (currentPage === 'forum') {
@@ -2787,6 +2830,7 @@ function renderAuthUI() {
     const user = getCurrentUser();
     renderStatusBanner();
     if (user && !actionsLoaded && supabaseSession) loadWeeklyActions();
+    if (user && supabaseSession && !badgesLoaded) { loadMyBadges(); loadScoreboard(); }
     const mobileLogout = document.getElementById('mobile-menu-logout');
     if (mobileLogout) mobileLogout.hidden = !user;
     const mmChip = document.getElementById('mm-user-chip');
@@ -3022,7 +3066,7 @@ const CCC_STORAGE = { timeline: 'ccc_timeline', evidence: 'ccc_evidence', contac
 let cccLoaded = false;
 
 function cccRead(key) { return readWorkspace(key, []); }
-function cccWrite(key, value) { writeWorkspace(key, value); }
+function cccWrite(key, value) { writeWorkspace(key, value); if (typeof scheduleBadgeCheck === 'function') scheduleBadgeCheck(); }
 
 function cccUser() { return (supabaseClient && supabaseSession) ? supabaseSession.user.id : null; }
 function cccTable(name) { return supabaseClient && supabaseSession ? supabaseClient.from(name) : null; }
@@ -4056,7 +4100,7 @@ function renderForum(category) {
                         <h3 class="font-heading font-bold text-slate-900 mb-1">${escapeHTML(t.title)}</h3>
                         <p class="text-sm text-slate-500 line-clamp-2 mb-2">${escapeHTML(t.content.substring(0, 150))}${t.content.length > 150 ? '...' : ''}</p>
                         <div class="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-                            <span>by <button type="button" onclick="event.stopPropagation();openMemberProfile('${jsStr(author.username)}')" class="font-semibold text-slate-600 hover:text-primary hover:underline underline-offset-2 cursor-pointer transition-colors">${escapeHTML(author.username)}</button></span>
+                            <span class="inline-flex items-center gap-1.5">by <button type="button" onclick="event.stopPropagation();openMemberProfile('${jsStr(author.username)}')" class="font-semibold text-slate-600 hover:text-primary hover:underline underline-offset-2 cursor-pointer transition-colors">${escapeHTML(author.username)}</button>${levelChipHTML(author.username)}</span>
                             <span>${timeAgo(t.createdAt)}</span>
                             <span class="flex items-center gap-1">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
@@ -4291,6 +4335,47 @@ function openMemberThread(id) {
     openThread(id);
 }
 
+async function ensureMemberBadges(username) {
+    if (!supabaseClient || !username) return false;
+    const key = String(username).toLowerCase();
+    let id = appData.users[key]?.id;
+    if (!id) {
+        try {
+            const { data } = await supabaseClient.from('public_profiles')
+                .select('id, username, avatar, bio, posts_count, created_at')
+                .eq('username', username).maybeSingle();
+            if (data?.id) {
+                id = data.id;
+                appData.users[key] = Object.assign({}, appData.users[key] || {}, {
+                    id: data.id, username: data.username,
+                    avatar: data.avatar || appData.users[key]?.avatar || '',
+                    bio: data.bio || appData.users[key]?.bio || '',
+                    posts: data.posts_count ?? appData.users[key]?.posts ?? 0,
+                    joined: (data.created_at || '').split('T')[0] || appData.users[key]?.joined || '2026'
+                });
+            }
+        } catch (e) { /* panel stays hidden */ }
+    }
+    if (!id) return false;
+    return await ensureBadgesForIds([id]);
+}
+
+function memberBadgesPanelHTML(author) {
+    const ids = (badgeDirectory[author.id] || []).map(b => b.badge_id);
+    if (!author.id) return '';
+    const lv = levelFor(badgeXP(ids));
+    return `<section class="workspace-panel rounded-[2rem] p-6 sm:p-8 mt-6" aria-labelledby="member-badges-heading">
+        <div class="flex items-center justify-between gap-4 mb-5">
+            <div>
+                <p class="text-primary font-heading-bold text-xs uppercase tracking-widest mb-1" style="font-weight:700">Standing</p>
+                <h2 id="member-badges-heading" class="text-xl font-heading font-bold text-slate-900">${escapeHTML(lv.name)} <span class="text-slate-400 text-sm font-semibold">· ${badgeXP(ids)} xp</span></h2>
+            </div>
+            <span class="text-xs text-slate-500">${ids.length} badge${ids.length === 1 ? '' : 's'}</span>
+        </div>
+        ${ids.length ? badgesGridHTML(ids) : '<p class="text-sm text-slate-500">No badges yet — their first action will change that.</p>'}
+    </section>`;
+}
+
 function renderMemberProfile() {
     const target = document.getElementById('member-content');
     if (!target) return;
@@ -4373,7 +4458,9 @@ function renderMemberProfile() {
                 <button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px] cursor-pointer">Open forum</button>
             </div>
             ${activityHTML}
-        </section>`;
+        </section>
+        ${memberBadgesPanelHTML(author)}`;
+    ensureMemberBadges(uname).then(fetched => { if (fetched && memberProfileName === uname) renderMemberProfile(); });
 }
 
 function renderThreadDetail(thread) {
@@ -4668,6 +4755,11 @@ async function renderProfile() {
     const avatarHTML = user.avatar ? `<img src="${user.avatar}" alt="${escapeHTML(user.username)}'s avatar" class="avatar-preview object-cover">` : `<div class="avatar-preview avatar-default flex items-center justify-center text-white font-bold text-3xl">${initial}</div>`;
     target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Power Desk</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div><section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Power Desk is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
     enhanceProfileWorkspace();
+    const standingHost = document.getElementById('profile-content');
+    if (standingHost && !standingHost.querySelector('[data-standing]')) {
+        standingHost.insertAdjacentHTML('beforeend', standingPanelHTML(user).replace('<section ', '<section data-standing '));
+    }
+    if (supabaseSession && !badgesLoaded) loadMyBadges();
 }
 
 function enhanceProfileWorkspace() {
@@ -5393,6 +5485,7 @@ function renderTakeAction() {
         fa.innerHTML = `
         <div class="desk-card rounded-[2rem] p-1.5" style="background: var(--panel-2, var(--panel));">
           <div class="rounded-[calc(2rem-0.375rem)] bg-white p-6 sm:p-10">
+            ${reminderStripHTML(a)}
             <div class="flex flex-col lg:flex-row lg:items-start gap-8">
               <div class="flex-1 min-w-0">
                 <div class="flex flex-wrap items-center gap-2 mb-4">
@@ -5570,6 +5663,7 @@ async function toggleActionSignup(actionId) {
             showToast('You\'re in. Watch the countdown.', 'success');
         }
         await loadWeeklyActions();
+        scheduleBadgeCheck();
     } catch (e) {
         showToast(signed ? 'Could not withdraw: ' + e.message : 'Could not sign up: ' + e.message, 'error');
     }
@@ -5585,6 +5679,7 @@ async function toggleSuggestionVote(sugId) {
             if (error) throw error;
         }
         await loadWeeklyActions();
+        scheduleBadgeCheck();
     } catch (e) { showToast('Vote failed: ' + e.message, 'error'); }
 }
 async function promoteSuggestion(sugId) {
@@ -5660,6 +5755,7 @@ async function submitSuggestion(e) {
         closeSuggestionModal();
         showToast('Pitch submitted — rally votes.', 'success');
         await loadWeeklyActions();
+        scheduleBadgeCheck();
     } catch (err) {
         errEl.textContent = err.message; errEl.classList.remove('hidden');
     }
@@ -5932,6 +6028,292 @@ function renderStatusBanner() {
     banner.classList.remove('hidden');
 }
 
+
+// ============================================================
+// BADGES, LEVELS, LEADERBOARD, ACTION REMINDERS
+// ============================================================
+const BADGE_CATALOG = [
+    { id: 'profile_complete', name: 'Full Patch', xp: 10, glyph: 'id', tone: 'blue', desc: 'Add an avatar and a bio so the bloc knows who is standing next to it.' },
+    { id: 'first_voice', name: 'First Voice', xp: 10, glyph: 'megaphone', tone: 'blue', desc: 'Start a thread or post a reply in the forum.' },
+    { id: 'coffee_row', name: 'Coffee Row', xp: 30, glyph: 'chat', tone: 'blue', desc: 'Post ten times — the table is where plans get made.' },
+    { id: 'town_hall', name: 'Town Hall', xp: 70, glyph: 'building', tone: 'gold', desc: 'Fifty posts. You are part of the furniture now.' },
+    { id: 'paper_trail', name: 'Paper Trail', xp: 15, glyph: 'folder', tone: 'blue', desc: 'Log your first entry in the Case Power Desk timeline.' },
+    { id: 'case_keeper', name: 'Case Keeper', xp: 45, glyph: 'shield', tone: 'gold', desc: 'Ten timeline entries plus three pieces of evidence.' },
+    { id: 'evidence_locker', name: 'Evidence Locker', xp: 40, glyph: 'lock', tone: 'gold', desc: 'Index ten pieces of evidence. Receipts win appeals.' },
+    { id: 'rolodex', name: 'Rolodex', xp: 25, glyph: 'users', tone: 'blue', desc: 'Track five contacts with names, numbers, and notes.' },
+    { id: 'deadline_watch', name: 'Deadline Watch', xp: 25, glyph: 'clock', tone: 'blue', desc: 'Track three deadlines so nothing quietly expires.' },
+    { id: 'signed_on', name: 'Signed On', xp: 10, glyph: 'check', tone: 'red', desc: 'Sign up for your first weekly action.' },
+    { id: 'rally_hand', name: 'Rally Hand', xp: 25, glyph: 'flag', tone: 'red', desc: 'Put your name on three weekly actions.' },
+    { id: 'roughneck', name: 'Roughneck', xp: 60, glyph: 'bolt', tone: 'red', desc: 'Ten actions signed up. You turn out.' },
+    { id: 'showed_up', name: 'Showed Up', xp: 30, glyph: 'footprint', tone: 'red', desc: 'Be on the roster of an action that ran to completion.' },
+    { id: 'receipts', name: 'Receipts', xp: 35, glyph: 'doc', tone: 'gold', desc: 'Be on an action that produced published results.' },
+    { id: 'pitcher', name: 'Pitcher', xp: 20, glyph: 'pen', tone: 'blue', desc: 'Pitch an action to the suggestion floor.' },
+    { id: 'whip', name: 'Whip', xp: 50, glyph: 'gavel', tone: 'gold', desc: 'A pitch of yours became the weekly action.' },
+    { id: 'seconder', name: 'Seconder', xp: 15, glyph: 'up', tone: 'blue', desc: 'Vote on five member pitches.' },
+    { id: 'founder', name: 'Founding Member', xp: 50, glyph: 'star', tone: 'gold', desc: 'One of the first fifty members in the room.' },
+    { id: 'steward', name: 'Steward', xp: 0, glyph: 'shield', tone: 'primary', desc: 'Trusted with moderation duties. Badge is assigned with the role.' },
+    { id: 'chair', name: 'Chair', xp: 0, glyph: 'crown', tone: 'primary', desc: 'Holds the admin keys to the platform.' }
+];
+
+const LEVELS = [
+    { name: 'Rookie', min: 0 },
+    { name: 'Hand', min: 60 },
+    { name: 'Organizer', min: 150 },
+    { name: 'Whip', min: 300 },
+    { name: 'Firebrand', min: 550 }
+];
+
+const BADGE_GLYPHS = {
+    id: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M5.5 17c.7-1.6 2-2.4 3.5-2.4s2.8.8 3.5 2.4M15 9.5h4M15 13h4"/>',
+    megaphone: '<path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M13 7.5a6 6 0 0 1 0 9M16 5.5a9 9 0 0 1 0 13"/>',
+    chat: '<path d="M20 12a7 7 0 0 1-7 7H9l-4 3v-4.5A7 7 0 0 1 11 5h2a7 7 0 0 1 7 7Z"/><path d="M9 11h7M9 14.5h4"/>',
+    building: '<path d="M4 21V6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v15"/><path d="M14 21V10h5a1 1 0 0 1 1 1v10M7.5 9h2M7.5 13h2M7.5 17h2M17 14h.5M17 17.5h.5M2 21h20"/>',
+    folder: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M7 12.5h10"/>',
+    shield: '<path d="M12 3l7 3v5.5c0 4.4-2.9 7.6-7 9.5-4.1-1.9-7-5.1-7-9.5V6Z"/><path d="M9 12l2 2 4-4"/>',
+    lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3M12 15.5v2"/>',
+    users: '<circle cx="9" cy="9" r="3"/><path d="M3.5 20c.8-3 2.9-4.5 5.5-4.5S13.7 17 14.5 20"/><path d="M16 6.5a3 3 0 0 1 0 5.8M17 15.7c2 .5 3.3 2 3.8 4.3"/>',
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+    check: '<circle cx="12" cy="12" r="8.5"/><path d="M8 12.5l2.6 2.6L16 9.5"/>',
+    flag: '<path d="M6 21V4M6 4h10l-1.5 4L16 12H6"/>',
+    bolt: '<path d="M13 3 5.5 13.5H11L10 21l7.5-10.5H12Z"/>',
+    footprint: '<path d="M8 20c-1.7 0-2.5-1.2-2.5-3s.8-2.2.8-4.5S6 6 8.8 6s3 3 3 5.5-.5 5.5-3.8 8.5Z"/><path d="M17.5 17c-1.2 0-1.8-.9-1.8-2.2s.6-1.6.6-3.3-.6-4.5 1.4-4.5 2.2 2.2 2.2 4.1-.4 4-2.4 5.9Z"/>',
+    doc: '<path d="M7 3h7l4 4v14H7Z"/><path d="M14 3v4h4M10 12h6M10 15.5h6M10 19h4"/>',
+    pen: '<path d="M4 20l4-1 10-10-3-3L5 16Z"/><path d="M15 5l3 3"/>',
+    gavel: '<path d="M4 20h9M7 16l6-6M12.5 4.5 19 11M15 8l-5.5 5.5M14 6.5 17.5 10"/>',
+    up: '<path d="M12 19V6M6 12l6-6 6 6"/>',
+    star: '<path d="m12 4 2.5 5 5.5.8-4 3.9.9 5.5L12 16.5 7.1 19.2 8 13.7l-4-3.9L9.5 9Z"/>',
+    crown: '<path d="M4 18h16M4 18 3 8l4.5 3.5L12 5l4.5 6.5L21 8l-1 10"/>'
+};
+
+const BADGE_TONES = {
+    blue: { ring: 'rgba(105,177,216,.35)', fill: 'rgba(105,177,216,.14)', ink: '#7FB8DE' },
+    gold: { ring: 'rgba(232,179,60,.45)', fill: 'rgba(232,179,60,.14)', ink: '#E8B33C' },
+    red: { ring: 'rgba(224,138,130,.4)', fill: 'rgba(224,138,130,.14)', ink: '#E08A82' },
+    primary: { ring: 'rgba(255,255,255,.28)', fill: 'rgba(255,255,255,.10)', ink: '#FFFFFF' }
+};
+
+let myBadges = [];
+let badgeDirectory = {};
+const badgesInFlight = new Set();
+let scoreboard = [];
+let badgesLoaded = false;
+
+function badgeDef(id) { return BADGE_CATALOG.find(b => b.id === id) || null; }
+function badgeXP(ids) { return ids.reduce((sum, id) => sum + (badgeDef(id)?.xp || 0), 0); }
+function levelFor(xp) {
+    let current = LEVELS[0], next = null;
+    for (const lv of LEVELS) { if (xp >= lv.min) current = lv; else { next = lv; break; } }
+    return { name: current.name, min: current.min, next: next ? next.name : null, nextMin: next ? next.min : null };
+}
+
+function badgeIconHTML(id, size, locked) {
+    const def = badgeDef(id); if (!def) return '';
+    const tone = BADGE_TONES[def.tone] || BADGE_TONES.blue;
+    const px = size || 34;
+    return `<span class="au-badge ${locked ? 'is-locked' : ''}" style="width:${px}px;height:${px}px;--badge-ring:${locked ? 'rgba(255,255,255,.16)' : tone.ring};--badge-fill:${locked ? 'rgba(255,255,255,.05)' : tone.fill};--badge-ink:${locked ? 'rgba(255,255,255,.35)' : tone.ink}" title="${escapeAttr(def.name)} — ${escapeAttr(def.desc)}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${BADGE_GLYPHS[def.glyph] || BADGE_GLYPHS.star}</svg></span>`;
+}
+
+function levelChipHTML(username) {
+    const key = (username || '').toLowerCase();
+    const profile = appData.users[key];
+    const ids = profile?.id ? (badgeDirectory[profile.id] || []).map(b => b.badge_id) : null;
+    if (!ids || !ids.length) return '';
+    const lv = levelFor(badgeXP(ids));
+    if (lv.name === 'Rookie') return '';
+    return `<span class="au-level-chip">${escapeHTML(lv.name)}</span>`;
+}
+
+function badgesGridHTML(earnedIds, opts) {
+    const earned = new Set(earnedIds || []);
+    return `<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">${BADGE_CATALOG.map(def => {
+        const has = earned.has(def.id);
+        return `<div class="au-badge-card ${has ? 'is-earned' : ''}">
+            ${badgeIconHTML(def.id, 38, !has)}
+            <div class="min-w-0">
+                <p class="au-badge-name">${escapeHTML(def.name)}</p>
+                <p class="au-badge-desc">${has ? escapeHTML(def.desc) : `Locked · ${escapeHTML(def.desc)}`}</p>
+            </div>
+            ${has ? '' : `<span class="au-badge-xp">+${def.xp} xp</span>`}
+        </div>`;
+    }).join('')}</div>`;
+}
+
+function standingPanelHTML(user) {
+    const ids = (myBadges || []).map(b => b.badge_id);
+    const xp = badgeXP(ids);
+    const lv = levelFor(xp);
+    const progress = lv.nextMin ? Math.min(100, Math.round(((xp - lv.min) / (lv.nextMin - lv.min)) * 100)) : 100;
+    const earnedCount = ids.length;
+    const emails = user.actionEmails !== false;
+    return `<section class="workspace-panel rounded-[2rem] p-6 sm:p-8" aria-labelledby="standing-heading">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-6">
+        <div>
+          <p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Your standing</p>
+          <h2 id="standing-heading" class="text-2xl font-heading font-bold text-slate-900">${escapeHTML(lv.name)} <span class="text-slate-400 font-semibold text-base">· ${xp} xp</span></h2>
+          <p class="text-sm text-slate-600 mt-1 max-w-xl">${earnedCount} of ${BADGE_CATALOG.length} badges earned.${lv.next ? ` Next rank: <strong>${escapeHTML(lv.next)}</strong> at ${lv.nextMin} xp.` : ' Top rank reached.'}</p>
+        </div>
+        <label class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-gray-50 border border-surface-border cursor-pointer min-h-[48px]">
+          <input type="checkbox" id="action-email-toggle" ${emails ? 'checked' : ''} onchange="setActionEmails(this.checked)" class="w-5 h-5 rounded cursor-pointer">
+          <span class="text-sm text-slate-700">Action reminder emails</span>
+        </label>
+      </div>
+      <div class="h-2 rounded-full bg-gray-100 overflow-hidden mb-7" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" aria-label="Progress to next rank">
+        <div class="au-xp-bar" style="width:${progress}%"></div>
+      </div>
+      ${badgesGridHTML(ids)}
+    </section>`;
+}
+
+async function loadMyBadges() {
+    if (!supabaseClient || !supabaseSession) return;
+    try {
+        const { data, error } = await supabaseClient.rpc('award_my_badges');
+        if (error) throw error;
+        const next = (data || []).map(b => ({ badge_id: b.badge_id, earned_at: b.earned_at }));
+        const before = myBadges.length;
+        const gained = next.filter(b => !myBadges.some(old => old.badge_id === b.badge_id));
+        myBadges = next;
+        badgesLoaded = true;
+        if (currentUser) {
+            const key = currentUser.username.toLowerCase();
+            badgeDirectory[currentUser.id] = next;
+            if (appData.users[key]) appData.users[key].id = currentUser.id;
+        }
+        if (before && gained.length) {
+            const names = gained.map(b => badgeDef(b.badge_id)?.name).filter(Boolean).join(', ');
+            if (names) showToast(`Badge unlocked: ${names}`, 'success');
+        }
+        // Standings read from the scoreboard view, which reflects the badges just awarded.
+        if (before !== next.length) loadScoreboard();
+        refreshBadgeSurfaces();
+    } catch (e) { /* badges are a nice-to-have; never block the app */ }
+}
+
+function refreshBadgeSurfaces() {
+    if (currentPage === 'profile') renderProfile();
+    if (currentPage === 'member') renderMemberProfile();
+    if (currentPage === 'campaigns') renderTakeAction();
+    if (currentPage === 'forum') renderForum();
+}
+
+let badgeCheckTimer = null;
+function scheduleBadgeCheck() {
+    if (!supabaseSession) return;
+    clearTimeout(badgeCheckTimer);
+    badgeCheckTimer = setTimeout(() => loadMyBadges(), 800);
+}
+
+async function ensureBadgesForIds(ids) {
+    if (!supabaseClient) return false;
+    const missing = [...new Set((ids || []).filter(Boolean))].filter(id => !badgeDirectory[id] && !badgesInFlight.has(id));
+    if (!missing.length) return false;
+    missing.forEach(id => badgesInFlight.add(id));
+    let fetched = false;
+    try {
+        for (let i = 0; i < missing.length; i += 100) {
+            const chunk = missing.slice(i, i + 100);
+            const { data, error } = await supabaseClient.from('user_badges').select('user_id, badge_id, earned_at').in('user_id', chunk);
+            if (error || !data) continue;
+            chunk.forEach(id => { badgeDirectory[id] = []; });
+            data.forEach(row => { (badgeDirectory[row.user_id] = badgeDirectory[row.user_id] || []).push({ badge_id: row.badge_id, earned_at: row.earned_at }); fetched = true; });
+        }
+    } catch (e) { /* chips stay hidden */ }
+    missing.forEach(id => badgesInFlight.delete(id));
+    return fetched;
+}
+
+async function loadScoreboard() {
+    if (!supabaseClient) return;
+    try {
+        const { data, error } = await supabaseClient.from('member_scoreboard')
+            .select('id, username, avatar, role, badge_count, signups, suggestions, posts_count')
+            .order('badge_count', { ascending: false })
+            .order('signups', { ascending: false })
+            .limit(8);
+        if (error) throw error;
+        scoreboard = (data || []).filter(m => m.badge_count > 0);
+        (data || []).forEach(m => { if (!badgeDirectory[m.id]) badgeDirectory[m.id] = new Array(m.badge_count).fill({ badge_id: 'founder' }); });
+        renderScoreboard();
+    } catch (e) { /* leaderboard is optional */ }
+}
+
+function renderScoreboard() {
+    const wrap = document.getElementById('action-leaderboard');
+    if (!wrap) return;
+    if (!scoreboard.length) {
+        wrap.innerHTML = '<p class="text-sm text-slate-500 py-4">Nobody has earned a badge yet. The first name here is up for grabs.</p>';
+        return;
+    }
+    const medals = ['1', '2', '3'];
+    wrap.innerHTML = `<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">${scoreboard.slice(0, 8).map((m, i) => {
+        const ids = (badgeDirectory[m.id] || []).map(b => b.badge_id);
+        const lv = levelFor(badgeXP(ids) || m.badge_count * 15);
+        const top = ['signed_on', 'whip', 'case_keeper', 'roughneck', 'steward', 'chair'].filter(id => (badgeDirectory[m.id] || []).some(b => b.badge_id === id)).slice(0, 3);
+        return `<article class="au-score-card">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="au-rank">${medals[i] || i + 1}</span>
+            ${m.avatar ? `<img src="${escapeAttr(m.avatar)}" alt="" class="w-10 h-10 rounded-full object-cover">` : `<span class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold">${escapeHTML((m.username || 'M').charAt(0).toUpperCase())}</span>`}
+            <div class="min-w-0">
+              <button type="button" onclick="viewMemberProfile('${m.id}')" class="au-score-name">${escapeHTML(m.username)}</button>
+              <p class="text-[11px] text-slate-500">${escapeHTML(lv.name)}${m.role && m.role !== 'member' ? ` · ${escapeHTML(m.role)}` : ''}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex gap-1">${(top.length ? top : ['signed_on']).map(id => badgeIconHTML(id, 26, false)).join('')}</div>
+            <span class="text-xs text-slate-500 ml-auto">${m.badge_count} badge${m.badge_count === 1 ? '' : 's'} · ${m.signups} action${m.signups === 1 ? '' : 's'}</span>
+          </div>
+        </article>`;
+    }).join('')}</div>`;
+}
+
+async function setActionEmails(enabled) {
+    if (!supabaseClient || !supabaseSession) return;
+    try {
+        const { error } = await supabaseClient.from('profiles').update({ action_emails: !!enabled }).eq('id', currentUser.id);
+        if (error) throw error;
+        currentUser.actionEmails = !!enabled;
+        showToast(enabled ? 'Action reminder emails on.' : 'Action reminder emails off.', 'success');
+    } catch (e) { showToast('Could not save that preference: ' + e.message, 'error'); }
+}
+
+// ---- Calendar + reminder strip -------------------------------------------------
+function icsEscape(v) { return String(v || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
+function downloadActionICS(actionId) {
+    const a = weeklyActions.find(x => x.id === actionId);
+    if (!a) return;
+    const fmt = d => new Date(d).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    const start = new Date(a.at), end = new Date(start.getTime() + 3600000);
+    const body = [
+        'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Alberta Unbound//Weekly Action//EN', 'CALSCALE:GREGORIAN',
+        'BEGIN:VEVENT', `UID:au-${a.id}`, `DTSTAMP:${fmt(new Date())}`, `DTSTART:${fmt(start)}`, `DTEND:${fmt(end)}`,
+        `SUMMARY:${icsEscape(a.title)}`, `DESCRIPTION:${icsEscape(a.description).slice(0, 800)}`,
+        `LOCATION:${icsEscape(a.location || 'From home')}`,
+        'BEGIN:VALARM', 'TRIGGER:-PT2H', 'ACTION:DISPLAY', `DESCRIPTION:${icsEscape(a.title)}`, 'END:VALARM',
+        'END:VEVENT', 'END:VCALENDAR'
+    ].join('\r\n');
+    const url = URL.createObjectURL(new Blob([body], { type: 'text/calendar;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url; link.download = 'alberta-unbound-action.ics';
+    document.body.appendChild(link); link.click(); link.remove();
+    URL.revokeObjectURL(url);
+    showToast('Calendar file downloaded — 2 hour warning included.', 'success');
+}
+
+function reminderStripHTML(action) {
+    if (!currentUser) return '';
+    const signed = (weeklySignups[action.id] || []).includes(currentUser.id);
+    if (!signed) return '';
+    const ms = new Date(action.at).getTime() - Date.now();
+    const days = Math.floor(ms / 86400000), hours = Math.floor(ms % 86400000 / 3600000);
+    const soon = ms <= 72 * 3600 * 1000;
+    const when = ms <= 0 ? 'running now' : days >= 1 ? `${days} day${days === 1 ? '' : 's'} away` : `${hours} hour${hours === 1 ? '' : 's'} away`;
+    return `<div class="au-reminder ${soon ? 'is-soon' : ''}" role="status">
+      <span class="au-reminder-dot" aria-hidden="true"></span>
+      <p class="flex-1 text-sm text-slate-700">You're on the roster — this action is <strong>${when}</strong>.${soon ? ' Time to do your part.' : ' Lock it into your calendar now.'}</p>
+      <button type="button" onclick="downloadActionICS('${action.id}')" class="au-reminder-btn">Add to calendar</button>
+    </div>`;
+}
 
 appData = initData();
 applyTheme(localStorage.getItem('alberta_unbound_theme') || localStorage.getItem('wildrose_theme') || 'light');
