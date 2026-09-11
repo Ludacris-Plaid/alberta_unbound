@@ -911,9 +911,9 @@
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
             <button onclick="navigateFromMore('desk')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Case Power Desk</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
-            <button onclick="navigateFromMore('action')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-red-500 hover:bg-red-50 transition-colors" role="menuitem">Take Action</button>
+            <button onclick="navigateFromMore('action')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Get Organized</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
-            <button onclick="navigateFromMore('campaigns')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Field Operations</button>
+            <button onclick="navigateFromMore('campaigns')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-red-500 hover:bg-red-50 transition-colors" role="menuitem">Take Action</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
             <button onclick="navigateFromMore('manifesto')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Manifesto</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
@@ -941,8 +941,8 @@
                 <p class="mm-group-label">Explore</p>
                 <button onclick="navigateTo('vault');closeMobileMenu()" class="mm-item mm-gold" role="menuitem">The Vault</button>
                 <button onclick="navigateTo('desk');closeMobileMenu()" class="mm-item" role="menuitem">Case Power Desk</button>
-                <button onclick="navigateTo('action');closeMobileMenu()" class="mm-item" role="menuitem">Take Action</button>
-                <button onclick="navigateTo('campaigns');closeMobileMenu()" class="mm-item" role="menuitem">Field Operations</button>
+                <button onclick="navigateTo('action');closeMobileMenu()" class="mm-item" role="menuitem">Get Organized</button>
+                <button onclick="navigateTo('campaigns');closeMobileMenu()" class="mm-item" role="menuitem">Take Action</button>
                 <button onclick="navigateTo('manifesto');closeMobileMenu()" class="mm-item" role="menuitem">Manifesto</button>
                 <button onclick="navigateTo('resources');closeMobileMenu()" class="mm-item" role="menuitem">Resources</button>
                 <button id="mobile-menu-logout" onclick="logout();closeMobileMenu()" class="mm-item mm-logout" role="menuitem" hidden>Log out</button>
@@ -951,6 +951,7 @@
     </div>
 
 <!-- ==================== MAIN CONTENT ==================== -->
+<div id="member-status-banner" class="hidden bg-yellow-500/15 border-b border-yellow-500/30 text-yellow-900 sticky top-0 z-30" role="status" aria-live="polite"></div>
 <main id="main-content" class="pt-32">
 
     <!-- ============================================ -->
@@ -1176,8 +1177,8 @@
                             <p><button onclick="navigateTo('blog')" class="hover:text-white transition-colors cursor-pointer">Blog</button></p>
                             <p><button onclick="navigateTo('forum')" class="hover:text-white transition-colors cursor-pointer">Forum</button></p>
                             <p><button onclick="navigateTo('desk')" class="hover:text-white transition-colors cursor-pointer">Case Power Desk</button></p>
-                            <p><button onclick="navigateTo('action')" class="hover:text-white transition-colors cursor-pointer">Take Action</button></p>
-                            <p><button onclick="navigateTo('campaigns')" class="hover:text-white transition-colors cursor-pointer">Field Operations</button></p>
+                            <p><button onclick="navigateTo('action')" class="hover:text-white transition-colors cursor-pointer">Get Organized</button></p>
+                            <p><button onclick="navigateTo('campaigns')" class="hover:text-white transition-colors cursor-pointer">Take Action</button></p>
                             <p><button onclick="navigateTo('vault')" class="hover:text-white transition-colors cursor-pointer">The Vault</button></p>
                             <p><button onclick="navigateTo('manifesto')" class="hover:text-white transition-colors cursor-pointer">Manifesto</button></p>
                             <p><button onclick="navigateTo('resources')" class="hover:text-white transition-colors cursor-pointer">Resources</button></p>
@@ -1204,31 +1205,133 @@
     <!-- ============================================ -->
     <!-- ACTION PAGE -->
     <!-- ============================================ -->
-    <section id="page-action" class="page-section">
-        <div class="bg-primary text-white">
+<section id="page-action" class="page-section">
+        <div class="bg-primary-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-                <div class="max-w-4xl">
-                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Collective advocacy · Public accountability</p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Build the base.</span><br>Move the target.</h1>
-                    <p class="text-lg sm:text-xl text-red-100 leading-relaxed max-w-3xl">Take Action is for organized public pressure—not individual casework. Build a crew around one demand, choose a winnable action, make participation accessible, and keep going until the decision-maker responds.</p>
-                    <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/75"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Collective</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Disciplined</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Nonviolent pressure</span></div>
-                </div>
+                <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Get Organized · Reading room &amp; toolkit</p>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">They count on us being</span><br>too sick, too poor, too scattered.</h1>
+                <p class="text-lg text-white/75 leading-relaxed max-w-3xl">This system is built to keep us surviving one crisis at a time — isolated, exhausted, and politically invisible. Apart from people behind bars, there may be no group in Canada with less political agency than benefit recipients. That is not an accident; it is the design. And it is exactly why organizing is the way out: fairness, security, and basic rights are not handed down — they are won by people who show up together.</p>
+                <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Study</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Strategize</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Organize</span></div>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-            <section aria-labelledby="campaign-build-heading" class="mb-10"><div class="mb-6"><p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 01 · Build a campaign</p><h2 id="campaign-build-heading" class="text-3xl font-heading font-bold text-slate-900">From grievance to organized demand</h2><p class="text-sm text-slate-600 mt-2 max-w-3xl">A campaign is not a list of frustrations. It is a group, a target, a demand, a public action, and a follow-up date.</p></div><div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5"><article class="bg-white rounded-2xl p-6 border border-surface-border"><span class="text-3xl font-heading font-bold text-red-500">01</span><h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Name the harm</h3><p class="text-sm text-slate-600 leading-relaxed">Collect verified experiences and public documents. Remove identifying health, financial, and case details before sharing.</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><span class="text-3xl font-heading font-bold text-red-500">02</span><h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Set the demand</h3><p class="text-sm text-slate-600 leading-relaxed">Choose one change a decision-maker can grant: reverse a cut, publish a policy, restore an appeal route, or fund a service.</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><span class="text-3xl font-heading font-bold text-red-500">03</span><h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Build the crew</h3><p class="text-sm text-slate-600 leading-relaxed">Recruit affected people, allies, researchers, storytellers, access workers, and a small coordination team with clear roles.</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><span class="text-3xl font-heading font-bold text-red-500">04</span><h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Set the deadline</h3><p class="text-sm text-slate-600 leading-relaxed">Announce what you want, by when, and what lawful public action follows if there is no meaningful response.</p></article></div></section>
 
-            <section aria-labelledby="roles-heading" class="desk-card rounded-[2rem] p-6 sm:p-8 mb-10"><div class="mb-6"><p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 02 · Distribute the work</p><h2 id="roles-heading" class="text-3xl font-heading font-bold text-slate-900">A campaign crew needs more than a loud voice</h2></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Coordinator</h3><p class="text-sm text-slate-600">Keeps the demand, timeline, meetings, and decisions visible. Does not become the only person who knows what is happening.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Story and evidence lead</h3><p class="text-sm text-slate-600">Checks facts, gets consent, anonymizes records, and keeps lived experience in the center without turning people into content.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Access lead</h3><p class="text-sm text-slate-600">Plans captions, seating, transit, scent reduction, quiet space, remote participation, breaks, and plain-language materials.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Outreach lead</h3><p class="text-sm text-slate-600">Welcomes new people, contacts partner organizations, and creates low-barrier ways to help without requiring public disclosure.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Media lead</h3><p class="text-sm text-slate-600">Prepares one spokesperson, a short fact sheet, consent-based quotes, and a clear request for coverage.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Care and de-escalation lead</h3><p class="text-sm text-slate-600">Monitors stress, keeps interactions calm, routes conflict away from participants, and knows when to pause an action.</p></article></div></section>
+            <!-- The case for organizing -->
+            <section aria-labelledby="why-organize-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 01 · Why organize</p>
+                    <h2 id="why-organize-heading" class="text-3xl font-heading font-bold text-slate-900">The math of political power</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">Every other bloc in society organizes — industries, professions, retirees, landlords. Benefits recipients are one of the largest constituencies in the province and the least organized. That gap is why the system can be ignored without cost.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-5">
+                    <article class="bg-white rounded-2xl p-6 border border-surface-border">
+                        <span class="text-3xl font-heading font-bold text-primary">150k+</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">The constituency</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Roughly 150,000+ Albertans rely on Income Support, AISH, or related programs at any given time — before counting families, dependents, and allies. Concentrated in every riding, especially the ones politicians can't win without.</p>
+                    </article>
+                    <article class="bg-white rounded-2xl p-6 border border-surface-border">
+                        <span class="text-3xl font-heading font-bold text-primary">1 in 5</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">The multiplier</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Most recipients have a household, friends, and family affected by every decision. When one member speaks up, four or five people hear it. Organized, that multiplier turns a quiet caseload into a voting bloc.</p>
+                    </article>
+                    <article class="bg-white rounded-2xl p-6 border border-surface-border">
+                        <span class="text-3xl font-heading font-bold text-primary">0</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">The current cost of ignoring us</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Today a government can freeze rates, cut supports, or claw back payments and face no organized response. Building that response — visible, disciplined, repeated — is what changes the calculation in every ministry meeting.</p>
+                    </article>
+                </div>
+                <div class="desk-card rounded-[2rem] p-6 sm:p-8 mt-6">
+                    <p class="text-slate-700 leading-relaxed max-w-4xl">Nobody is coming to hand us a seat at the table. Every protection this community has — disability supports, appeal rights, shelter supplements, even the meagre rates themselves — exists because people organized and demanded it. <strong class="text-slate-900">The plan is simple: read, train, connect, and act. This page gives you the materials. Take Action gives you the moment. The forum gives you the people.</strong></p>
+                </div>
+            </section>
 
-            <section aria-labelledby="action-menu-heading" class="mb-10"><div class="mb-6"><p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 03 · Choose the pressure</p><h2 id="action-menu-heading" class="text-3xl font-heading font-bold text-slate-900">The action menu</h2><p class="text-sm text-slate-600 mt-2">Match the tactic to the target, your capacity, and the risk to participants. Escalation should increase public pressure—not participant danger.</p></div><div class="grid md:grid-cols-2 gap-5"><article class="bg-white rounded-2xl p-6 border border-surface-border"><h3 class="text-xl font-heading font-bold text-slate-900 mb-2">Delegation</h3><p class="text-sm text-slate-600 leading-relaxed mb-3">Bring a small group to a decision-maker with one demand, a one-page brief, and a spokesperson. Ask for a response date and publish whether it arrives.</p><p class="text-xs text-primary font-heading font-bold uppercase tracking-wider">Best for: opening a public record</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><h3 class="text-xl font-heading font-bold text-slate-900 mb-2">Petition handoff</h3><p class="text-sm text-slate-600 leading-relaxed mb-3">Collect consent lawfully, verify the count, and deliver it at a visible public moment with a clear demand and media invitation.</p><p class="text-xs text-primary font-heading font-bold uppercase tracking-wider">Best for: showing breadth</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><h3 class="text-xl font-heading font-bold text-slate-900 mb-2">Teach-in or town hall</h3><p class="text-sm text-slate-600 leading-relaxed mb-3">Make a complex policy legible through a short briefing, lived experience, questions, and a concrete next step. Record attendance with consent.</p><p class="text-xs text-primary font-heading font-bold uppercase tracking-wider">Best for: building a base</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><h3 class="text-xl font-heading font-bold text-slate-900 mb-2">Lawful picket or rally</h3><p class="text-sm text-slate-600 leading-relaxed mb-3">Choose a lawful, accessible site; assign marshals, access, care, media, and de-escalation roles; check current bylaws and site rules.</p><p class="text-xs text-primary font-heading font-bold uppercase tracking-wider">Best for: visible public pressure</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><h3 class="text-xl font-heading font-bold text-slate-900 mb-2">Collective media day</h3><p class="text-sm text-slate-600 leading-relaxed mb-3">Coordinate a release window for verified stories, public records, photos, and a single demand. Protect anonymity and obtain consent before publication.</p><p class="text-xs text-primary font-heading font-bold uppercase tracking-wider">Best for: changing the narrative</p></article><article class="bg-white rounded-2xl p-6 border border-surface-border"><h3 class="text-xl font-heading font-bold text-slate-900 mb-2">Mutual-aid action</h3><p class="text-sm text-slate-600 leading-relaxed mb-3">Pair public pressure with practical support: rides, food, document scanning, appointment accompaniment, and accessible meeting space.</p><p class="text-xs text-primary font-heading font-bold uppercase tracking-wider">Best for: keeping people in the fight</p></article></div></section>
+            <!-- Reading Room -->
+            <section aria-labelledby="reading-room-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 02 · The reading room</p>
+                    <h2 id="reading-room-heading" class="text-3xl font-heading font-bold text-slate-900">Strategic &amp; legal reading</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">Three shelves: how power works here, what your rights actually are, and how to gather and use evidence. Everything links out to primary sources — laws, official rules, and tools you can cite.</p>
+                </div>
 
-            <section aria-labelledby="runbook-heading" class="desk-card rounded-[2rem] p-6 sm:p-8 mb-10"><div class="mb-6"><p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 04 · Run the action</p><h2 id="runbook-heading" class="text-3xl font-heading font-bold text-slate-900">A one-page action runbook</h2></div><div class="grid lg:grid-cols-2 gap-6"><ol class="space-y-4"><li class="flex gap-4"><span class="w-8 h-8 shrink-0 rounded-full bg-red-500/10 text-red-600 font-heading font-bold flex items-center justify-center">1</span><div><h3 class="font-heading font-bold text-slate-900">Brief everyone</h3><p class="text-sm text-slate-600 mt-1">State the demand, schedule, roles, access plan, media plan, and the stop/pause conditions.</p></div></li><li class="flex gap-4"><span class="w-8 h-8 shrink-0 rounded-full bg-red-500/10 text-red-600 font-heading font-bold flex items-center justify-center">2</span><div><h3 class="font-heading font-bold text-slate-900">Keep the message tight</h3><p class="text-sm text-slate-600 mt-1">Repeat the same short demand. Do not improvise accusations or publish unverified claims.</p></div></li><li class="flex gap-4"><span class="w-8 h-8 shrink-0 rounded-full bg-red-500/10 text-red-600 font-heading font-bold flex items-center justify-center">3</span><div><h3 class="font-heading font-bold text-slate-900">Document outcomes</h3><p class="text-sm text-slate-600 mt-1">Record who attended, what was delivered, what was promised, and the next date. Get consent before sharing images or names.</p></div></li></ol><div class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-3">After the action</h3><ul class="text-sm text-slate-600 space-y-2 list-disc list-inside"><li>Thank participants and check on access or care needs.</li><li>Publish a factual recap and the decision-maker’s response.</li><li>Set the next meeting before momentum evaporates.</li><li>Escalate only after reviewing capacity, risk, and consent.</li><li>Move individual case details to the Case Power Desk—not the public campaign channel.</li></ul></div></div></section>
+                <div class="grid lg:grid-cols-3 gap-6">
+                    <!-- Shelf 1 -->
+                    <article class="bg-white rounded-[2rem] p-6 border border-surface-border">
+                        <h3 class="text-lg font-heading font-bold text-slate-900 mb-1">How power works</h3>
+                        <p class="text-xs text-slate-500 mb-4">Strategy &amp; movement history</p>
+                        <ul class="space-y-3 text-sm">
+                            <li><a href="https://beautifultrouble.org/toolbox/" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Beautiful Trouble — tactic toolbox<span class="text-slate-400"> · creative direct action theory, mapped</span></a></li>
+                            <li><a href="https://commonslibrary.org/" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Commons Social Change Library<span class="text-slate-400"> · free organizing guides from real campaigns</span></a></li>
+                            <li><a href="https://www.afl.org/organizing" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Alberta Federation of Labour — organizing resources<span class="text-slate-400"> · the province's own organizing tradition</span></a></li>
+                            <li><a href="https://actoa.ca/" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">ACTO — public legal education<span class="text-slate-400"> · community legal info, Ontario-based but readable</span></a></li>
+                            <li><a href="https://www.aclabor.com/" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Publications: rulebooks &amp; constitutions<span class="text-slate-400"> · how formal groups actually run</span></a></li>
+                        </ul>
+                    </article>
+                    <!-- Shelf 2 -->
+                    <article class="bg-white rounded-[2rem] p-6 border border-surface-border">
+                        <h3 class="text-lg font-heading font-bold text-slate-900 mb-1">Your rights, in writing</h3>
+                        <p class="text-xs text-slate-500 mb-4">Charter · statutes · appeal rights</p>
+                        <ul class="space-y-3 text-sm">
+                            <li><a href="https://laws-lois.justice.gc.ca/eng/const/page-15.html" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Canadian Charter — sections 7 &amp; 15<span class="text-slate-400"> · life, liberty, security of the person; equality</span></a></li>
+                            <li><a href="https://www.qp.alberta.ca/1266.cfm?page=I02.cfm&leg_type=Acts&isbncln=9780779814153" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Income and Employment Supports Act<span class="text-slate-400"> · the law IS and AISH actually run on</span></a></li>
+                            <li><a href="https://open.alberta.ca/publications/i022" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Assured Income for the Severely Handicapped Act<span class="text-slate-400"> · the AISH statute</span></a></li>
+                            <li><a href="https://alberta.ca/appeal-a-income-support-decision" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">IS appeal process<span class="text-slate-400"> · your formal route when a decision is wrong</span></a></li>
+                            <li><a href="https://alberta.ca/appeal-aish-decisions" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">AISH appeal process<span class="text-slate-400"> · and the privacy/FOIP route for your file</span></a></li>
+                        </ul>
+                    </article>
+                    <!-- Shelf 3 -->
+                    <article class="bg-white rounded-[2rem] p-6 border border-surface-border">
+                        <h3 class="text-lg font-heading font-bold text-slate-900 mb-1">Evidence &amp; records</h3>
+                        <p class="text-xs text-slate-500 mb-4">FOIP · documentation · oversight</p>
+                        <ul class="space-y-3 text-sm">
+                            <li><a href="https://oipc.ab.ca/" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Office of the Information &amp; Privacy Commissioner<span class="text-slate-400"> · file FOIP complaints about your records</span></a></li>
+                            <li><a href="https://alberta.ca/foip-request" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Make a FOIP request<span class="text-slate-400"> · get your own case file, notes and all</span></a></li>
+                            <li><a href="https://www.ombudsman.ab.ca/" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Alberta Ombudsman<span class="text-slate-400"> · when the ministry's own process fails you</span></a></li>
+                            <li><a href="https://www.cpab-ab.ca/" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">Alberta Ombudsman — how complaints work<span class="text-slate-400"> · what they can and can't investigate</span></a></li>
+                            <li><a href="https://www.cbc.ca/news/canada/edmonton" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold hover:text-primary-700 hover:underline">CBC Edmonton — tips line<span class="text-slate-400"> · patterns, not personal cases, make the news</span></a></li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
 
-            <section aria-labelledby="action-resources-heading" class="mb-10"><div class="mb-6"><p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 05 · Bring in backup</p><h2 id="action-resources-heading" class="text-3xl font-heading font-bold text-slate-900">Action resources</h2></div><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"><a href="https://www.assembly.ab.ca/members/members-of-the-legislative-assembly" target="_blank" rel="noopener" class="bg-white rounded-2xl p-6 border border-surface-border hover:border-primary"><h3 class="font-heading font-bold text-slate-900">Find your MLA</h3><p class="text-sm text-slate-600 mt-2">Official constituency directory ↗</p></a><a href="https://www.assembly.ab.ca/assembly-business/assembly-records/petitions" target="_blank" rel="noopener" class="bg-white rounded-2xl p-6 border border-surface-border hover:border-primary"><h3 class="font-heading font-bold text-slate-900">Alberta petition process</h3><p class="text-sm text-slate-600 mt-2">Rules and Assembly information ↗</p></a><a href="https://ccla.org/our-work/fundamental-freedoms/right-to-protest/" target="_blank" rel="noopener" class="bg-white rounded-2xl p-6 border border-surface-border hover:border-primary"><h3 class="font-heading font-bold text-slate-900">Know your protest rights</h3><p class="text-sm text-slate-600 mt-2">Canadian Civil Liberties Association ↗</p></a><a href="https://vadsociety.ca/" target="_blank" rel="noopener" class="bg-white rounded-2xl p-6 border border-surface-border hover:border-primary"><h3 class="font-heading font-bold text-slate-900">Voice of Albertans with Disabilities</h3><p class="text-sm text-slate-600 mt-2">Cross-disability advocacy ↗</p></a><a href="https://inclusionalberta.org/" target="_blank" rel="noopener" class="bg-white rounded-2xl p-6 border border-surface-border hover:border-primary"><h3 class="font-heading font-bold text-slate-900">Inclusion Alberta</h3><p class="text-sm text-slate-600 mt-2">Disability advocacy and inclusion ↗</p></a><a href="https://www.actionhall.ca/2025/" target="_blank" rel="noopener" class="bg-white rounded-2xl p-6 border border-surface-border hover:border-primary"><h3 class="font-heading font-bold text-slate-900">Disability Action Hall</h3><p class="text-sm text-slate-600 mt-2">Community organizing resource ↗</p></a></div></section>
+            <!-- Organizing toolkit -->
+            <section aria-labelledby="toolkit-heading">
+                <div class="mb-8">
+                    <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 03 · The toolkit</p>
+                    <h2 id="toolkit-heading" class="text-3xl font-heading font-bold text-slate-900">Start where you are</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">You don't need a budget or a bus to begin organizing. Every tool below works from a phone or a library computer, most are free, and each one compounds when others do it too.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <article class="bg-white rounded-2xl p-6 border border-surface-border">
+                        <span class="text-3xl font-heading font-bold text-red-500">01</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Find your people</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Post a riding-level thread in the forum: "Anyone else in Edmonton-Rutherford on AISH?" Five members in one riding is the seed of a constituency group.</p>
+                        <button type="button" onclick="navigateTo('forum')" class="text-primary font-heading font-bold text-sm hover:text-primary-700">Open the forum →</button>
+                    </article>
+                    <article class="bg-white rounded-2xl p-6 border border-surface-border">
+                        <span class="text-3xl font-heading font-bold text-red-500">02</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Know your MLA</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Look up your MLA, their critic roles, committee seats, and last statements on disability. Ten minutes of reading makes every later contact sharper.</p>
+                        <a href="https://www.assembly.ab.ca/net/index.aspx?p=mla_report" target="_blank" rel="noopener noreferrer" class="text-primary font-heading font-bold text-sm hover:text-primary-700">MLA directory →</a>
+                    </article>
+                    <article class="bg-white rounded-2xl p-6 border border-surface-border">
+                        <span class="text-3xl font-heading font-bold text-red-500">03</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Build the habit of records</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Use the Case Power Desk to log every call, name, and deadline — both to win your own case and to spot the patterns that become campaigns.</p>
+                        <button type="button" onclick="navigateTo('desk')" class="text-primary font-heading font-bold text-sm hover:text-primary-700">Open your case file →</button>
+                    </article>
+                    <article class="bg-white rounded-2xl p-6 border border-surface-border">
+                        <span class="text-3xl font-heading font-bold text-red-500">04</span>
+                        <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Show up coordinated</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">When the weekly action drops, do it the same week as everyone else. One email is a complaint; two hundred in five days is a pattern the press can print.</p>
+                        <button type="button" onclick="navigateTo('action')" class="text-primary font-heading font-bold text-sm hover:text-primary-700">See this week's action →</button>
+                    </article>
+                </div>
+            </section>
 
-            <section aria-labelledby="action-safety-heading" class="rounded-[2rem] p-6 sm:p-8 bg-red-950/40 border border-red-400/20"><p class="text-red-200 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Operating standard</p><h2 id="action-safety-heading" class="text-2xl font-heading font-bold text-red-100 mb-3">Bold, disciplined, and safe</h2><p class="text-sm text-slate-600 leading-relaxed">Peaceful assembly and expression can be powerful and disruptive, but public actions must respect current law, bylaws, site rules, workplace rules, emergency access, participant consent, and accessibility needs. Do not threaten, harass, doxx, impersonate, damage property, or publish private health information. This page is for collective campaign execution; use Case Power Desk for personal benefits navigation and individual escalation.</p></section>
         </div>
     </section>
+    </section>
+
     <!-- ============================================ -->
     <!-- LEVERAGE DESK -->
     <!-- ============================================ -->
@@ -1236,7 +1339,7 @@
         <div class="bg-primary-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <div class="max-w-4xl">
-                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Case Command Center</p>
+                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Case Power Desk</p>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Every date. Every name.</span><br>Every promise, on record.</h1>
                     <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">One private case file for everything: a dated timeline of every contact, an evidence index, the people you deal with, and the deadlines that decide your appeals. When the system loses your paperwork, yours is the record that holds.</p>
                     <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65">
@@ -1265,7 +1368,7 @@
 
             <div id="desk-member-tools" class="hidden">
                 <!-- Tab bar -->
-                <div id="ccc-tabbar" role="tablist" aria-label="Case Command Center sections" class="flex flex-wrap items-center gap-1.5 mb-8 p-1.5 rounded-[1.4rem]" style="background: var(--panel);">
+                <div id="ccc-tabbar" role="tablist" aria-label="Case Power Desk sections" class="flex flex-wrap items-center gap-1.5 mb-8 p-1.5 rounded-[1.4rem]" style="background: var(--panel);">
                     <button type="button" role="tab" id="ccc-tab-overview" aria-selected="true" aria-controls="ccc-panel-overview" class="ccc-tab" onclick="cccSwitchTab('overview')">Overview</button>
                     <button type="button" role="tab" id="ccc-tab-timeline" aria-selected="false" aria-controls="ccc-panel-timeline" class="ccc-tab" onclick="cccSwitchTab('timeline')">Timeline</button>
                     <button type="button" role="tab" id="ccc-tab-evidence" aria-selected="false" aria-controls="ccc-panel-evidence" class="ccc-tab" onclick="cccSwitchTab('evidence')">Evidence</button>
@@ -1443,26 +1546,49 @@
     </section>
 
 <section id="page-campaigns" class="page-section">
-        <div class="bg-primary-900 text-white">
+        <div class="bg-primary text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-                <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Collective advocacy · Public accountability</p>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Turn shared harm</span><br>into organized public pressure.</h1>
-                <p class="text-lg text-white/75 leading-relaxed max-w-3xl">This is the collective-action manual: choose a winnable demand, build a base, escalate visibly, and keep pressure sustained. Traditional tactics—petitions, delegations, teach-ins, pickets, public testimony, boycotts, and strikes—work when they are disciplined, accessible, and nonviolent.</p>
-                <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Peaceful</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Lawful</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Escalation</span></div>
+                <div class="max-w-4xl">
+                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Take Action · One week, one target</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">One action a week.</span><br>Every member. Every riding.</h1>
+                    <p class="text-lg sm:text-xl text-white/80 leading-relaxed max-w-3xl">Each week, this page carries a single coordinated action — an email wave, a call day, a letter drop. Hundreds of members hitting the same target in the same week is how a dispersed bloc becomes a political one. Sign up, show up, and log the result.</p>
+                    <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/75"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Coordinated</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Lawful</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Accessible from home</span></div>
+                </div>
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-8"><div><p class="text-red-500 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 01 · Choose the target</p><h2 class="text-3xl font-heading font-bold text-slate-900">Pick your pressure point</h2></div><div class="text-sm text-slate-500"><span id="campaign-action-count">0</span> actions recorded by members so far</div></div>
-            <div id="campaign-list" class="grid lg:grid-cols-2 gap-6"></div>
-            <section id="campaign-personal" class="hidden mt-10 desk-card rounded-[2rem] p-6 sm:p-8 bg-white" aria-labelledby="campaign-plan-heading"><div class="mb-8"><p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 02 · Build the ladder</p><h2 class="text-2xl font-heading font-bold text-slate-900 mb-2">Escalate without losing control</h2><p class="text-sm text-slate-600 max-w-3xl leading-relaxed">Start with one clear demand and a small committed group. Move from private contact to public evidence, then to a lawful public action. Give decision-makers a measurable off-ramp, and set a review date.</p><div class="grid sm:grid-cols-3 gap-3 mt-5"><div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading">1 · Build</strong><span class="text-xs text-slate-600">Map allies, affected people, decision-makers, and the specific change.</span></div><div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading">2 · Show</strong><span class="text-xs text-slate-600">Publish anonymized evidence, testimony, and a simple public demand.</span></div><div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading">3 · Escalate</strong><span class="text-xs text-slate-600">Coordinate a delegation, teach-in, picket, rally, or public meeting.</span></div></div></div><div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6"><div><p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Your campaign plan</p><h2 id="campaign-plan-heading" class="text-2xl font-heading font-bold text-slate-900">Small actions. Sustained pressure.</h2></div><button type="button" onclick="clearCampaignProgress()" class="text-xs text-slate-500 hover:text-red-500 transition-colors">Reset local progress</button></div><div id="campaign-progress-list" class="space-y-3"></div></section>
-            <section class="mt-10 desk-card rounded-[2rem] p-6 sm:p-8 bg-white" aria-labelledby="action-techniques-heading"><p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 03 · Use the classic toolkit</p><h2 id="action-techniques-heading" class="text-2xl font-heading font-bold text-slate-900 mb-5">Traditional advocacy techniques, adapted for Alberta</h2><div class="grid md:grid-cols-2 gap-4"><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Delegations and office visits</h3><p class="text-sm text-slate-600 leading-relaxed">Bring 3–8 constituents with one spokesperson, a one-page brief, and a written request. Ask for a response date. Keep the visit calm, public, and accessible.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Petitions and pledge drives</h3><p class="text-sm text-slate-600 leading-relaxed">Use one demand, collect consent lawfully, verify signatures, and deliver the result with local media or a public handoff. Track commitments, not just names.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Teach-ins and testimony</h3><p class="text-sm text-slate-600 leading-relaxed">Turn confusing policy into a 20-minute briefing with lived experience, verified sources, and a clear next step. Offer captions, remote access, breaks, and plain-language materials.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Pickets and public rallies</h3><p class="text-sm text-slate-600 leading-relaxed">Choose a visible, lawful location; assign marshals, accessibility support, a media contact, and a de-escalation lead. Check current bylaws and site rules before gathering.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Boycotts and collective withdrawal</h3><p class="text-sm text-slate-600 leading-relaxed">Set a specific goal, communicate the start and end conditions, protect workers and bystanders, and provide alternatives so participation does not punish people already under strain.</p></article><article class="rounded-2xl bg-gray-50 p-5"><h3 class="font-heading font-bold text-slate-900 mb-2">Strike and solidarity support</h3><p class="text-sm text-slate-600 leading-relaxed">Only pursue workplace action with an established union or qualified labour advice. Build a support plan for food, transport, medication, disability access, and retaliation concerns.</p></article></div></section>
-            <div class="mt-8 rounded-[2rem] p-6 bg-red-950/40 border border-red-400/20"><p class="text-sm text-slate-600 leading-relaxed"><strong class="text-slate-900">Organizing note:</strong> Keep actions peaceful and lawful. Do not threaten, target, doxx, obstruct emergency services, or publish private personal information. Verify event details and accessibility needs before attending.</p></div>
+
+            <!-- Featured weekly action -->
+            <section aria-labelledby="featured-action-heading" class="mb-14">
+                <div id="featured-action" aria-live="polite"></div>
+            </section>
+
+            <!-- Member suggestions -->
+            <section aria-labelledby="suggestions-heading" class="mb-14">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+                    <div>
+                        <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Pitch the next action</p>
+                        <h2 id="suggestions-heading" class="text-3xl font-heading font-bold text-slate-900">The suggestion floor</h2>
+                        <p class="text-sm text-slate-600 mt-2 max-w-2xl">You know which office ignored you, which MLA went quiet, which policy needs daylight. Pitch an action — the highest-voted pitches get picked up by the moderation team and turned into next week's featured action.</p>
+                    </div>
+                    <button type="button" onclick="openSuggestionModal()" class="shrink-0 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Pitch an action</button>
+                </div>
+                <div id="suggestion-list" class="grid md:grid-cols-2 gap-5" aria-live="polite"></div>
+            </section>
+
+            <!-- Archive -->
+            <section aria-labelledby="archive-heading">
+                <div class="mb-6">
+                    <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">The record</p>
+                    <h2 id="archive-heading" class="text-3xl font-heading font-bold text-slate-900">Past actions &amp; results</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-2xl">Every completed action and what came back — replies from offices, media pickup, turnout numbers. Receipts build the case that this bloc shows up.</p>
+                </div>
+                <div id="action-archive" class="space-y-5" aria-live="polite"></div>
+            </section>
+
         </div>
     </section>
 
-    <!-- ============================================ -->
-    <!-- THE VAULT (members-only) -->
-    <!-- ============================================ -->
     <section id="page-vault" class="page-section">
         <div class="bg-primary-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
@@ -2010,7 +2136,7 @@ function navigateTo(page) {
     if (page === 'blog') renderBlog();
     if (page === 'forum') { renderForum(); closeThreadView(); }
     if (page === 'desk') renderDesk();
-    if (page === 'campaigns') renderCampaigns();
+    if (page === 'campaigns') renderTakeAction();
     if (page === 'vault') renderVault();
     if (page === 'profile') renderProfile();
     if (page === 'member') renderMemberProfile();
@@ -2286,7 +2412,11 @@ async function fetchSupabaseProfile(userId) {
             joined: (data.member_since || data.created_at || '').split('T')[0] || '2026',
             region: data.region || '',
             interests: data.interests || '',
-            is_admin: !!data.is_admin
+            is_admin: !!data.is_admin,
+            role: data.role || (data.is_admin ? 'admin' : 'member'),
+            status: data.status || 'active',
+            suspendedUntil: data.suspended_until || null,
+            suspensionReason: data.suspension_reason || ''
         };
     } catch (e) { return null; }
 }
@@ -2303,7 +2433,9 @@ function mirrorToAppData(user) {
         is_member: !!user.is_member,
         region: user.region || '',
         interests: user.interests || '',
-        is_admin: !!user.is_admin
+        is_admin: !!user.is_admin,
+        role: user.role || (user.is_admin ? 'admin' : 'member'),
+        status: user.status || 'active'
     };
     sessionStorage.setItem('absupport_user', JSON.stringify({ username: user.username }));
 }
@@ -2563,10 +2695,12 @@ function finishLogin(user) {
     closeAuthModal();
     showToast('Welcome back, ' + user.username + '!', 'success');
     renderAuthUI();
+    actionsLoaded = false;
+    loadWeeklyActions();
     if (currentPage === 'forum') renderForum();
     if (currentPage === 'profile') renderProfile();
     if (currentPage === 'desk') renderDesk();
-    if (currentPage === 'campaigns') renderCampaigns();
+    if (currentPage === 'campaigns') { if (!actionsLoaded) loadWeeklyActions(); else renderTakeAction(); }
     if (currentPage === 'blog') renderBlog();
     loadModerationQueue();
     if (supabaseClient && supabaseSession) loadPrivateWorkspace();
@@ -2601,7 +2735,7 @@ function handleRegister(e) {
             renderHomeStats();
             if (session) {
                 if (currentPage === 'desk') renderDesk();
-                if (currentPage === 'campaigns') renderCampaigns();
+                if (currentPage === 'campaigns') { if (!actionsLoaded) loadWeeklyActions(); else renderTakeAction(); }
                 if (currentPage === 'profile') renderProfile();
             }
         }).catch(() => demoRegister(username, email, bio, password));
@@ -2651,6 +2785,8 @@ function logout() {
 function renderAuthUI() {
     const area = document.getElementById('auth-area');
     const user = getCurrentUser();
+    renderStatusBanner();
+    if (user && !actionsLoaded && supabaseSession) loadWeeklyActions();
     const mobileLogout = document.getElementById('mobile-menu-logout');
     if (mobileLogout) mobileLogout.hidden = !user;
     const mmChip = document.getElementById('mm-user-chip');
@@ -2695,6 +2831,8 @@ function renderAuthUI() {
                         <button onclick="openProfileEditModal();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Edit profile</button>
                         ${isAdminUser() ? `<button onclick="openBlogComposer();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Write a post</button>
                         <button onclick="navigateTo('forum');openModerationQueue();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Moderation queue</button>` : ''}
+                        ${isMod() ? `<button onclick="openMemberPanel()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">Member management</button>
+                        <button onclick="navigateTo('campaigns');openActionCreatorModal();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors font-medium cursor-pointer">New weekly action</button>` : ''}
                         <div class="profile-menu-sep"></div>
                         <button onclick="logout();toggleProfileDropdown()" role="menuitem" class="w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors text-red-600 font-medium cursor-pointer">Log out</button>
                     </div>
@@ -4328,6 +4466,10 @@ function closeNewThreadModal() {
 
 function createThread(e) {
     e.preventDefault();
+    if (!userCanPostCheck()) {
+        showToast('Your posting access is currently limited. Contact the moderation team if you believe this is a mistake.', 'error');
+        return;
+    }
     const title = document.getElementById('thread-title').value.trim();
     const category = document.getElementById('thread-category').value;
     const content = document.getElementById('thread-content').value.trim();
@@ -4365,6 +4507,10 @@ function createThread(e) {
 
 function postReply(e, threadId) {
     e.preventDefault();
+    if (!userCanPostCheck()) {
+        showToast('Your posting access is currently limited. Contact the moderation team if you believe this is a mistake.', 'error');
+        return;
+    }
     const thread = appData.threads.find(t => t.id === threadId);
     if (!thread) return;
 
@@ -4503,10 +4649,10 @@ async function renderProfile() {
         <div class="workspace-panel rounded-[2rem] p-8 sm:p-12 text-center max-w-3xl mx-auto">
             <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Members only</p>
             <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 mb-3">Your profile</h2>
-            <p class="text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto">Create a free account to join the forum, build your public profile with avatar and bio, and unlock the Case Command Center — a private case file with a dated timeline, evidence index, contacts, and deadline tracking.</p>
+            <p class="text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto">Create a free account to join the forum, build your public profile with avatar and bio, and unlock the Case Power Desk — a private case file with a dated timeline, evidence index, contacts, and deadline tracking.</p>
             <div class="grid sm:grid-cols-2 gap-3 mb-8 text-left">
                 <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Public profile</strong><span class="text-xs text-slate-600">Avatar and bio the community sees — your case details never appear.</span></div>
-                <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Case Command Center</strong><span class="text-xs text-slate-600">Timeline, evidence, contacts, deadlines, and a one-click case file export.</span></div>
+                <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Case Power Desk</strong><span class="text-xs text-slate-600">Timeline, evidence, contacts, deadlines, and a one-click case file export.</span></div>
                 <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Forum access</strong><span class="text-xs text-slate-600">Start threads, reply, and organize with other Albertans.</span></div>
                 <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Saved resources</strong><span class="text-xs text-slate-600">Clip programs and contacts from the directory into your workspace.</span></div>
             </div>
@@ -4520,7 +4666,7 @@ async function renderProfile() {
     const userReplies = appData.threads.flatMap(t => (t.replies || []).filter(r => r.author.toLowerCase() === user.username.toLowerCase()));
     const initial = user.username.charAt(0).toUpperCase();
     const avatarHTML = user.avatar ? `<img src="${user.avatar}" alt="${escapeHTML(user.username)}'s avatar" class="avatar-preview object-cover">` : `<div class="avatar-preview avatar-default flex items-center justify-center text-white font-bold text-3xl">${initial}</div>`;
-    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Command Center</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div><section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Command Center is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
+    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Power Desk</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div><section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Power Desk is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
     enhanceProfileWorkspace();
 }
 
@@ -4529,7 +4675,7 @@ function enhanceProfileWorkspace() {
     if (!target || !isLoggedIn() || target.querySelector('[data-workspace-next]')) return;
     const deadlines = cccRead('deadlines').filter(d => !d.done && cccDaysUntil(d.date) <= 7);
     const followups = cccRead('timeline').filter(t => t.followup).length;
-    target.insertAdjacentHTML('afterbegin', `<section data-workspace-next class="workspace-panel rounded-[2rem] p-6 sm:p-8 mb-6" aria-labelledby="next-action-heading"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><p class="text-accent-700 font-heading font-bold text-xs uppercase tracking-widest mb-2">From your case file</p><h2 id="next-action-heading" class="text-2xl font-heading font-bold text-slate-900">${deadlines.length ? `${deadlines.length} deadline${deadlines.length === 1 ? '' : 's'} inside 7 days` : followups ? `${followups} follow-up${followups === 1 ? '' : 's'} waiting` : 'Your case file is quiet'}</h2><p class="text-sm text-slate-600 mt-2 max-w-2xl">${deadlines.length ? `Next up: ${escapeHTML(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].title)} — due ${cccFmtDate(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].date)}.` : followups ? 'Open follow-ups are waiting on your timeline.' : 'Timeline, evidence, contacts, and deadlines live in your private Case Command Center.'}</p></div><div class="flex flex-wrap gap-3 shrink-0"><button type="button" onclick="navigateTo('desk')" class="inline-flex items-center justify-center px-5 py-3 bg-primary text-white font-heading font-bold rounded-full min-h-[48px]">Open Case Command Center</button></div></div></section>`);
+    target.insertAdjacentHTML('afterbegin', `<section data-workspace-next class="workspace-panel rounded-[2rem] p-6 sm:p-8 mb-6" aria-labelledby="next-action-heading"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><p class="text-accent-700 font-heading font-bold text-xs uppercase tracking-widest mb-2">From your case file</p><h2 id="next-action-heading" class="text-2xl font-heading font-bold text-slate-900">${deadlines.length ? `${deadlines.length} deadline${deadlines.length === 1 ? '' : 's'} inside 7 days` : followups ? `${followups} follow-up${followups === 1 ? '' : 's'} waiting` : 'Your case file is quiet'}</h2><p class="text-sm text-slate-600 mt-2 max-w-2xl">${deadlines.length ? `Next up: ${escapeHTML(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].title)} — due ${cccFmtDate(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].date)}.` : followups ? 'Open follow-ups are waiting on your timeline.' : 'Timeline, evidence, contacts, and deadlines live in your private Case Power Desk.'}</p></div><div class="flex flex-wrap gap-3 shrink-0"><button type="button" onclick="navigateTo('desk')" class="inline-flex items-center justify-center px-5 py-3 bg-primary text-white font-heading font-bold rounded-full min-h-[48px]">Open Case Power Desk</button></div></div></section>`);
 }
 function saveResourceToWorkspace(index) {
     if (!isLoggedIn()) { openAuthModal(); showToast('Log in to save resources to your workspace.', 'error'); return; }
@@ -5164,6 +5310,629 @@ if (new URLSearchParams(location.search).get('reset') === '1' || location.hash.i
 // ============================================================
 // INIT
 // ============================================================
+// ============================================================
+// TAKE ACTION — weekly action engine
+// ============================================================
+let weeklyActions = [];
+let weeklySignups = {};
+let weeklyResults = {};
+let weeklySuggestions = [];
+let weeklyVotes = {};
+let actionCountdownTimer = null;
+let actionsLoaded = false;
+
+async function loadWeeklyActions() {
+    if (!supabaseClient) return;
+    try {
+        const [ai, asg, ares, asug, avotes] = await Promise.all([
+            supabaseClient.from('action_items').select('*').order('action_at', { ascending: true }),
+            supabaseClient.from('action_signups').select('action_id, user_id, created_at'),
+            supabaseClient.from('action_results').select('*').order('created_at', { ascending: false }),
+            supabaseClient.from('action_suggestions').select('*').order('created_at', { ascending: false }),
+            supabaseClient.from('suggestion_votes').select('suggestion_id, user_id')
+        ]);
+        if (ai.error || asg.error || ares.error || asug.error || avotes.error) throw (ai.error || asg.error || ares.error || asug.error || avotes.error);
+        weeklyActions = (ai.data || []).map(a => ({
+            id: a.id, title: a.title, description: a.description || '',
+            type: a.action_type || 'email', location: a.location || '',
+            at: a.action_at, status: a.status || 'scheduled',
+            createdBy: a.created_by
+        }));
+        weeklySignups = {};
+        (asg.data || []).forEach(s => { (weeklySignups[s.action_id] = weeklySignups[s.action_id] || []).push(s.user_id); });
+        weeklyResults = {};
+        (ares.data || []).forEach(r => { (weeklyResults[r.action_id] = weeklyResults[r.action_id] || []).push({ body: r.body, at: r.created_at, by: r.created_by }); });
+        weeklySuggestions = (asug.data || []).map(s => ({
+            id: s.id, userId: s.user_id, title: s.title, type: s.action_type || 'email',
+            description: s.description || '', status: s.status || 'open', at: s.created_at
+        }));
+        weeklyVotes = {};
+        (avotes.data || []).forEach(v => { (weeklyVotes[v.suggestion_id] = weeklyVotes[v.suggestion_id] || []).push(v.user_id); });
+        actionsLoaded = true;
+        const ids = [];
+        Object.values(weeklySignups).forEach(list => list.forEach(u => ids.push(u)));
+        weeklySuggestions.forEach(s => ids.push(s.userId));
+        await ensureMemberCacheByIds(ids);
+        renderTakeAction();
+    } catch (e) {
+        console.warn('action load failed', e);
+        const fa = document.getElementById('featured-action');
+        if (fa) fa.innerHTML = '<div class="desk-card rounded-[2rem] p-8 text-center"><p class="text-slate-600">Actions couldn\'t load. Refresh to try again.</p></div>';
+    }
+}
+
+function isMod() { return !!currentUser && (currentUser.role === 'mod' || currentUser.role === 'admin' || isAdminUser()); }
+function isAdmin() { return isAdminUser(); }
+function userCanPostCheck() {
+    return !!currentUser && currentUser.status !== 'banned' && !(currentUser.status === 'suspended' && (!currentUser.suspendedUntil || new Date(currentUser.suspendedUntil) > new Date()));
+}
+
+function taFmtDate(iso) {
+    try { return new Date(iso).toLocaleString('en-CA', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); }
+    catch { return iso; }
+}
+function taEsc(str) { return escapeHTML(String(str == null ? '' : str)); }
+
+function renderTakeAction() {
+    const fa = document.getElementById('featured-action');
+    if (!fa) return;
+    const now = Date.now();
+    const upcoming = weeklyActions
+        .filter(a => a.status !== 'completed' && new Date(a.at).getTime() > now - 24 * 3600 * 1000)
+        .sort((a, b) => new Date(a.at) - new Date(b.at));
+    const past = weeklyActions
+        .filter(a => a.status === 'completed' || new Date(a.at).getTime() <= now - 24 * 3600 * 1000)
+        .sort((a, b) => new Date(b.at) - new Date(a.at));
+
+    // ---- Featured action
+    if (upcoming.length) {
+        const a = upcoming[0];
+        const signed = (weeklySignups[a.id] || []).includes(currentUser?.id);
+        const count = (weeklySignups[a.id] || []).length;
+        const typeIcon = { email: '✉', call: '☎', inperson: '◉', letter: '✎', social: '◎' }[a.type] || '✦';
+        fa.innerHTML = `
+        <div class="desk-card rounded-[2rem] p-1.5" style="background: var(--panel-2, var(--panel));">
+          <div class="rounded-[calc(2rem-0.375rem)] bg-white p-6 sm:p-10">
+            <div class="flex flex-col lg:flex-row lg:items-start gap-8">
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-2 mb-4">
+                  <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-heading font-bold uppercase tracking-widest">This week's action</span>
+                  <span class="px-3 py-1 rounded-full bg-gray-100 text-slate-600 text-xs font-heading font-semibold uppercase tracking-wider">${taEsc(a.type)}</span>
+                  ${a.location ? `<span class="px-3 py-1 rounded-full bg-gray-100 text-slate-600 text-xs font-heading font-semibold">${taEsc(a.location)}</span>` : ''}
+                </div>
+                <h3 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900 mb-3">${taEsc(a.title)}</h3>
+                <p class="text-slate-600 leading-relaxed whitespace-pre-line mb-5">${taEsc(a.description)}</p>
+                <div class="rounded-2xl bg-gray-50 border border-surface-border p-4 mb-6">
+                  <p class="text-xs font-heading font-bold uppercase tracking-widest text-slate-500 mb-1">When</p>
+                  <p class="text-slate-900 font-heading font-semibold">${taFmtDate(a.at)} <span class="text-slate-500 font-normal text-sm">(your local time)</span></p>
+                </div>
+                ${(weeklyResults[a.id] || []).length ? `<div class="rounded-2xl border border-primary/20 bg-primary/5 p-4 mb-6">
+                  <p class="text-xs font-heading font-bold uppercase tracking-widest text-primary mb-2">What's come back</p>
+                  <div class="space-y-2">${(weeklyResults[a.id] || []).map(r => `<div><p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">${taEsc(r.body)}</p><p class="text-xs text-slate-500 mt-1">${timeAgo(r.at)}</p></div>`).join('')}</div>
+                </div>` : ''}
+                <div class="flex flex-wrap items-center gap-4">
+                  ${currentUser ? `
+                    <button type="button" onclick="toggleActionSignup('${a.id}')" class="px-7 py-3.5 rounded-full font-heading font-bold min-h-[48px] transition-all ${signed ? 'bg-warm text-slate-950 hover:brightness-110' : 'bg-primary text-white hover:bg-primary-700'}">
+                      ${signed ? '✓ You\'re signed up' : 'I\'m in — sign me up'}
+                    </button>` : `
+                    <button type="button" onclick="openAuthModal();showToast('Log in to sign up for actions.','info')" class="px-7 py-3.5 rounded-full font-heading font-bold min-h-[48px] bg-primary text-white hover:bg-primary-700 transition-all">Log in to sign up</button>`}
+                  <div class="flex items-center gap-2">
+                    <div class="flex -space-x-2" aria-hidden="true">${(weeklySignups[a.id] || []).slice(0, 5).map(uid => `<span class="w-8 h-8 rounded-full border-2 border-white bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-bold">${escapeHTML(getMemberInitial(uid))}</span>`).join('')}</div>
+                    <span class="text-sm font-heading font-semibold text-slate-700">${count} member${count === 1 ? '' : 's'} in</span>
+                  </div>
+                </div>
+              </div>
+              <div class="lg:w-72 shrink-0">
+                <div class="rounded-2xl bg-primary-900 p-5 text-center text-white" role="timer" aria-label="Countdown to action">
+                  <p class="text-xs font-heading font-bold uppercase tracking-[0.25em] text-accent mb-3">${typeIcon} Time remaining</p>
+                  <div id="action-countdown" class="font-heading font-extrabold tabular-nums"></div>
+                </div>
+                ${isMod() ? `<button type="button" onclick="openActionResultModal('${a.id}')" class="w-full mt-3 px-5 py-3 rounded-2xl bg-gray-100 hover:bg-gray-200 text-slate-700 font-heading font-semibold text-sm transition-colors min-h-[44px]">Post a result</button>
+                <button type="button" onclick="markActionCompleted('${a.id}')" class="w-full mt-2 px-5 py-3 rounded-2xl bg-gray-100 hover:bg-gray-200 text-slate-700 font-heading font-semibold text-sm transition-colors min-h-[44px]">Mark completed</button>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>`;
+        startActionCountdown(a.at);
+    } else {
+        fa.innerHTML = `
+        <div class="desk-card rounded-[2rem] p-8 sm:p-10 text-center">
+          <p class="text-xs font-heading font-bold uppercase tracking-[0.25em] text-primary mb-3">This week's action</p>
+          <h3 class="text-2xl font-heading font-extrabold text-slate-900 mb-2">Next action is being planned</h3>
+          <p class="text-slate-600 max-w-xl mx-auto mb-5">Nothing is scheduled yet. Pitch an action below — the highest-voted pitches get picked up by the team and turned into the next weekly action.</p>
+          <button type="button" onclick="openSuggestionModal()" class="px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Pitch an action</button>
+          ${isMod() ? '<p class="text-xs text-slate-500 mt-4">Mod tip: create the next action from the suggestion floor or directly via the console.</p>' : ''}
+        </div>`;
+        stopActionCountdown();
+    }
+
+    // ---- Suggestions
+    const sl = document.getElementById('suggestion-list');
+    if (sl) {
+        if (!weeklySuggestions.length) {
+            sl.innerHTML = '<div class="md:col-span-2 desk-card rounded-[2rem] p-8 text-center text-slate-500">No pitches yet. The floor is open.</div>';
+        } else {
+            const sorted = [...weeklySuggestions].sort((x, y) => (weeklyVotes[y.id] || []).length - (weeklyVotes[x.id] || []).length);
+            sl.innerHTML = sorted.map(s => {
+                const votes = (weeklyVotes[s.id] || []).length;
+                const voted = currentUser && (weeklyVotes[s.id] || []).includes(currentUser.id);
+                const statusChip = s.status === 'promoted' ? '<span class="px-2.5 py-0.5 rounded-full bg-warm/20 text-warm-700 text-[10px] font-heading font-bold uppercase tracking-wider">Promoted</span>' :
+                    s.status === 'declined' ? '<span class="px-2.5 py-0.5 rounded-full bg-gray-200 text-slate-500 text-[10px] font-heading font-bold uppercase tracking-wider">Passed</span>' : '';
+                return `
+                <article class="desk-card rounded-[2rem] p-6">
+                  <div class="flex items-start justify-between gap-3 mb-2">
+                    <h3 class="font-heading font-bold text-slate-900 text-lg">${taEsc(s.title)}</h3>
+                    ${statusChip}
+                  </div>
+                  <p class="text-sm text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${taEsc(s.description)}</p>
+                  <div class="flex items-center justify-between gap-3">
+                    <button type="button" ${!currentUser || voted ? 'disabled' : ''} onclick="toggleSuggestionVote('${s.id}')" class="flex items-center gap-2 px-4 py-2 rounded-full font-heading font-semibold text-sm min-h-[44px] transition-colors ${voted ? 'bg-primary text-white' : 'bg-gray-100 text-slate-700 hover:bg-primary/10'} ${!currentUser ? 'opacity-50' : ''}" aria-label="${voted ? 'Voted' : 'Vote up this suggestion'}">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                      ${votes}
+                    </button>
+                    <div class="flex items-center gap-2 min-w-0">
+                      ${memberChipHTML(s.userId)}
+                      ${isMod() && s.status === 'open' ? `<button type="button" onclick="promoteSuggestion('${s.id}')" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-heading font-bold min-h-[36px]">Promote →</button>` : ''}
+                    </div>
+                  </div>
+                </article>`;
+            }).join('');
+        }
+    }
+
+    // ---- Archive
+    const arch = document.getElementById('action-archive');
+    if (arch) {
+        if (!past.length) {
+            arch.innerHTML = '<div class="desk-card rounded-[2rem] p-8 text-center text-slate-500">No completed actions yet. The record starts with the first one.</div>';
+        } else {
+            arch.innerHTML = past.map(a => {
+                const res = weeklyResults[a.id] || [];
+                return `
+                <article class="desk-card rounded-[2rem] p-6 sm:p-8">
+                  <div class="flex flex-wrap items-center gap-3 mb-2">
+                    <span class="px-3 py-1 rounded-full ${a.status === 'completed' ? 'bg-warm/20 text-warm-700' : 'bg-gray-200 text-slate-500'} text-xs font-heading font-bold uppercase tracking-wider">${a.status === 'completed' ? 'Completed' : 'Passed'}</span>
+                    <h3 class="text-xl font-heading font-bold text-slate-900">${taEsc(a.title)}</h3>
+                  </div>
+                  <p class="text-xs text-slate-500 font-heading font-semibold uppercase tracking-wider mb-4">${taFmtDate(a.at)} · ${taEsc(a.type)}${(weeklySignups[a.id] || []).length ? ` · ${(weeklySignups[a.id] || []).length} signed up` : ''}</p>
+                  ${a.description ? `<p class="text-sm text-slate-600 leading-relaxed mb-4 whitespace-pre-line">${taEsc(a.description)}</p>` : ''}
+                  ${res.length ? `<div class="space-y-3 border-l-2 border-primary/20 pl-4 mt-4">${res.map(r => `<div><p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">${taEsc(r.body)}</p><p class="text-xs text-slate-500 mt-1">${timeAgo(r.at)}</p></div>`).join('')}</div>` : '<p class="text-sm text-slate-500 italic">Results pending.</p>'}
+                </article>`;
+            }).join('');
+        }
+    }
+}
+
+window.__memberCache = window.__memberCache || {};
+async function ensureMemberCacheByIds(ids) {
+    if (!supabaseClient) return;
+    const missing = [...new Set((ids || []).filter(Boolean))].filter(id => !window.__memberCache[id]);
+    if (!missing.length) return;
+    try {
+        for (let i = 0; i < missing.length; i += 100) {
+            const chunk = missing.slice(i, i + 100);
+            const { data, error } = await supabaseClient.from('public_profiles').select('id, username, avatar').in('id', chunk);
+            if (error || !data) continue;
+            data.forEach(p => { window.__memberCache[p.id] = { username: p.username, avatar: p.avatar || '' }; });
+        }
+    } catch (e) { /* initials fallback remains */ }
+}
+function getMemberInitial(uid) {
+    const prof = window.__memberCache?.[uid];
+    return prof ? (prof.username || 'M').charAt(0).toUpperCase() : 'M';
+}
+function memberChipHTML(uid) {
+    const prof = window.__memberCache?.[uid];
+    if (prof?.username) {
+        return `<button type="button" onclick="viewMemberProfile('${uid}')" class="flex items-center gap-1.5 min-w-0 group">
+            ${prof.avatar ? `<img src="${escapeAttr(prof.avatar)}" alt="" class="w-6 h-6 rounded-full object-cover">` : `<span class="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-[10px] font-bold">${escapeHTML(prof.username.charAt(0).toUpperCase())}</span>`}
+            <span class="text-xs text-slate-500 group-hover:text-primary truncate max-w-[120px]">@${escapeHTML(prof.username)}</span>
+        </button>`;
+    }
+    return '<span class="text-xs text-slate-400">member</span>';
+}
+
+// ---- Countdown
+function startActionCountdown(targetIso) {
+    stopActionCountdown();
+    const el = document.getElementById('action-countdown');
+    if (!el) return;
+    const target = new Date(targetIso).getTime();
+    function tick() {
+        const node = document.getElementById('action-countdown');
+        if (!node) { stopActionCountdown(); return; }
+        const diff = target - Date.now();
+        if (diff <= 0) { node.innerHTML = '<span class="text-accent text-2xl">It\'s go time</span>'; stopActionCountdown(); return; }
+        const d = Math.floor(diff / 86400000), h = Math.floor(diff % 86400000 / 3600000), m = Math.floor(diff % 3600000 / 60000), s = Math.floor(diff % 60000 / 1000);
+        node.innerHTML = `
+          <div class="grid grid-cols-4 gap-1.5">
+            ${[['Days', d], ['Hrs', h], ['Min', m], ['Sec', s]].map(([lab, v]) => `
+              <div><div class="text-2xl sm:text-3xl font-extrabold text-white leading-none">${String(v).padStart(2, '0')}</div><div class="text-[9px] uppercase tracking-[0.2em] text-white/50 mt-1">${lab}</div></div>`).join('')}
+          </div>`;
+    }
+    tick();
+    actionCountdownTimer = setInterval(tick, 1000);
+}
+function stopActionCountdown() { if (actionCountdownTimer) { clearInterval(actionCountdownTimer); actionCountdownTimer = null; } }
+
+// ---- Interactions
+async function toggleActionSignup(actionId) {
+    if (!supabaseClient || !supabaseSession) { openAuthModal(); return; }
+    const list = weeklySignups[actionId] || [];
+    const signed = list.includes(currentUser.id);
+    try {
+        if (signed) {
+            const { error } = await supabaseClient.from('action_signups').delete().eq('action_id', actionId).eq('user_id', currentUser.id);
+            if (error) throw error;
+        } else {
+            const { error } = await supabaseClient.from('action_signups').insert({ action_id: actionId, user_id: currentUser.id });
+            if (error) throw error;
+            showToast('You\'re in. Watch the countdown.', 'success');
+        }
+        await loadWeeklyActions();
+    } catch (e) {
+        showToast(signed ? 'Could not withdraw: ' + e.message : 'Could not sign up: ' + e.message, 'error');
+    }
+}
+async function toggleSuggestionVote(sugId) {
+    if (!supabaseClient || !supabaseSession) { openAuthModal(); return; }
+    const list = weeklyVotes[sugId] || [];
+    const voted = list.includes(currentUser.id);
+    try {
+        if (voted) await supabaseClient.from('suggestion_votes').delete().eq('suggestion_id', sugId).eq('user_id', currentUser.id);
+        else {
+            const { error } = await supabaseClient.from('suggestion_votes').insert({ suggestion_id: sugId, user_id: currentUser.id });
+            if (error) throw error;
+        }
+        await loadWeeklyActions();
+    } catch (e) { showToast('Vote failed: ' + e.message, 'error'); }
+}
+async function promoteSuggestion(sugId) {
+    if (!isMod() || !supabaseClient) return;
+    const s = weeklySuggestions.find(x => x.id === sugId);
+    if (!s) return;
+    const when = prompt('When should this action happen? (YYYY-MM-DD HH:mm, 24h)', new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 16));
+    if (!when) return;
+    const at = new Date(when);
+    if (isNaN(at)) { showToast('Invalid date', 'error'); return; }
+    try {
+        const { error } = await supabaseClient.from('action_items').insert({
+            title: s.title, description: s.description, action_type: s.type,
+            location: 'From home', action_at: at.toISOString(), status: 'scheduled', created_by: currentUser.id
+        });
+        if (error) throw error;
+        await supabaseClient.from('action_suggestions').update({ status: 'promoted' }).eq('id', sugId);
+        showToast('Promoted to the weekly action slot.', 'success');
+        await loadWeeklyActions();
+    } catch (e) { showToast('Promotion failed: ' + e.message, 'error'); }
+}
+async function markActionCompleted(actionId) {
+    if (!isMod() || !supabaseClient) return;
+    try {
+        const { error } = await supabaseClient.from('action_items').update({ status: 'completed' }).eq('id', actionId);
+        if (error) throw error;
+        showToast('Marked completed.', 'success');
+        await loadWeeklyActions();
+    } catch (e) { showToast('Update failed: ' + e.message, 'error'); }
+}
+
+// ---- Suggestion modal
+function openSuggestionModal() {
+    if (!currentUser) { openAuthModal(); showToast('Log in to pitch an action.', 'info'); return; }
+    if (!userCanPostCheck()) { showToast('Your posting access is limited. Contact the team if you think this is a mistake.', 'error'); return; }
+    const html = `
+    <div id="suggestion-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Pitch an action">
+      <div class="modal p-8 max-w-lg w-full">
+        <h3 class="text-2xl font-heading font-bold text-slate-900 mb-2">Pitch an action</h3>
+        <p class="text-sm text-slate-600 mb-6">One clear demand, one target, one week. Keep it lawful, accessible, and coordinated.</p>
+        <form onsubmit="submitSuggestion(event)" class="space-y-4">
+          <div><label for="sug-title" class="block text-sm font-heading font-semibold text-slate-700 mb-1.5">Title</label>
+          <input id="sug-title" required maxlength="120" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base min-h-[48px]" placeholder="e.g. Email the Health Minister: publish the AISH review timeline"></div>
+          <div><label for="sug-type" class="block text-sm font-heading font-semibold text-slate-700 mb-1.5">Type</label>
+          <select id="sug-type" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base min-h-[48px] bg-white">
+            <option value="email">Email wave</option><option value="call">Call day</option><option value="letter">Letter / story drop</option><option value="social">Social push</option><option value="inperson">In-person presence</option>
+          </select></div>
+          <div><label for="sug-desc" class="block text-sm font-heading font-semibold text-slate-700 mb-1.5">The plan</label>
+          <textarea id="sug-desc" rows="4" maxlength="1200" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base" placeholder="Who's the target, what's the demand, what does a member do in ten minutes?"></textarea></div>
+          <p id="sug-error" class="hidden text-sm text-red-600"></p>
+          <div class="flex gap-3 justify-end pt-2">
+            <button type="button" onclick="closeSuggestionModal()" class="px-5 py-2.5 rounded-full bg-gray-100 text-slate-700 font-heading font-semibold min-h-[44px]">Cancel</button>
+            <button type="submit" class="px-6 py-2.5 rounded-full bg-primary text-white font-heading font-bold min-h-[44px]">Submit pitch</button>
+          </div>
+        </form>
+      </div>
+    </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    document.getElementById('sug-title').focus();
+}
+function closeSuggestionModal() { document.getElementById('suggestion-modal')?.remove(); }
+async function submitSuggestion(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('sug-error');
+    try {
+        const { error } = await supabaseClient.from('action_suggestions').insert({
+            user_id: currentUser.id,
+            title: document.getElementById('sug-title').value.trim(),
+            action_type: document.getElementById('sug-type').value,
+            description: document.getElementById('sug-desc').value.trim()
+        });
+        if (error) throw error;
+        closeSuggestionModal();
+        showToast('Pitch submitted — rally votes.', 'success');
+        await loadWeeklyActions();
+    } catch (err) {
+        errEl.textContent = err.message; errEl.classList.remove('hidden');
+    }
+}
+
+// ---- Result modal (mods)
+function openActionResultModal(actionId) {
+    const html = `
+    <div id="result-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Post action result">
+      <div class="modal p-8 max-w-lg w-full">
+        <h3 class="text-2xl font-heading font-bold text-slate-900 mb-2">Post a result</h3>
+        <p class="text-sm text-slate-600 mb-6">What came back — replies, media pickup, turnout, commitments. Factual, no doxxing, no private case details.</p>
+        <form onsubmit="submitActionResult(event,'${actionId}')" class="space-y-4">
+          <textarea id="result-body" rows="5" required maxlength="2000" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base" placeholder="e.g. 214 emails confirmed by 6 constituency offices; CBC followed up; the minister's office acknowledged receipt."></textarea>
+          <p id="result-error" class="hidden text-sm text-red-600"></p>
+          <div class="flex gap-3 justify-end pt-2">
+            <button type="button" onclick="closeResultModal()" class="px-5 py-2.5 rounded-full bg-gray-100 text-slate-700 font-heading font-semibold min-h-[44px]">Cancel</button>
+            <button type="submit" class="px-6 py-2.5 rounded-full bg-primary text-white font-heading font-bold min-h-[44px]">Post result</button>
+          </div>
+        </form>
+      </div>
+    </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    document.getElementById('result-body').focus();
+}
+function closeResultModal() { document.getElementById('result-modal')?.remove(); }
+async function submitActionResult(e, actionId) {
+    e.preventDefault();
+    const errEl = document.getElementById('result-error');
+    try {
+        const { error } = await supabaseClient.from('action_results').insert({
+            action_id: actionId,
+            body: document.getElementById('result-body').value.trim(),
+            created_by: currentUser.id
+        });
+        if (error) throw error;
+        closeResultModal();
+        showToast('Result posted to the record.', 'success');
+        await loadWeeklyActions();
+    } catch (err) {
+        errEl.textContent = err.message; errEl.classList.remove('hidden');
+    }
+}
+
+// ---- Mod inline action creator
+function openActionCreatorModal() {
+    if (!isMod()) return;
+    const html = `
+    <div id="action-creator-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Create weekly action">
+      <div class="modal p-8 max-w-lg w-full">
+        <h3 class="text-2xl font-heading font-bold text-slate-900 mb-2">Create the weekly action</h3>
+        <form onsubmit="submitNewAction(event)" class="space-y-4">
+          <div><label class="block text-sm font-heading font-semibold text-slate-700 mb-1.5" for="ac-title">Title</label>
+          <input id="ac-title" required maxlength="140" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base min-h-[48px]" placeholder="e.g. Call Day: every MLA's office, one question"></div>
+          <div class="grid grid-cols-2 gap-3">
+            <div><label class="block text-sm font-heading font-semibold text-slate-700 mb-1.5" for="ac-type">Type</label>
+            <select id="ac-type" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base min-h-[48px] bg-white">
+              <option value="email">Email wave</option><option value="call">Call day</option><option value="letter">Letter drop</option><option value="social">Social push</option><option value="inperson">In-person</option>
+            </select></div>
+            <div><label class="block text-sm font-heading font-semibold text-slate-700 mb-1.5" for="ac-loc">Location</label>
+            <input id="ac-loc" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base min-h-[48px]" placeholder="From home / City, venue"></div>
+          </div>
+          <div><label class="block text-sm font-heading font-semibold text-slate-700 mb-1.5" for="ac-at">When</label>
+          <input id="ac-at" type="datetime-local" required class="w-full px-4 py-3 border border-surface-border rounded-xl text-base min-h-[48px]"></div>
+          <div><label class="block text-sm font-heading font-semibold text-slate-700 mb-1.5" for="ac-desc">Briefing</label>
+          <textarea id="ac-desc" rows="5" maxlength="2500" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base" placeholder="The demand, the target, exactly what a member does, talking points, and where to report back."></textarea></div>
+          <p id="ac-error" class="hidden text-sm text-red-600"></p>
+          <div class="flex gap-3 justify-end pt-2">
+            <button type="button" onclick="closeActionCreatorModal()" class="px-5 py-2.5 rounded-full bg-gray-100 text-slate-700 font-heading font-semibold min-h-[44px]">Cancel</button>
+            <button type="submit" class="px-6 py-2.5 rounded-full bg-primary text-white font-heading font-bold min-h-[44px]">Publish action</button>
+          </div>
+        </form>
+      </div>
+    </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    const at = document.getElementById('ac-at');
+    const soon = new Date(Date.now() + 6 * 86400000);
+    soon.setMinutes(0, 0, 0);
+    at.value = new Date(soon.getTime() - soon.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    document.getElementById('ac-title').focus();
+}
+function closeActionCreatorModal() { document.getElementById('action-creator-modal')?.remove(); }
+async function submitNewAction(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('ac-error');
+    try {
+        const local = document.getElementById('ac-at').value;
+        const { error } = await supabaseClient.from('action_items').insert({
+            title: document.getElementById('ac-title').value.trim(),
+            description: document.getElementById('ac-desc').value.trim(),
+            action_type: document.getElementById('ac-type').value,
+            location: document.getElementById('ac-loc').value.trim() || 'From home',
+            action_at: new Date(local).toISOString(),
+            status: 'scheduled',
+            created_by: currentUser.id
+        });
+        if (error) throw error;
+        closeActionCreatorModal();
+        showToast('Weekly action published.', 'success');
+        await loadWeeklyActions();
+    } catch (err) {
+        errEl.textContent = err.message; errEl.classList.remove('hidden');
+    }
+}
+
+// ============================================================
+// USER MANAGEMENT — member directory, roles, suspension
+// ============================================================
+let memberDirectory = [];
+
+async function openMemberPanel() {
+    if (!isMod()) return;
+    toggleProfileDropdown();
+    const html = `
+    <div id="member-panel-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Member management">
+      <div class="modal p-6 sm:p-8 max-w-3xl w-full">
+        <div class="flex items-center justify-between gap-4 mb-5">
+          <div>
+            <h3 class="text-2xl font-heading font-bold text-slate-900">Member management</h3>
+            <p class="text-sm text-slate-600 mt-1">Roles, suspensions, and bans. Every action is logged to the moderation record.</p>
+          </div>
+          <button type="button" onclick="closeMemberPanel()" class="p-2 rounded-full hover:bg-gray-100 text-slate-500 min-h-[44px] min-w-[44px]" aria-label="Close member panel">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <input id="member-search" type="search" oninput="renderMemberDirectory()" placeholder="Search by username…" class="w-full px-4 py-3 border border-surface-border rounded-xl text-base min-h-[48px] mb-4">
+        <div id="member-directory" class="space-y-2.5 max-h-[55vh] overflow-y-auto pr-1"></div>
+      </div>
+    </div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    try {
+        const { data, error } = await supabaseClient.rpc('list_members');
+        if (error) throw error;
+        memberDirectory = (data || []).map(m => ({
+            id: m.id, username: m.username, avatar: m.avatar || '', role: m.role || 'member',
+            status: m.status || 'active', suspendedUntil: m.suspended_until, suspensionReason: m.suspension_reason,
+            posts: m.posts_count || 0, joined: m.created_at
+        }));
+    } catch (e) {
+        showToast('Could not load members: ' + e.message, 'error');
+    }
+    renderMemberDirectory();
+}
+function closeMemberPanel() { document.getElementById('member-panel-modal')?.remove(); }
+function renderMemberDirectory() {
+    const wrap = document.getElementById('member-directory');
+    if (!wrap) return;
+    const q = (document.getElementById('member-search')?.value || '').toLowerCase();
+    const rows = memberDirectory.filter(m => !q || m.username.toLowerCase().includes(q));
+    if (!rows.length) { wrap.innerHTML = '<p class="text-sm text-slate-500 p-4 text-center">No members match.</p>'; return; }
+    wrap.innerHTML = rows.map(m => {
+        const effStatus = m.status === 'suspended' && m.suspendedUntil && new Date(m.suspendedUntil) <= new Date() ? 'active' : m.status;
+        const badge = effStatus === 'banned' ? '<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-heading font-bold uppercase">Banned</span>' :
+            effStatus === 'suspended' ? `<span class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 text-[10px] font-heading font-bold uppercase">Suspended · ${new Date(m.suspendedUntil).toLocaleDateString('en-CA')}</span>` :
+            '<span class="px-2 py-0.5 rounded-full bg-warm/20 text-warm-700 text-[10px] font-heading font-bold uppercase">Active</span>';
+        const roleChip = m.role === 'admin' ? '<span class="px-2 py-0.5 rounded-full bg-primary text-white text-[10px] font-heading font-bold uppercase">Admin</span>' :
+            m.role === 'mod' ? '<span class="px-2 py-0.5 rounded-full bg-primary/15 text-primary text-[10px] font-heading font-bold uppercase">Mod</span>' : '';
+        const amAdmin = isAdmin();
+        const self = m.id === currentUser?.id;
+        const controls = self ? '<span class="text-xs text-slate-400 italic">you</span>' : `
+            ${effStatus === 'active' ? `
+              <button type="button" onclick="modSuspendUser('${m.id}')" class="px-3 py-1.5 rounded-lg bg-yellow-100 text-yellow-800 text-xs font-heading font-semibold min-h-[36px]">Suspend</button>
+              ${amAdmin ? `<button type="button" onclick="modBanUser('${m.id}')" class="px-3 py-1.5 rounded-lg bg-red-100 text-red-700 text-xs font-heading font-semibold min-h-[36px]">Ban</button>` : ''}` : `
+              <button type="button" onclick="modReinstateUser('${m.id}')" class="px-3 py-1.5 rounded-lg bg-warm/20 text-warm-700 text-xs font-heading font-semibold min-h-[36px]">Reinstate</button>`}
+            ${amAdmin ? `<button type="button" onclick="modRemoveUser('${m.id}')" class="px-3 py-1.5 rounded-lg bg-gray-200 text-slate-600 text-xs font-heading font-semibold min-h-[36px]">Remove</button>` : ''}
+            ${amAdmin ? `
+              <button type="button" onclick="modToggleRole('${m.id}','${m.role}')" class="px-3 py-1.5 rounded-lg bg-primary/10 text-primary text-xs font-heading font-semibold min-h-[36px]">${m.role === 'member' ? 'Make mod' : m.role === 'mod' ? 'Make member' : 'Demote'}</button>` : ''}`;
+        return `
+        <div class="flex flex-wrap items-center gap-3 rounded-2xl border border-surface-border p-3.5 bg-white">
+          ${m.avatar ? `<img src="${escapeAttr(m.avatar)}" alt="" class="w-10 h-10 rounded-full object-cover">` : `<span class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold">${escapeHTML(m.username.charAt(0).toUpperCase())}</span>`}
+          <div class="min-w-0 flex-1">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button type="button" onclick="viewMemberProfile('${m.id}')" class="font-heading font-bold text-slate-900 hover:text-primary truncate">${escapeHTML(m.username)}</button>
+              ${roleChip}${badge}
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">${m.posts} posts · joined ${new Date(m.joined).toLocaleDateString('en-CA')}${m.suspensionReason && effStatus !== 'active' ? ` · ${escapeHTML(m.suspensionReason)}` : ''}</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">${controls}</div>
+        </div>`;
+    }).join('');
+}
+async function modSuspendUser(id) {
+    const days = prompt('Suspend for how many days?', '7');
+    if (!days) return;
+    const reason = prompt('Reason (logged):', 'Posting against community rules') || '';
+    try {
+        const { error } = await supabaseClient.rpc('set_user_status', { target: id, new_status: 'suspended', until_ts: new Date(Date.now() + days * 86400000).toISOString(), reason });
+        if (error) throw error;
+        showToast(`Suspended ${days} days.`, 'success');
+        await refreshMemberPanel();
+    } catch (e) { showToast('Failed: ' + e.message, 'error'); }
+}
+async function modBanUser(id) {
+    const reason = prompt('Ban reason (logged):', 'Severe or repeated violations') || '';
+    if (reason === null) return;
+    if (!confirm('Ban this member? Only an admin can reverse this.')) return;
+    try {
+        const { error } = await supabaseClient.rpc('set_user_status', { target: id, new_status: 'banned', until_ts: null, reason });
+        if (error) throw error;
+        showToast('Member banned.', 'success');
+        await refreshMemberPanel();
+    } catch (e) { showToast('Failed: ' + e.message, 'error'); }
+}
+async function modReinstateUser(id) {
+    try {
+        const { error } = await supabaseClient.rpc('set_user_status', { target: id, new_status: 'active', until_ts: null, reason: null });
+        if (error) throw error;
+        showToast('Member reinstated.', 'success');
+        await refreshMemberPanel();
+    } catch (e) { showToast('Failed: ' + e.message, 'error'); }
+}
+async function modToggleRole(id, currentRole) {
+    const next = currentRole === 'member' ? 'mod' : currentRole === 'mod' ? 'member' : 'mod';
+    if (!confirm(`Change this member's role to "${next}"?`)) return;
+    try {
+        const { error } = await supabaseClient.rpc('set_user_role', { target: id, new_role: next });
+        if (error) throw error;
+        showToast('Role updated.', 'success');
+        await refreshMemberPanel();
+    } catch (e) { showToast('Failed: ' + e.message, 'error'); }
+}
+async function modRemoveUser(id) {
+    const reason = prompt('Remove this member from the platform? This anonymizes their profile and bans the account. Reason (logged):', 'Removed by admin');
+    if (reason === null) return;
+    if (!confirm('Confirm removal. Their posts stay visible under an anonymized name.')) return;
+    try {
+        const { error } = await supabaseClient.rpc('remove_member', { target: id, reason });
+        if (error) throw error;
+        showToast('Member removed and anonymized.', 'success');
+        await refreshMemberPanel();
+    } catch (e) { showToast('Failed: ' + e.message, 'error'); }
+}
+async function refreshMemberPanel() {
+    try {
+        const { data, error } = await supabaseClient.rpc('list_members');
+        if (error) throw error;
+        memberDirectory = (data || []).map(m => ({
+            id: m.id, username: m.username, avatar: m.avatar || '', role: m.role || 'member',
+            status: m.status || 'active', suspendedUntil: m.suspended_until, suspensionReason: m.suspension_reason,
+            posts: m.posts_count || 0, joined: m.created_at
+        }));
+        renderMemberDirectory();
+    } catch (e) { /* panel already showed an error once */ }
+}
+function viewMemberProfile(userId) {
+    const cached = window.__memberCache?.[userId];
+    closeMemberPanel();
+    closeSuggestionModal();
+    if (!cached?.username) { showToast('Profile unavailable right now — try again in a moment.', 'info'); return; }
+    if (!getCurrentUser()) { openAuthModal(); showToast('Log in to view member profiles.', 'info'); return; }
+    memberProfileName = cached.username;
+    navigateTo('member');
+    ensureMemberProfiles([cached.username]).then(() => { if (memberProfileName === cached.username) renderMemberProfile(); });
+}
+
+// Suspend/ban banner for the current user
+function renderStatusBanner() {
+    const banner = document.getElementById('member-status-banner');
+    if (!banner) return;
+    const u = currentUser;
+    if (!u || !u.status || u.status === 'active') { banner.classList.add('hidden'); return; }
+    let msg = '';
+    if (u.status === 'banned') msg = 'Your account is banned. You can read the site, but posting and signup are disabled. Contact the team by email if you believe this is an error.';
+    else if (u.status === 'suspended') {
+        const until = u.suspendedUntil ? new Date(u.suspendedUntil) : null;
+        msg = `Your account is suspended${until ? ' until ' + until.toLocaleDateString('en-CA') : ''}${u.suspensionReason ? ' — ' + u.suspensionReason : ''}. Posting is paused; everything else works.`;
+    }
+    if (!msg) { banner.classList.add('hidden'); return; }
+    banner.innerHTML = `<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 text-sm font-medium flex items-center gap-2"><span aria-hidden="true">⚠</span><span>${escapeHTML(msg)}</span></div>`;
+    banner.classList.remove('hidden');
+}
+
+
 appData = initData();
 applyTheme(localStorage.getItem('alberta_unbound_theme') || localStorage.getItem('wildrose_theme') || 'light');
 initRevealObserver();
