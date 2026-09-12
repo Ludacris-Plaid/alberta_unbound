@@ -127,7 +127,14 @@
         #mobile-menu:not(.hidden) .mm-item:nth-of-type(5) { transition-delay: 300ms; }
         #mobile-menu:not(.hidden) .mm-item:nth-of-type(6) { transition-delay: 360ms; }
         #mobile-menu:not(.hidden) .mm-item:nth-of-type(7) { transition-delay: 420ms; }
-        #mobile-menu:not(.hidden) .mm-item:nth-of-type(8) { transition-delay: 480ms; }
+        .mm-item[hidden], #mm-account[hidden], .nav-more-item[hidden] { display: none; }
+        #mobile-menu:not(.hidden) .mm-item:nth-of-type(9) { transition-delay: 540ms; }
+        #mobile-menu:not(.hidden) .mm-item:nth-of-type(10) { transition-delay: 600ms; }
+        #mobile-menu:not(.hidden) .mm-item:nth-of-type(11) { transition-delay: 660ms; }
+        #mobile-menu:not(.hidden) .mm-item:nth-of-type(12) { transition-delay: 720ms; }
+        #mobile-menu:not(.hidden) .mm-item:nth-of-type(13) { transition-delay: 780ms; }
+        #mobile-menu:not(.hidden) .mm-item:nth-of-type(14) { transition-delay: 840ms; }
+        #mobile-menu:not(.hidden) .mm-item:nth-of-type(15) { transition-delay: 900ms; }
         #mobile-menu:not(.hidden) .mm-item:nth-of-type(9) { transition-delay: 540ms; }
         #mobile-menu:not(.hidden) .mm-item:nth-of-type(10) { transition-delay: 600ms; }
         /* Hamburger sizing applies ONLY below md so it can never override the md:hidden hide rule */
@@ -468,7 +475,7 @@
         nav[role="navigation"] .nav-link:hover, nav[role="navigation"] .nav-link.bg-primary\\/5, nav[role="navigation"] #more-nav-menu .nav-more-item:hover { color: #FFFFFF !important; background: rgba(255,255,255,.13) !important; }
         #more-nav-menu, html[data-theme=light] #more-nav-menu { background: #0B2E4F !important; border-color: rgba(220,237,248,.20) !important; }
 
-        /* Active-page marker: one consistent treatment across desktop pills, Explore items, and the mobile menu. */
+        /* Active-page marker: one consistent treatment across desktop pills, Tools items, and the mobile menu. */
         nav[role="navigation"] .nav-link.nav-now,
         #more-nav-menu .nav-more-item.nav-now { color: #FFFFFF !important; background: rgba(255,255,255,.16) !important; box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); }
 
@@ -575,7 +582,7 @@
 
         /* ---- Profile dropdown: machined menu, same quality bar as the mobile overlay.
            Always rendered (absolute, no layout shift); visibility + opacity animate it.
-           Deep navy panel in BOTH themes, matching the Explore dropdown. ---- */
+           Deep navy panel in BOTH themes, matching the Tools dropdown. ---- */
         #profile-dropdown {
             position: absolute; top: calc(100% + .65rem); right: 0;
             width: min(17rem, calc(100vw - 2.5rem));
@@ -1059,7 +1066,7 @@
                 <button onclick="navigateTo('blog')" class="nav-link px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-primary hover:bg-primary/5 transition-colors" data-page="blog">Blog</button>
                 <button onclick="navigateTo('forum')" class="nav-link px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-primary hover:bg-primary/5 transition-colors" data-page="forum">Forum</button>
                 <div id="more-nav-wrapper">
-                    <button id="more-nav-button" type="button" onclick="toggleMoreNav()" aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-primary hover:bg-primary/5 transition-colors" data-page="more">Explore <svg class="w-3.5 h-3.5 transition-transform duration-500" id="more-nav-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6 9 6 6 6-6"/></svg></button>
+                    <button id="more-nav-button" type="button" onclick="toggleMoreNav()" aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg text-slate-600 hover:text-primary hover:bg-primary/5 transition-colors" data-page="more">Tools <svg class="w-3.5 h-3.5 transition-transform duration-500" id="more-nav-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m6 9 6 6 6-6"/></svg></button>
                 </div>
             </div>
 
@@ -1083,12 +1090,12 @@
         <div id="scroll-progress-track" aria-hidden="true"><div id="scroll-progress-bar"></div></div>
     </div>
 
-    <!-- Explore dropdown — full-width bar -->
-    <div id="more-nav-menu" class="hidden" role="menu" aria-label="Explore pages">
+    <!-- Tools dropdown — full-width bar -->
+    <div id="more-nav-menu" class="hidden" role="menu" aria-label="Tools pages">
         <div class="max-w-7xl mx-auto px-6 flex items-center justify-center gap-1">
             <button onclick="navigateFromMore('vault')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-accent-700 hover:bg-accent/10 transition-colors" role="menuitem">The Vault</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
-            <button onclick="navigateFromMore('desk')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Case Power Desk</button>
+            <button onclick="navigateFromMore('desk')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Case Diary</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
             <button onclick="navigateFromMore('action')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Get Organized</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
@@ -1117,19 +1124,29 @@
                     </div>
                     <span class="mm-user-badge">AU</span>
                 </div>
+                <div id="mm-account" hidden>
+                    <p class="mm-group-label">Your account</p>
+                    <button onclick="navigateTo('profile');closeMobileMenu()" class="mm-item" role="menuitem">My workspace</button>
+                    <button onclick="navigateTo('momentum');closeMobileMenu()" class="mm-item" role="menuitem">Our Momentum</button>
+                    <button onclick="openProfileEditModal();closeMobileMenu()" class="mm-item" role="menuitem">Edit profile</button>
+                    <button id="mm-write-post" onclick="openBlogComposer();closeMobileMenu()" class="mm-item" role="menuitem" hidden>Write a post</button>
+                    <button id="mm-mod-queue" onclick="navigateTo('forum');openModerationQueue();closeMobileMenu()" class="mm-item" role="menuitem" hidden>Moderation queue</button>
+                    <button id="mm-member-mgmt" onclick="openMemberPanel();closeMobileMenu()" class="mm-item" role="menuitem" hidden>Member management</button>
+                    <button id="mm-new-action" onclick="navigateTo('campaigns');openActionCreatorModal();closeMobileMenu()" class="mm-item" role="menuitem" hidden>New weekly action</button>
+                    <button id="mm-stats" onclick="navigateTo('stats');closeMobileMenu()" class="mm-item" role="menuitem" hidden>Command Stats</button>
+                    <button id="mobile-menu-logout" onclick="logout();closeMobileMenu()" class="mm-item mm-logout" role="menuitem" hidden>Log out</button>
+                </div>
+
                 <p class="mm-group-label">Navigate</p>
                 <button onclick="navigateTo('blog');closeMobileMenu()" class="mm-item" role="menuitem">Blog</button>
                 <button onclick="navigateTo('forum');closeMobileMenu()" class="mm-item" role="menuitem">Forum</button>
-                <p class="mm-group-label">Explore</p>
+                <p class="mm-group-label">Tools</p>
                 <button onclick="navigateTo('vault');closeMobileMenu()" class="mm-item mm-gold" role="menuitem">The Vault</button>
-                <button onclick="navigateTo('desk');closeMobileMenu()" class="mm-item" role="menuitem">Case Power Desk</button>
+                <button onclick="navigateTo('desk');closeMobileMenu()" class="mm-item" role="menuitem">Case Diary</button>
                 <button onclick="navigateTo('action');closeMobileMenu()" class="mm-item" role="menuitem">Get Organized</button>
                 <button onclick="navigateTo('campaigns');closeMobileMenu()" class="mm-item" role="menuitem">Take Action</button>
                 <button onclick="navigateTo('manifesto');closeMobileMenu()" class="mm-item" role="menuitem">Manifesto</button>
                 <button onclick="navigateTo('resources');closeMobileMenu()" class="mm-item" role="menuitem">Resources</button>
-                <button onclick="navigateTo('momentum');closeMobileMenu()" class="mm-item" role="menuitem">Our Momentum</button>
-                <button onclick="navigateTo('stats');closeMobileMenu()" id="mm-stats" class="mm-item hidden" role="menuitem">Command Stats</button>
-                <button id="mobile-menu-logout" onclick="logout();closeMobileMenu()" class="mm-item mm-logout" role="menuitem" hidden>Log out</button>
             </div>
         </div>
     </div>
@@ -1361,7 +1378,7 @@
                             <p><button onclick="navigateTo('home')" class="hover:text-white transition-colors cursor-pointer">Home</button></p>
                             <p><button onclick="navigateTo('blog')" class="hover:text-white transition-colors cursor-pointer">Blog</button></p>
                             <p><button onclick="navigateTo('forum')" class="hover:text-white transition-colors cursor-pointer">Forum</button></p>
-                            <p><button onclick="navigateTo('desk')" class="hover:text-white transition-colors cursor-pointer">Case Power Desk</button></p>
+                            <p><button onclick="navigateTo('desk')" class="hover:text-white transition-colors cursor-pointer">Case Diary</button></p>
                             <p><button onclick="navigateTo('action')" class="hover:text-white transition-colors cursor-pointer">Get Organized</button></p>
                             <p><button onclick="navigateTo('campaigns')" class="hover:text-white transition-colors cursor-pointer">Take Action</button></p>
                             <p><button onclick="navigateTo('vault')" class="hover:text-white transition-colors cursor-pointer">The Vault</button></p>
@@ -1501,7 +1518,7 @@
                     <article class="bg-white rounded-2xl p-6 border border-surface-border">
                         <span class="text-3xl font-heading font-bold text-red-500">03</span>
                         <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Build the habit of records</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Use the Case Power Desk to log every call, name, and deadline — both to win your own case and to spot the patterns that become campaigns.</p>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Use the Case Diary to log every call, name, and deadline — both to win your own case and to spot the patterns that become campaigns.</p>
                         <button type="button" onclick="navigateTo('desk')" class="text-primary font-heading font-bold text-sm hover:text-primary-700">Open your case file →</button>
                     </article>
                     <article class="bg-white rounded-2xl p-6 border border-surface-border">
@@ -1523,7 +1540,7 @@
         <div class="bg-primary-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
                 <div class="max-w-4xl">
-                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Case Power Desk</p>
+                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Case Diary</p>
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Every date. Every name.</span><br>Every promise, on record.</h1>
                     <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">One private case file for everything: a dated timeline of every contact, an evidence index, the people you deal with, and the deadlines that decide your appeals. When the system loses your paperwork, yours is the record that holds.</p>
                     <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65">
@@ -1552,7 +1569,7 @@
 
             <div id="desk-member-tools" class="hidden">
                 <!-- Tab bar -->
-                <div id="ccc-tabbar" role="tablist" aria-label="Case Power Desk sections" class="flex flex-wrap items-center gap-1.5 mb-8 p-1.5 rounded-[1.4rem]" style="background: var(--panel);">
+                <div id="ccc-tabbar" role="tablist" aria-label="Case Diary sections" class="flex flex-wrap items-center gap-1.5 mb-8 p-1.5 rounded-[1.4rem]" style="background: var(--panel);">
                     <button type="button" role="tab" id="ccc-tab-overview" aria-selected="true" aria-controls="ccc-panel-overview" class="ccc-tab" onclick="cccSwitchTab('overview')">Overview</button>
                     <button type="button" role="tab" id="ccc-tab-timeline" aria-selected="false" aria-controls="ccc-panel-timeline" class="ccc-tab" onclick="cccSwitchTab('timeline')">Timeline</button>
                     <button type="button" role="tab" id="ccc-tab-evidence" aria-selected="false" aria-controls="ccc-panel-evidence" class="ccc-tab" onclick="cccSwitchTab('evidence')">Evidence</button>
@@ -2057,6 +2074,17 @@
 
         <!-- Register form -->
         <form id="register-form" onsubmit="handleRegister(event)" class="space-y-4 hidden">
+            <div class="flex flex-col items-center gap-3">
+                <button type="button" id="register-avatar-preview" onclick="document.getElementById('register-avatar-upload').click()" class="avatar-preview avatar-default w-24 h-24 rounded-full flex items-center justify-center text-white font-bold text-3xl cursor-pointer" aria-label="Add a profile photo"><span id="register-avatar-initial">?</span></button>
+                <div class="flex items-center gap-4">
+                    <label class="text-sm text-primary font-medium cursor-pointer hover:text-primary-700 transition-colors">
+                        Add a profile photo <span class="text-slate-400">(optional)</span>
+                        <input type="file" id="register-avatar-upload" accept="image/*" onchange="previewRegisterAvatar(event)" class="hidden">
+                    </label>
+                    <button type="button" id="register-avatar-remove" onclick="clearRegisterAvatar()" class="hidden text-xs font-heading font-semibold text-slate-400 hover:text-red-500 transition-colors cursor-pointer">Remove</button>
+                </div>
+                <p class="text-xs text-slate-400 text-center">Square images work best. We resize it to 256×256 for you.</p>
+            </div>
             <div>
                 <label for="register-username" class="block text-sm font-heading font-semibold text-slate-700 mb-1.5">Username <span class="text-slate-400">(visible to others)</span></label>
                 <input id="register-username" type="text" required minlength="3" class="w-full px-4 py-3 border border-surface-border rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 text-base min-h-[48px]" placeholder="Choose a username" autocomplete="username">
@@ -2105,6 +2133,19 @@
                 <label for="thread-content" class="block text-sm font-heading font-semibold text-slate-700 mb-1.5">Your Message</label>
                 <textarea id="thread-content" required rows="5" class="w-full px-4 py-3 border border-surface-border rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 text-base" placeholder="Share the details of your situation, question, or advice..."></textarea>
             </div>
+            <div>
+                <span class="block text-sm font-heading font-semibold text-slate-700 mb-1.5">Photo or video <span class="text-slate-400">(optional)</span></span>
+                <div class="flex flex-wrap items-center gap-3">
+                    <label class="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-100 text-slate-700 font-heading font-semibold rounded-xl hover:bg-gray-200 transition-colors cursor-pointer text-sm min-h-[44px]">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="m2.25 15.75 5.16-5.16a2.25 2.25 0 0 1 3.18 0l5.16 5.16m-1.5-1.5 1.41-1.41a2.25 2.25 0 0 1 3.18 0l2.16 2.16M3.75 19.5h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.01"/></svg>
+                        Add media
+                        <input type="file" id="thread-media-input" accept="image/*,video/*" onchange="pickPostMedia(event,'thread',null)" class="hidden">
+                    </label>
+                    <button type="button" id="thread-media-clear" onclick="clearPostMedia('thread',null)" class="hidden text-xs font-heading font-semibold text-slate-400 hover:text-red-500 transition-colors cursor-pointer">Remove attachment</button>
+                </div>
+                <div id="thread-media-preview" class="hidden mt-3"></div>
+                <p class="text-xs text-slate-400 mt-1.5">Images up to 8 MB (resized before upload), video up to 25 MB.</p>
+            </div>
             <div class="flex gap-3 pt-2">
                 <button type="submit" class="flex-1 py-3.5 bg-primary text-white font-heading font-bold rounded-xl hover:bg-primary-700 transition-colors cursor-pointer text-base min-h-[48px]">Post Discussion</button>
                 <button type="button" onclick="closeNewThreadModal()" class="flex-1 py-3.5 bg-gray-100 text-slate-600 font-heading font-semibold rounded-xl hover:bg-gray-200 transition-colors cursor-pointer text-base min-h-[48px]">Cancel</button>
@@ -2117,9 +2158,8 @@
 <div id="profile-edit-modal" class="hidden modal-overlay" role="dialog" aria-modal="true" aria-label="Edit profile">
     <div class="modal p-8">
         <h2 class="text-xl font-heading font-bold text-slate-900 mb-6">Edit Profile</h2>
-        <form id="profile-edit-form" onsubmit="saveProfile(event)" class="space-y-4">
-            <div class="flex flex-col items-center gap-3 mb-4">
-                <div id="edit-avatar-preview" class="avatar-preview avatar-default flex items-center justify-center text-white font-bold text-2xl"></div>
+        <form id="profile-edit-form" onsubmit="saveProfile(event)" class="space-y-4">                <div class="flex flex-col items-center gap-3 mb-4">
+                <div id="edit-avatar-preview" class="avatar-preview avatar-default w-24 h-24 rounded-full flex items-center justify-center text-white font-bold text-3xl"></div>
                 <div class="flex items-center gap-4">
                     <label class="text-sm text-primary font-medium cursor-pointer hover:text-primary-700 transition-colors">
                         Upload photo
@@ -2350,7 +2390,7 @@ function navigateTo(page) {
     currentThreadId = null;
     currentPostIndex = null;
 
-    // Keep only the current destination visibly active; secondary pages activate Explore.
+    // Keep only the current destination visibly active; secondary pages activate Tools.
     const explorePages = ['vault', 'desk', 'action', 'campaigns', 'manifesto', 'resources', 'momentum', 'stats'];
     const headerActive = page !== 'member' && page !== 'profile';
     document.querySelectorAll('.nav-link, .nav-more-item, #mobile-menu [role="menuitem"]').forEach(l => {
@@ -2787,6 +2827,7 @@ async function initSupabaseAuth() {
 function openAuthModal() {
     if (isLoggedIn()) return;
     showAuthView('login');
+    clearRegisterAvatar();
 }
 
 // Show one of the auth modal's views: login | register | reset-request | new-password
@@ -2938,7 +2979,10 @@ function syncStatsNav(loggedIn) {
     const staff = loggedIn && isMod();
     ['nav-more-stats', 'mm-stats'].forEach((id) => {
         const el = document.getElementById(id);
-        if (el) el.classList.toggle('hidden', !staff);
+        if (!el) return;
+        // Set both: the desktop item hides via the Tailwind class, the mobile one via the attribute.
+        el.hidden = !staff;
+        el.classList.toggle('hidden', !staff);
     });
 }
 
@@ -2975,21 +3019,41 @@ function handleRegister(e) {
             const session = data.session;
             if (session) {
                 supabaseSession = session;
-                const profile = { username, email, bio, avatar: '', is_member: false, id: session.user.id, joined: new Date().toISOString().split('T')[0], posts: 0 };
-                try { await supabaseClient.from('profiles').insert({ id: session.user.id, username, email, bio }); } catch (err) { /* trigger may have created it */ }
+                // Make sure the auth layer holds the token before the first storage write.
+                try { await supabaseClient.auth.setSession({ access_token: session.access_token, refresh_token: session.refresh_token }); } catch (err) { /* session is already active */ }
+                // Upsert, not insert: the signup trigger has usually created the row already,
+                // and a failed insert used to silently drop the bio.
+                const { error: profileError } = await supabaseClient.from('profiles').upsert({ id: session.user.id, username, email, bio }, { onConflict: 'id' });
+                let avatar = '';
+                let avatarNote = '';
+                if (pendingRegisterAvatar) {
+                    const uploaded = await uploadAvatarForUser(session.user.id, pendingRegisterAvatar);
+                    if (uploaded.error) avatarNote = ' Your photo could not be uploaded — add it any time from Edit profile.';
+                    else {
+                        avatar = uploaded.url || '';
+                        await supabaseClient.from('profiles').update({ avatar: avatar }).eq('id', session.user.id);
+                    }
+                    clearRegisterAvatar();
+                }
+                const profile = { username, email, bio, avatar: avatar, is_member: false, id: session.user.id, joined: new Date().toISOString().split('T')[0], posts: 0 };
                 currentUser = profile;
                 mirrorToAppData(profile);
                 supabaseReady = true;
-            }
-            closeAuthModal();
-            showToast(session ? 'Account created! Welcome, ' + username + '!' : 'Check your email to confirm your account.', session ? 'success' : 'error');
-            renderAuthUI();
-            renderHomeStats();
-            if (session) {
+                if (profileError) avatarNote = avatarNote || '';
+                closeAuthModal();
+                showToast(avatarNote ? ('Account created. Welcome,' + avatarNote) : ('Account created! Welcome, ' + username + '!'), avatarNote ? 'error' : 'success');
+                renderAuthUI();
+                renderHomeStats();
                 if (currentPage === 'desk') renderDesk();
                 if (currentPage === 'campaigns') { if (!actionsLoaded) loadWeeklyActions(); else renderTakeAction(); }
                 if (currentPage === 'profile') renderProfile();
+                return;
             }
+            clearRegisterAvatar();
+            closeAuthModal();
+            showToast('Check your email to confirm your account.', 'error');
+            renderAuthUI();
+            renderHomeStats();
         }).catch(() => demoRegister(username, email, bio, password));
         return;
     }
@@ -3012,6 +3076,7 @@ function demoRegister(username, email, bio, password) {
         posts: 0
     };
     saveData(appData);
+    clearRegisterAvatar();
     sessionStorage.setItem('absupport_user', JSON.stringify({ username: username }));
     closeAuthModal();
     showToast('Account created! Welcome, ' + username + '!', 'success');
@@ -3058,6 +3123,17 @@ function renderAuthUI() {
             }
         }
     }
+
+    // Mobile menu: mirror the desktop account menu so nothing is desktop-only.
+    const mmAccount = document.getElementById('mm-account');
+    if (mmAccount) mmAccount.hidden = !user;
+    const staff = !!user && isMod();
+    const admin = !!user && isAdminUser();
+    const setMenuHidden = (id, hide) => { const el = document.getElementById(id); if (el) el.hidden = hide; };
+    setMenuHidden('mm-write-post', !admin);
+    setMenuHidden('mm-mod-queue', !admin);
+    setMenuHidden('mm-member-mgmt', !staff);
+    setMenuHidden('mm-new-action', !staff);
 
     if (user) {
         const initial = user.username.charAt(0).toUpperCase();
@@ -4700,6 +4776,7 @@ function renderThreadDetail(thread) {
                         ${isAdminUser() ? `<button type="button" onclick="deleteReply(${thread.id}, ${r.id})" class="ml-auto text-xs font-heading font-semibold text-slate-400 hover:text-red-500 transition-colors cursor-pointer">Delete</button>` : ''}
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed whitespace-pre-wrap">${escapeHTML(r.content)}</p>
+                    ${postMediaHTML(r.mediaUrl, r.mediaType, { compact: true })}
                 </div>
             </div>`;
     }).join('');
@@ -4724,6 +4801,7 @@ function renderThreadDetail(thread) {
                     ` : ''}
                 </div>
                 <div class="text-slate-700 leading-relaxed whitespace-pre-wrap">${escapeHTML(thread.content)}</div>
+                ${postMediaHTML(thread.mediaUrl, thread.mediaType)}
             </div>
 
             <!-- Replies -->
@@ -4737,6 +4815,15 @@ function renderThreadDetail(thread) {
                     <form onsubmit="postReply(event, ${thread.id})" class="space-y-3">
                         <label for="reply-content-${thread.id}" class="block text-sm font-heading font-semibold text-slate-700">Write a Reply</label>
                         <textarea id="reply-content-${thread.id}" required rows="3" class="w-full px-4 py-3 border border-surface-border rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 text-base" placeholder="Share your experience or advice..."></textarea>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <label class="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-surface-border text-slate-700 font-heading font-semibold rounded-xl hover:bg-gray-100 transition-colors cursor-pointer text-sm min-h-[44px]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="m2.25 15.75 5.16-5.16a2.25 2.25 0 0 1 3.18 0l5.16 5.16m-1.5-1.5 1.41-1.41a2.25 2.25 0 0 1 3.18 0l2.16 2.16M3.75 19.5h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.01"/></svg>
+                                Add media
+                                <input type="file" id="reply-media-${thread.id}" accept="image/*,video/*" onchange="pickPostMedia(event,'reply',${thread.id})" class="hidden">
+                            </label>
+                            <button type="button" id="reply-media-clear-${thread.id}" onclick="clearPostMedia('reply',${thread.id})" class="hidden text-xs font-heading font-semibold text-slate-400 hover:text-red-500 transition-colors cursor-pointer">Remove attachment</button>
+                        </div>
+                        <div id="reply-media-preview-${thread.id}" class="hidden"></div>
                         <button type="submit" class="px-6 py-2.5 bg-primary text-white font-heading font-semibold rounded-xl hover:bg-primary-700 transition-colors cursor-pointer text-sm min-h-[44px]">Post Reply</button>
                     </form>
                 ` : `
@@ -4765,7 +4852,7 @@ function closeNewThreadModal() {
     document.getElementById('new-thread-form').reset();
 }
 
-function createThread(e) {
+async function createThread(e) {
     e.preventDefault();
     if (!userCanPostCheck()) {
         showToast('Your posting access is currently limited. Contact the moderation team if you believe this is a mistake.', 'error');
@@ -4776,6 +4863,14 @@ function createThread(e) {
     const content = document.getElementById('thread-content').value.trim();
 
     const user = getCurrentUser();
+    let media = null;
+    let mediaNote = '';
+    if (supabaseClient && supabaseSession && getPendingPostMedia('thread', null)) {
+        const uploaded = await uploadPostMedia('thread', null);
+        if (!uploaded || uploaded.error) mediaNote = ' The attachment could not be uploaded.';
+        else media = uploaded;
+    }
+
     const thread = {
         id: appData.nextThreadId++,
         title: title,
@@ -4783,6 +4878,8 @@ function createThread(e) {
         author: user.username,
         createdAt: new Date().toISOString(),
         content: content,
+        mediaUrl: media ? media.url : '',
+        mediaType: media ? media.type : '',
         replies: []
     };
 
@@ -4791,22 +4888,36 @@ function createThread(e) {
         appData.users[user.username.toLowerCase()].posts = (appData.users[user.username.toLowerCase()].posts || 0) + 1;
         saveData(appData);
         closeNewThreadModal();
-        showToast('Discussion posted!', 'success');
+        clearPostMedia('thread', null);
+        showToast(mediaNote ? 'Discussion posted.' + mediaNote : 'Discussion posted!', mediaNote ? 'error' : 'success');
         renderForum();
         renderHomeStats();
     };
 
     if (supabaseClient && supabaseSession) {
-        supabaseClient.from('threads').insert({ title, category, content, author_id: supabaseSession.user.id, author_name: user.username })
-            .then(async ({ error }) => { if (error) throw error; await loadForumRemote(); })
-            .then(() => bumpLocal())
-            .catch(() => bumpLocal());
+        const { error } = await supabaseClient.from('threads').insert({
+            title, category, content,
+            media_url: media ? media.url : null,
+            media_type: media ? media.type : null,
+            author_id: supabaseSession.user.id,
+            author_name: user.username
+        });
+        if (!error) {
+            await loadForumRemote();
+            closeNewThreadModal();
+            clearPostMedia('thread', null);
+            showToast(mediaNote ? 'Discussion posted.' + mediaNote : 'Discussion posted!', mediaNote ? 'error' : 'success');
+            renderForum();
+            renderHomeStats();
+            return;
+        }
+        bumpLocal();
         return;
     }
     bumpLocal();
 }
 
-function postReply(e, threadId) {
+async function postReply(e, threadId) {
     e.preventDefault();
     if (!userCanPostCheck()) {
         showToast('Your posting access is currently limited. Contact the moderation team if you believe this is a mistake.', 'error');
@@ -4820,27 +4931,54 @@ function postReply(e, threadId) {
     if (!content) return;
 
     const user = getCurrentUser();
+    let media = null;
+    let mediaNote = '';
+    if (supabaseClient && supabaseSession && getPendingPostMedia('reply', threadId)) {
+        const uploaded = await uploadPostMedia('reply', threadId);
+        if (!uploaded || uploaded.error) mediaNote = ' The attachment could not be uploaded.';
+        else media = uploaded;
+    }
+
     const reply = {
         id: appData.nextReplyId++,
         author: user.username,
         content: content,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        mediaUrl: media ? media.url : '',
+        mediaType: media ? media.type : ''
     };
 
     const bumpLocal = () => {
         thread.replies.push(reply);
         appData.users[user.username.toLowerCase()].posts = (appData.users[user.username.toLowerCase()].posts || 0) + 1;
         saveData(appData);
+        clearPostMedia('reply', threadId);
         renderThreadDetail(thread);
-        showToast('Reply posted!', 'success');
+        showToast(mediaNote ? 'Reply posted.' + mediaNote : 'Reply posted!', mediaNote ? 'error' : 'success');
         if (currentPage === 'home') renderHomeStats();
     };
 
     if (supabaseClient && supabaseSession) {
-        supabaseClient.from('replies').insert({ thread_id: threadId, author_id: supabaseSession.user.id, author_name: user.username, content })
-            .then(async ({ error }) => { if (error) throw error; await loadForumRemote(); })
-            .then(() => { const fresh = appData.threads.find(t => t.id === threadId); if (fresh) { renderThreadDetail(fresh); showToast('Reply posted!', 'success'); if (currentPage === 'home') renderHomeStats(); } })
-            .catch(() => bumpLocal());
+        const { error } = await supabaseClient.from('replies').insert({
+            thread_id: threadId,
+            author_id: supabaseSession.user.id,
+            author_name: user.username,
+            content,
+            media_url: media ? media.url : null,
+            media_type: media ? media.type : null
+        });
+        if (!error) {
+            await loadForumRemote();
+            clearPostMedia('reply', threadId);
+            const fresh = appData.threads.find(t => t.id === threadId);
+            if (fresh) {
+                renderThreadDetail(fresh);
+                showToast(mediaNote ? 'Reply posted.' + mediaNote : 'Reply posted!', mediaNote ? 'error' : 'success');
+                if (currentPage === 'home') renderHomeStats();
+            }
+            return;
+        }
+        bumpLocal();
         return;
     }
     bumpLocal();
@@ -4950,10 +5088,10 @@ async function renderProfile() {
         <div class="workspace-panel rounded-[2rem] p-8 sm:p-12 text-center max-w-3xl mx-auto">
             <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Members only</p>
             <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 mb-3">Your profile</h2>
-            <p class="text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto">Create a free account to join the forum, build your public profile with avatar and bio, and unlock the Case Power Desk — a private case file with a dated timeline, evidence index, contacts, and deadline tracking.</p>
+            <p class="text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto">Create a free account to join the forum, build your public profile with avatar and bio, and unlock the Case Diary — a private case file with a dated timeline, evidence index, contacts, and deadline tracking.</p>
             <div class="grid sm:grid-cols-2 gap-3 mb-8 text-left">
                 <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Public profile</strong><span class="text-xs text-slate-600">Avatar and bio the community sees — your case details never appear.</span></div>
-                <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Case Power Desk</strong><span class="text-xs text-slate-600">Timeline, evidence, contacts, deadlines, and a one-click case file export.</span></div>
+                <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Case Diary</strong><span class="text-xs text-slate-600">Timeline, evidence, contacts, deadlines, and a one-click case file export.</span></div>
                 <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Forum access</strong><span class="text-xs text-slate-600">Start threads, reply, and organize with other Albertans.</span></div>
                 <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Saved resources</strong><span class="text-xs text-slate-600">Clip programs and contacts from the directory into your workspace.</span></div>
             </div>
@@ -4967,7 +5105,7 @@ async function renderProfile() {
     const userReplies = appData.threads.flatMap(t => (t.replies || []).filter(r => r.author.toLowerCase() === user.username.toLowerCase()));
     const initial = user.username.charAt(0).toUpperCase();
     const avatarHTML = user.avatar ? `<img src="${user.avatar}" alt="${escapeHTML(user.username)}'s avatar" class="avatar-preview object-cover">` : `<div class="avatar-preview avatar-default flex items-center justify-center text-white font-bold text-3xl">${initial}</div>`;
-    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Power Desk</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div><section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Power Desk is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
+    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Diary</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div><section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Diary is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
     enhanceProfileWorkspace();
     const standingHost = document.getElementById('profile-content');
     if (standingHost && !standingHost.querySelector('[data-standing]')) {
@@ -4981,7 +5119,7 @@ function enhanceProfileWorkspace() {
     if (!target || !isLoggedIn() || target.querySelector('[data-workspace-next]')) return;
     const deadlines = cccRead('deadlines').filter(d => !d.done && cccDaysUntil(d.date) <= 7);
     const followups = cccRead('timeline').filter(t => t.followup).length;
-    target.insertAdjacentHTML('afterbegin', `<section data-workspace-next class="workspace-panel rounded-[2rem] p-6 sm:p-8 mb-6" aria-labelledby="next-action-heading"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><p class="text-accent-700 font-heading font-bold text-xs uppercase tracking-widest mb-2">From your case file</p><h2 id="next-action-heading" class="text-2xl font-heading font-bold text-slate-900">${deadlines.length ? `${deadlines.length} deadline${deadlines.length === 1 ? '' : 's'} inside 7 days` : followups ? `${followups} follow-up${followups === 1 ? '' : 's'} waiting` : 'Your case file is quiet'}</h2><p class="text-sm text-slate-600 mt-2 max-w-2xl">${deadlines.length ? `Next up: ${escapeHTML(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].title)} — due ${cccFmtDate(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].date)}.` : followups ? 'Open follow-ups are waiting on your timeline.' : 'Timeline, evidence, contacts, and deadlines live in your private Case Power Desk.'}</p></div><div class="flex flex-wrap gap-3 shrink-0"><button type="button" onclick="navigateTo('desk')" class="inline-flex items-center justify-center px-5 py-3 bg-primary text-white font-heading font-bold rounded-full min-h-[48px]">Open Case Power Desk</button></div></div></section>`);
+    target.insertAdjacentHTML('afterbegin', `<section data-workspace-next class="workspace-panel rounded-[2rem] p-6 sm:p-8 mb-6" aria-labelledby="next-action-heading"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5"><div><p class="text-accent-700 font-heading font-bold text-xs uppercase tracking-widest mb-2">From your case file</p><h2 id="next-action-heading" class="text-2xl font-heading font-bold text-slate-900">${deadlines.length ? `${deadlines.length} deadline${deadlines.length === 1 ? '' : 's'} inside 7 days` : followups ? `${followups} follow-up${followups === 1 ? '' : 's'} waiting` : 'Your case file is quiet'}</h2><p class="text-sm text-slate-600 mt-2 max-w-2xl">${deadlines.length ? `Next up: ${escapeHTML(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].title)} — due ${cccFmtDate(deadlines.sort((a, b) => a.date.localeCompare(b.date))[0].date)}.` : followups ? 'Open follow-ups are waiting on your timeline.' : 'Timeline, evidence, contacts, and deadlines live in your private Case Diary.'}</p></div><div class="flex flex-wrap gap-3 shrink-0"><button type="button" onclick="navigateTo('desk')" class="inline-flex items-center justify-center px-5 py-3 bg-primary text-white font-heading font-bold rounded-full min-h-[48px]">Open Case Diary</button></div></div></section>`);
 }
 function saveResourceToWorkspace(index) {
     if (!isLoggedIn()) { openAuthModal(); showToast('Log in to save resources to your workspace.', 'error'); return; }
@@ -5196,11 +5334,11 @@ function openProfileEditModal() {
         preview.style.backgroundImage = `url(${user.avatar})`;
         preview.style.backgroundSize = 'cover';
         preview.style.backgroundPosition = 'center';
-        preview.className = 'avatar-preview';
+        preview.className = 'avatar-preview w-24 h-24 rounded-full';
         preview.textContent = '';
     } else {
         preview.style.backgroundImage = '';
-        preview.className = 'avatar-preview avatar-default flex items-center justify-center text-white font-bold text-2xl';
+        preview.className = 'avatar-preview avatar-default w-24 h-24 rounded-full flex items-center justify-center text-white font-bold text-3xl';
         preview.textContent = initial;
     }
 
@@ -5238,6 +5376,187 @@ function dataUriToBlob(dataUri) {
     return new Blob([arr], { type: mime });
 }
 
+// Downscale any image on its longest edge before upload (post attachments).
+function resizeImageToMax(file, maxEdge, callback) {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+            const scale = Math.min(1, maxEdge / Math.max(img.width || 1, img.height || 1));
+            const w = Math.max(1, Math.round((img.width || maxEdge) * scale));
+            const h = Math.max(1, Math.round((img.height || maxEdge) * scale));
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            callback(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        img.onerror = () => callback(null);
+        img.src = ev.target.result;
+    };
+    reader.onerror = () => callback(null);
+    reader.readAsDataURL(file);
+}
+
+async function uploadAvatarForUser(userId, dataUri) {
+    const fileName = `${userId}/avatar-${Date.now()}.jpg`;
+    const { error } = await supabaseClient.storage.from('avatars').upload(fileName, dataUriToBlob(dataUri), { contentType: 'image/jpeg', upsert: true });
+    if (error) return { error };
+    const { data: pub } = supabaseClient.storage.from('avatars').getPublicUrl(fileName);
+    return { url: pub.publicUrl };
+}
+
+// ------------------------------------------------------------
+// Profile photo during signup
+// ------------------------------------------------------------
+let pendingRegisterAvatar = '';
+
+function previewRegisterAvatar(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) { showToast('Please choose an image file.', 'error'); return; }
+    if (file.size > 8 * 1024 * 1024) { showToast('Image must be under 8MB.', 'error'); return; }
+    resizeImageToSquare(file, 256, (dataUri) => {
+        pendingRegisterAvatar = dataUri;
+        const button = document.getElementById('register-avatar-preview');
+        button.style.backgroundImage = `url(${dataUri})`;
+        button.style.backgroundSize = 'cover';
+        button.style.backgroundPosition = 'center';
+        button.className = 'avatar-preview w-24 h-24 rounded-full cursor-pointer';
+        document.getElementById('register-avatar-initial').textContent = '';
+        document.getElementById('register-avatar-remove').classList.remove('hidden');
+    });
+}
+
+function clearRegisterAvatar() {
+    pendingRegisterAvatar = '';
+    const button = document.getElementById('register-avatar-preview');
+    if (button) {
+        button.style.backgroundImage = '';
+        button.className = 'avatar-preview avatar-default w-24 h-24 rounded-full flex items-center justify-center text-white font-bold text-3xl cursor-pointer';
+    }
+    const initial = document.getElementById('register-avatar-initial');
+    if (initial) initial.textContent = '?';
+    const input = document.getElementById('register-avatar-upload');
+    if (input) input.value = '';
+    document.getElementById('register-avatar-remove')?.classList.add('hidden');
+}
+
+// ------------------------------------------------------------
+// Post media (images + short video on threads and replies)
+// ------------------------------------------------------------
+const POST_MEDIA_BUCKET = 'post-media';
+const POST_MEDIA_MAX_IMAGE = 8 * 1024 * 1024;
+const POST_MEDIA_MAX_VIDEO = 25 * 1024 * 1024;
+const POST_MEDIA_HOST = (() => { try { return new URL(SUPABASE_URL).hostname; } catch (e) { return ''; } })();
+const pendingPostMedia = { thread: null, reply: {} };
+
+function mediaIds(scope, threadId) {
+    return scope === 'thread'
+        ? { preview: 'thread-media-preview', clear: 'thread-media-clear', input: 'thread-media-input' }
+        : { preview: `reply-media-preview-${threadId}`, clear: `reply-media-clear-${threadId}`, input: `reply-media-${threadId}` };
+}
+
+function getPendingPostMedia(scope, threadId) {
+    return scope === 'thread' ? pendingPostMedia.thread : (pendingPostMedia.reply[String(threadId)] || null);
+}
+
+function setPendingPostMedia(scope, threadId, value) {
+    if (scope === 'thread') pendingPostMedia.thread = value;
+    else if (value) pendingPostMedia.reply[String(threadId)] = value;
+    else delete pendingPostMedia.reply[String(threadId)];
+    renderPostMediaPreview(scope, threadId);
+}
+
+function renderPostMediaPreview(scope, threadId) {
+    const ids = mediaIds(scope, threadId);
+    const host = document.getElementById(ids.preview);
+    if (!host) return;
+    const picked = getPendingPostMedia(scope, threadId);
+    const clear = document.getElementById(ids.clear);
+    if (!picked) {
+        host.classList.add('hidden');
+        host.innerHTML = '';
+        if (clear) clear.classList.add('hidden');
+        return;
+    }
+    const media = picked.type === 'video'
+        ? `<video src="${picked.previewUrl}" controls preload="metadata" playsinline class="max-h-56 rounded-xl"></video>`
+        : `<img src="${picked.previewUrl}" alt="Attachment preview" class="max-h-56 rounded-xl object-contain">`;
+    host.innerHTML = `<div class="flex items-center gap-3 rounded-2xl border border-surface-border bg-white p-3">${media}<div class="min-w-0"><p class="text-sm font-heading font-semibold text-slate-700 truncate">${escapeHTML(picked.name || 'Attachment')}</p><p class="text-xs text-slate-400">${picked.type === 'video' ? 'Video' : 'Image'} · ready to attach</p></div></div>`;
+    host.classList.remove('hidden');
+    if (clear) clear.classList.remove('hidden');
+}
+
+function pickPostMedia(e, scope, threadId) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const isVideo = file.type.startsWith('video/');
+    if (!isVideo && !file.type.startsWith('image/')) {
+        showToast('Choose an image or a video file.', 'error');
+        e.target.value = '';
+        return;
+    }
+    if (isVideo && file.size > POST_MEDIA_MAX_VIDEO) { showToast('Video must be under 25MB.', 'error'); e.target.value = ''; return; }
+    if (!isVideo && file.size > POST_MEDIA_MAX_IMAGE) { showToast('Image must be under 8MB.', 'error'); e.target.value = ''; return; }
+
+    if (isVideo) {
+        const ext = (file.name.split('.').pop() || 'mp4').toLowerCase();
+        setPendingPostMedia(scope, threadId, {
+            type: 'video', blob: file, mime: file.type || 'video/mp4', ext: ext,
+            name: file.name, previewUrl: URL.createObjectURL(file)
+        });
+        return;
+    }
+    resizeImageToMax(file, 1600, (dataUri) => {
+        if (!dataUri) { showToast('That image could not be read.', 'error'); return; }
+        setPendingPostMedia(scope, threadId, {
+            type: 'image', blob: dataUriToBlob(dataUri), mime: 'image/jpeg', ext: 'jpg',
+            name: file.name, previewUrl: dataUri
+        });
+    });
+}
+
+function clearPostMedia(scope, threadId) {
+    const ids = mediaIds(scope, threadId);
+    const input = document.getElementById(ids.input);
+    if (input) input.value = '';
+    setPendingPostMedia(scope, threadId, null);
+}
+
+async function uploadPostMedia(scope, threadId) {
+    const picked = getPendingPostMedia(scope, threadId);
+    if (!picked || !supabaseClient || !supabaseSession) return null;
+    const uid = supabaseSession.user.id;
+    const fileName = `${uid}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${picked.ext}`;
+    const { error } = await supabaseClient.storage.from(POST_MEDIA_BUCKET).upload(fileName, picked.blob, { contentType: picked.mime, upsert: false });
+    if (error) return { error };
+    const { data: pub } = supabaseClient.storage.from(POST_MEDIA_BUCKET).getPublicUrl(fileName);
+    if (!pub || !pub.publicUrl) return { error: { message: 'No public URL returned' } };
+    return { url: pub.publicUrl, type: picked.type };
+}
+
+// Only ever render media that really lives in our own storage.
+function safeMediaUrl(url) {
+    const raw = String(url || '').trim();
+    if (!/^https:\/\//i.test(raw)) return '';
+    try {
+        const parsed = new URL(raw);
+        const ok = parsed.hostname === POST_MEDIA_HOST || /\.supabase\.co$/i.test(parsed.hostname);
+        return ok ? parsed.href : '';
+    } catch (err) { return ''; }
+}
+
+function postMediaHTML(url, type, opts) {
+    const safe = safeMediaUrl(url);
+    if (!safe) return '';
+    const gap = opts && opts.compact ? 'mt-3' : 'mt-4';
+    if (type === 'video') {
+        return `<div class="${gap} rounded-2xl overflow-hidden border border-surface-border bg-black/90"><video src="${escapeAttr(safe)}" controls preload="metadata" playsinline class="w-full max-h-[70vh]"></video></div>`;
+    }
+    return `<a href="${escapeAttr(safe)}" target="_blank" rel="noopener noreferrer" class="block ${gap}"><img src="${escapeAttr(safe)}" alt="Image attachment" loading="lazy" class="rounded-2xl border border-surface-border bg-gray-50 w-full max-h-[70vh] object-contain"></a>`;
+}
+
 function previewAvatar(e) {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
@@ -5250,7 +5569,7 @@ function previewAvatar(e) {
         preview.style.backgroundImage = `url(${dataUri})`;
         preview.style.backgroundSize = 'cover';
         preview.style.backgroundPosition = 'center';
-        preview.className = 'avatar-preview';
+        preview.className = 'avatar-preview w-24 h-24 rounded-full';
         preview.textContent = '';
         document.getElementById('remove-avatar-btn').classList.remove('hidden');
     });
@@ -5262,7 +5581,7 @@ function clearAvatarChoice() {
     const user = getCurrentUser();
     const preview = document.getElementById('edit-avatar-preview');
     preview.style.backgroundImage = '';
-    preview.className = 'avatar-preview avatar-default flex items-center justify-center text-white font-bold text-2xl';
+    preview.className = 'avatar-preview avatar-default w-24 h-24 rounded-full flex items-center justify-center text-white font-bold text-3xl';
     preview.textContent = user ? user.username.charAt(0).toUpperCase() : '?';
     document.getElementById('avatar-upload').value = '';
     document.getElementById('remove-avatar-btn').classList.add('hidden');
@@ -5271,12 +5590,7 @@ function clearAvatarChoice() {
 async function uploadAvatarIfNeeded(userId) {
     if (!pendingAvatarChanged) return { skipped: true };
     if (!pendingAvatar) return { cleared: true };
-    const fileName = `${userId}/avatar-${Date.now()}.jpg`;
-    const blob = dataUriToBlob(pendingAvatar);
-    const { error } = await supabaseClient.storage.from('avatars').upload(fileName, blob, { contentType: 'image/jpeg', upsert: true });
-    if (error) return { error };
-    const { data: pub } = supabaseClient.storage.from('avatars').getPublicUrl(fileName);
-    return { url: pub.publicUrl };
+    return uploadAvatarForUser(userId, pendingAvatar);
 }
 
 async function saveProfile(e) {
@@ -5728,7 +6042,7 @@ function adminStatsHTML(d) {
         + '</div>' + turnout);
 
     // ---- Casework ----
-    html += statBlockHTML('Case Power Desk', 'Evidence members are keeping',
+    html += statBlockHTML('Case Diary', 'Evidence members are keeping',
         '<div class="stat-grid cols-4">'
         + statCardHTML({ label: 'Timeline entries', value: cw.timeline, small: true, sub: 'Logged interactions with the system' })
         + statCardHTML({ label: 'Evidence items', value: cw.evidence, small: true, sub: 'Records members have filed' })
@@ -5827,11 +6141,12 @@ async function loadForumRemote() {
         if (te || re) throw te || re;
         if (!threads || threads.length === 0) return; // fresh DB — keep local demo seeds
         const replyMap = {};
-        (replies || []).forEach(r => { (replyMap[r.thread_id] = replyMap[r.thread_id] || []).push({ id: Number(r.id), author: r.author_name, content: r.content, createdAt: r.created_at }); });
+        (replies || []).forEach(r => { (replyMap[r.thread_id] = replyMap[r.thread_id] || []).push({ id: Number(r.id), author: r.author_name, content: r.content, createdAt: r.created_at, mediaUrl: r.media_url || '', mediaType: r.media_type || '' }); });
         appData.threads = threads.map(t => ({
             id: Number(t.id), title: t.title, category: t.category,
             author: t.author_name, authorId: t.author_id,
             createdAt: t.created_at, content: t.content,
+            mediaUrl: t.media_url || '', mediaType: t.media_type || '',
             pinned: !!t.pinned,
             replies: replyMap[t.id] || []
         }));
@@ -6706,7 +7021,7 @@ const BADGE_CATALOG = [
     { id: 'first_voice', name: 'First Voice', xp: 10, glyph: 'megaphone', tone: 'blue', desc: 'Start a thread or post a reply in the forum.' },
     { id: 'coffee_row', name: 'Coffee Row', xp: 30, glyph: 'chat', tone: 'blue', desc: 'Post ten times — the table is where plans get made.' },
     { id: 'town_hall', name: 'Town Hall', xp: 70, glyph: 'building', tone: 'gold', desc: 'Fifty posts. You are part of the furniture now.' },
-    { id: 'paper_trail', name: 'Paper Trail', xp: 15, glyph: 'folder', tone: 'blue', desc: 'Log your first entry in the Case Power Desk timeline.' },
+    { id: 'paper_trail', name: 'Paper Trail', xp: 15, glyph: 'folder', tone: 'blue', desc: 'Log your first entry in the Case Diary timeline.' },
     { id: 'case_keeper', name: 'Case Keeper', xp: 45, glyph: 'shield', tone: 'gold', desc: 'Ten timeline entries plus three pieces of evidence.' },
     { id: 'evidence_locker', name: 'Evidence Locker', xp: 40, glyph: 'lock', tone: 'gold', desc: 'Index ten pieces of evidence. Receipts win appeals.' },
     { id: 'rolodex', name: 'Rolodex', xp: 25, glyph: 'users', tone: 'blue', desc: 'Track five contacts with names, numbers, and notes.' },

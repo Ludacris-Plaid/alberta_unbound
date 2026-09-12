@@ -131,3 +131,61 @@ Without `RESEND_API_KEY` the function still runs, records what it *would* have s
 `emailConfigured: false` — safe to schedule before the domain is verified.
 
 Members can opt out with the **Action reminder emails** switch on their profile.
+
+## 9. Seeded author profiles (`20260914_seeded_author_profiles.sql`)
+
+The forum demo content was written by six names that had no `profiles` row behind them —
+`coldlake_maria`, `reddeer_renn`, `medicinehat_jay`, `lethbridge_grace`, `yeg_streetnurse`,
+`fortmac_tradeswife`. Every count that reads `profiles` (member totals, standings, the roll-call
+scoreboard, the 12-week growth chart) ignored all of that content until this migration gave those
+authors real rows and linked their threads and replies by `author_name`.
+
+**They are not people.** Each row is deliberately inert:
+
+| Property | Value | Effect |
+|---|---|---|
+| `id` | fixed `5eed000N-…` UUIDs | immediately recognisable as seed data |
+| `email` | `<name>@seed.albertaunbound.invalid` | non-routable, reserved TLD — mail can never be delivered |
+| `encrypted_password` / `email_confirmed_at` | `null` | cannot sign in, cannot be magic-linked |
+| `auth.identities` | no row | no email identity exists to authenticate against |
+| `profiles.action_emails` | `false` | never counted as reminder opt-ins, never emailed |
+| `profiles.is_seeded` | `true` | excluded from the real-account count |
+
+`admin_stats()['audience']` reports `real` and `seeded` separately, so Command Stats always shows
+how many accounts are actual humans even though the public counters include the seed members.
+
+The migration also adds a `sync_profile_post_count` trigger on `threads` and `replies` and backfills
+`posts_count` — nothing in the app ever wrote that column, so it had drifted for every account.
+
+**Apply it** the same way as the other migrations: paste the file into the SQL editor, or POST it to
+`https://api.supabase.com/v1/projects/<ref>/database/query`. It is idempotent and safe to re-run.
+
+**Rollback:**
+
+```sql
+-- removes the six seed accounts; profiles and badges cascade, threads/replies keep
+-- their author_name and fall back to author_id = null
+delete from auth.users where (raw_user_meta_data ->> 'seeded')::boolean;
+```
+
+## 10. Uploads (`20260915_post_media.sql`)
+
+Two public-read buckets, both owner-scoped on write (`<bucket>/<auth-uid>/<file>`):
+
+| Bucket | Used for | Limits |
+|---|---|---|
+| `avatars` | profile photos (profile edit **and** the signup form) | images, resized to 256×256 client-side |
+| `post-media` | photos and video attached to forum threads and replies | 25 MB bucket cap; `image/jpeg,png,webp,gif` + `video/mp4,webm,quicktime` |
+
+`threads` and `replies` carry `media_url` (public storage URL) and `media_type` (`image` | `video`).
+Both are constrained at the database level — the URL must be `https://` and under 600 characters,
+the type must be `image` or `video` — so a crafted API insert cannot store a `javascript:` URL.
+The client validates again before rendering and only ever renders media whose host is this Supabase
+project, so a row pointing anywhere else is ignored rather than displayed.
+
+Images are downscaled to a 1600px longest edge before upload; video uploads as-is. If a media
+upload fails the post still publishes, with a toast telling the author the attachment was dropped.
+
+**Note:** media URLs are public (same as an unlisted link, not secret) and orphans are not cleaned
+up when a post is deleted — deleting a thread removes its rows but leaves the file in the bucket.
+Prune periodically with `storage.objects` + `storage.remove` if that matters.
