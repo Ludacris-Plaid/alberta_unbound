@@ -781,7 +781,8 @@
         .au-badge-card.is-earned { border-color: rgba(232,179,60,.38); }
         .au-badge-name { font-size: .82rem; font-weight: 700; font-family: 'Sora', system-ui, sans-serif; color: var(--copy); }
         .au-badge-desc { font-size: .68rem; line-height: 1.35; color: var(--muted); }
-        .au-badge-xp { position: absolute; top: .5rem; right: .6rem; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+        .au-badge-xp { position: absolute; top: .5rem; right: .6rem; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+        html[data-theme=light] .au-badge-xp { color: var(--copy); }
         .au-level-chip { display: inline-flex; align-items: center; padding: .1rem .5rem; border-radius: 999px; font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: rgba(232,179,60,.16); color: #E8B33C; box-shadow: inset 0 0 0 1px rgba(232,179,60,.3); }
         html[data-theme=light] .au-level-chip { color: #7A5A10; background: rgba(122,90,16,.12); box-shadow: inset 0 0 0 1px rgba(122,90,16,.25); }
         .au-xp-bar { height: 100%; background: linear-gradient(90deg, var(--blue), var(--gold)); transition: width .8s cubic-bezier(.32,.72,0,1); }
@@ -799,6 +800,13 @@
         .au-reminder-btn { padding: .45rem .9rem; border-radius: 999px; font-size: .72rem; font-weight: 700; background: rgba(255,255,255,.08); color: var(--copy); border: 1px solid var(--line-bright); transition: background .4s cubic-bezier(.32,.72,0,1), transform .4s; }
         .au-reminder-btn:hover { background: rgba(232,179,60,.18); color: #E8B33C; }
         @media (prefers-reduced-motion: reduce) { .au-badge, .au-score-card, .au-reminder-dot, .au-xp-bar { transition: none !important; animation: none !important; } }
+        /* Modal vertical safety: ensure long forms don't overflow the viewport on mobile */
+        .modal-overlay:not(.hidden) .modal { max-height: min(88dvh, 44rem); overflow-y: auto; overscroll-behavior: contain; }
+        @media (max-width: 640px) { .modal-overlay:not(.hidden) .modal { max-height: min(84dvh, 36rem); padding: 1.5rem !important; border-radius: 1.25rem !important; } }
+        /* Badge card light-mode adjustments */
+        html[data-theme=light] .au-badge-card { background: #FFFFFF; }
+        html[data-theme=light] .au-badge-card.is-earned { border-color: rgba(122,90,16,.28); }
+        html[data-theme=light] .au-badge-xp { color: #5C6B7C; }
     </style>
     <style>
         /* ============================================================
@@ -2600,6 +2608,22 @@ function applyTheme(theme) {
         toggle.setAttribute('aria-label', selected === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
         toggle.title = selected === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
     }
+    /* Re-render any on-page badges so their tone palette matches the new theme */
+    document.querySelectorAll('.au-badge').forEach(el => {
+        const title = el.getAttribute('title') || '';
+        const match = title.match(/^(.+?) — /);
+        if (!match) return;
+        const def = BADGE_CATALOG.find(b => b.name === match[1]);
+        if (!def) return;
+        const isLocked = el.classList.contains('is-locked');
+        const isLt = selected === 'light';
+        const src = isLt ? BADGE_TONES_LIGHT : BADGE_TONES;
+        const tone = src[def.tone] || src.blue;
+        const lk = isLt ? BADGE_LOCKED_LIGHT : { ring: 'rgba(255,255,255,.16)', fill: 'rgba(255,255,255,.05)', ink: 'rgba(255,255,255,.35)' };
+        el.style.setProperty('--badge-ring', isLocked ? lk.ring : tone.ring);
+        el.style.setProperty('--badge-fill', isLocked ? lk.fill : tone.fill);
+        el.style.setProperty('--badge-ink', isLocked ? lk.ink : tone.ink);
+    });
 }
 function toggleTheme() { applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'); }
 
@@ -7076,6 +7100,13 @@ const BADGE_TONES = {
     red: { ring: 'rgba(224,138,130,.4)', fill: 'rgba(224,138,130,.14)', ink: '#E08A82' },
     primary: { ring: 'rgba(255,255,255,.28)', fill: 'rgba(255,255,255,.10)', ink: '#FFFFFF' }
 };
+const BADGE_TONES_LIGHT = {
+    blue: { ring: 'rgba(20,80,127,.3)', fill: 'rgba(20,80,127,.08)', ink: '#14507F' },
+    gold: { ring: 'rgba(122,90,16,.35)', fill: 'rgba(122,90,16,.08)', ink: '#7A5A10' },
+    red: { ring: 'rgba(184,64,56,.3)', fill: 'rgba(184,64,56,.08)', ink: '#B84038' },
+    primary: { ring: 'rgba(16,43,78,.22)', fill: 'rgba(16,43,78,.06)', ink: '#102B4E' }
+};
+const BADGE_LOCKED_LIGHT = { ring: 'rgba(16,42,67,.12)', fill: 'rgba(16,42,67,.04)', ink: 'rgba(16,42,67,.4)' };
 
 let myBadges = [];
 let badgeDirectory = {};
@@ -7093,9 +7124,12 @@ function levelFor(xp) {
 
 function badgeIconHTML(id, size, locked) {
     const def = badgeDef(id); if (!def) return '';
-    const tone = BADGE_TONES[def.tone] || BADGE_TONES.blue;
+    const isLight = document.documentElement.dataset.theme === 'light';
+    const toneSrc = isLight ? BADGE_TONES_LIGHT : BADGE_TONES;
+    const tone = toneSrc[def.tone] || toneSrc.blue;
+    const lk = isLight ? BADGE_LOCKED_LIGHT : { ring: 'rgba(255,255,255,.16)', fill: 'rgba(255,255,255,.05)', ink: 'rgba(255,255,255,.35)' };
     const px = size || 34;
-    return `<span class="au-badge ${locked ? 'is-locked' : ''}" style="width:${px}px;height:${px}px;--badge-ring:${locked ? 'rgba(255,255,255,.16)' : tone.ring};--badge-fill:${locked ? 'rgba(255,255,255,.05)' : tone.fill};--badge-ink:${locked ? 'rgba(255,255,255,.35)' : tone.ink}" title="${escapeAttr(def.name)} — ${escapeAttr(def.desc)}">
+    return `<span class="au-badge ${locked ? 'is-locked' : ''}" style="width:${px}px;height:${px}px;--badge-ring:${locked ? lk.ring : tone.ring};--badge-fill:${locked ? lk.fill : tone.fill};--badge-ink:${locked ? lk.ink : tone.ink}" title="${escapeAttr(def.name)} — ${escapeAttr(def.desc)}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${BADGE_GLYPHS[def.glyph] || BADGE_GLYPHS.star}</svg></span>`;
 }
 
