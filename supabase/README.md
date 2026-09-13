@@ -108,31 +108,7 @@ Members see it instantly; non-members never even see the row exists (RLS).
 | `supabase/functions/stripe-webhook/index.ts` | Membership on/off via Stripe webhooks |
 | `index.html` | The site — already wired to your Supabase project |
 
-## 8. Action reminders (email)
-
-`supabase/functions/action-reminders` sends two kinds of mail:
-
-1. **24-hour reminder** to everyone signed up for an upcoming action (sent once).
-2. **Results summary** to that roster once the action is marked completed (sent once).
-
-### Enable it
-
-1. Get an API key from [resend.com](https://resend.com) (free tier is fine) and set the secret:
-   `supabase secrets set RESEND_API_KEY=re_xxxxxxxx --project-ref <ref>`
-2. Verify your sending domain in Resend, then point the from-address at it:
-   `supabase secrets set REMINDER_FROM="Alberta Unbound <actions@yourdomain.ca>"`
-3. Optional hardening: `supabase secrets set CRON_SECRET=<random-string>` and add the same value as a
-   GitHub repo secret — the cron job sends it in `x-cron-secret`.
-4. Add repo secrets `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and (if used) `CRON_SECRET`.
-   `.github/workflows/action-reminders.yml` then pings the function every hour.
-5. Redeploy after editing: `supabase functions deploy action-reminders --project-ref <ref>`
-
-Without `RESEND_API_KEY` the function still runs, records what it *would* have sent, and returns
-`emailConfigured: false` — safe to schedule before the domain is verified.
-
-Members can opt out with the **Action reminder emails** switch on their profile.
-
-## 9. Seeded author profiles (`20260914_seeded_author_profiles.sql`)
+## 8. Seeded author profiles (`20260914_seeded_author_profiles.sql`)
 
 The forum demo content was written by six names that had no `profiles` row behind them —
 `coldlake_maria`, `reddeer_renn`, `medicinehat_jay`, `lethbridge_grace`, `yeg_streetnurse`,
@@ -148,7 +124,6 @@ authors real rows and linked their threads and replies by `author_name`.
 | `email` | `<name>@seed.albertaunbound.invalid` | non-routable, reserved TLD — mail can never be delivered |
 | `encrypted_password` / `email_confirmed_at` | `null` | cannot sign in, cannot be magic-linked |
 | `auth.identities` | no row | no email identity exists to authenticate against |
-| `profiles.action_emails` | `false` | never counted as reminder opt-ins, never emailed |
 | `profiles.is_seeded` | `true` | excluded from the real-account count |
 
 `admin_stats()['audience']` reports `real` and `seeded` separately, so Command Stats always shows

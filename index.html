@@ -801,6 +801,32 @@
         .au-reminder-btn { padding: .45rem .9rem; border-radius: 999px; font-size: .72rem; font-weight: 700; background: rgba(255,255,255,.08); color: var(--copy); border: 1px solid var(--line-bright); transition: background .4s cubic-bezier(.32,.72,0,1), transform .4s; }
         .au-reminder-btn:hover { background: rgba(232,179,60,.18); color: #E8B33C; }
         @media (prefers-reduced-motion: reduce) { .au-badge, .au-score-card, .au-reminder-dot, .au-xp-bar { transition: none !important; animation: none !important; } }
+
+        /* ---- Inline badge strip (forum cards, replies, mobile menu) ---- */
+        .au-badge-inline { display: inline-flex; align-items: center; justify-content: center; width: 1.35rem; height: 1.35rem; border-radius: .45rem; flex-shrink: 0; position: relative; transition: transform .35s cubic-bezier(.32,.72,0,1); }
+        .au-badge-inline svg { width: 55%; height: 55%; }
+        .au-badge-inline:hover { transform: scale(1.2) translateY(-2px); z-index: 2; }
+        .au-badge-inline[data-tip]:hover::after {
+            content: attr(data-tip);
+            position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+            background: var(--ink); color: var(--copy); border: 1px solid var(--line-bright);
+            font-size: .65rem; font-weight: 600; white-space: nowrap; padding: .3rem .6rem;
+            border-radius: .5rem; pointer-events: none; z-index: 50;
+            box-shadow: 0 8px 24px rgba(0,0,0,.3);
+        }
+        .au-badge-inline[data-tip]:hover::before {
+            content: '';
+            position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%);
+            border: 4px solid transparent; border-top-color: var(--ink);
+            z-index: 50; pointer-events: none;
+        }
+        .au-badge-strip { display: inline-flex; align-items: center; gap: .25rem; }
+        .au-badge-glow { animation: au-badge-glow 1.8s ease-in-out infinite alternate; }
+        @keyframes au-badge-glow { from { filter: brightness(1); } to { filter: brightness(1.15); } }
+
+        /* Badge teaser on home page */
+        .au-badge-teaser { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; border-radius: 1.25rem; background: var(--panel); border: 1px solid var(--line); transition: border-color .4s, box-shadow .4s; }
+        .au-badge-teaser:hover { border-color: rgba(232,179,60,.35); box-shadow: 0 8px 30px rgba(232,179,60,.08); }
         /* Modal vertical safety: ensure long forms don't overflow the viewport on mobile */
         .modal-overlay:not(.hidden) .modal { max-height: min(88dvh, 44rem); overflow-y: auto; overscroll-behavior: contain; }
         @media (max-width: 640px) { .modal-overlay:not(.hidden) .modal { max-height: min(84dvh, 36rem); padding: 1.5rem !important; border-radius: 1.25rem !important; } }
@@ -1132,7 +1158,7 @@
                         <span class="mm-user-name" id="mm-user-name"></span>
                         <span class="mm-user-sub">Member</span>
                     </div>
-                    <span class="mm-user-badge">AU</span>
+                    <span class="mm-user-badge" id="mm-user-level">AU</span>
                 </div>
                 <div id="mm-account" hidden>
                     <p class="mm-group-label">Your account</p>
@@ -1227,6 +1253,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Logged-in badge teaser -->
+        <div id="home-badge-teaser" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-8"></div>
 
         <!-- Programs Grid -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
@@ -3147,6 +3176,17 @@ function renderAuthUI() {
                 if (user.avatar) { avEl.src = user.avatar; avEl.style.display = ''; }
                 else { avEl.removeAttribute('src'); avEl.style.display = 'none'; }
             }
+            const levelEl = document.getElementById('mm-user-level');
+            if (levelEl) {
+                const uKey = user.username.toLowerCase();
+                const uIds = (badgeDirectory[user.id] || []).map(b => b.badge_id);
+                if (uIds.length) {
+                    const uLv = levelFor(badgeXP(uIds));
+                    levelEl.textContent = uLv.name + ' · ' + uIds.length;
+                } else {
+                    levelEl.textContent = 'New member';
+                }
+            }
         }
     }
 
@@ -4353,6 +4393,7 @@ function renderForumPulse() {
                         <span class="font-heading font-bold text-slate-900">${latest.map(a => escapeHTML(a.name)).slice(0, 2).join(', ')}${latest.length > 2 ? ` +${latest.length - 2} more` : ''}</span>
                         ${latest.length === 1 ? 'is' : 'are'} shaping the conversation
                     </p>
+                    <div class="hidden sm:flex items-center gap-0.5">${latest.slice(0, 3).map(a => authorBadgeStripHTML(a.name, 2)).join('')}</div>
                 </div>
                 <div class="flex gap-6 shrink-0 lg:pl-4">
                     <div class="text-center"><p class="text-xl font-heading font-bold text-primary">${totalReplies}</p><p class="text-[10px] font-heading font-semibold uppercase tracking-wider text-slate-500">Replies</p></div>
@@ -4416,7 +4457,7 @@ function renderForum(category) {
                         <h3 class="font-heading font-bold text-slate-900 mb-1">${escapeHTML(t.title)}</h3>
                         <p class="text-sm text-slate-500 line-clamp-2 mb-2">${escapeHTML(t.content.substring(0, 150))}${t.content.length > 150 ? '...' : ''}</p>
                         <div class="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-                            <span class="inline-flex items-center gap-1.5">by <button type="button" onclick="event.stopPropagation();openMemberProfile('${jsStr(author.username)}')" class="font-semibold text-slate-600 hover:text-primary hover:underline underline-offset-2 cursor-pointer transition-colors">${escapeHTML(author.username)}</button>${levelChipHTML(author.username)}</span>
+                            <span class="inline-flex items-center gap-1.5">by <button type="button" onclick="event.stopPropagation();openMemberProfile('${jsStr(author.username)}')" class="font-semibold text-slate-600 hover:text-primary hover:underline underline-offset-2 cursor-pointer transition-colors">${escapeHTML(author.username)}</button>${levelChipHTML(author.username)}${authorBadgeStripHTML(author.username, 3)}</span>
                             <span>${timeAgo(t.createdAt)}</span>
                             <span class="flex items-center gap-1">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
@@ -4798,6 +4839,8 @@ function renderThreadDetail(thread) {
                 <div class="flex-1">
                     <div class="flex flex-wrap items-center gap-2 mb-2">
                         <button type="button" onclick="openMemberProfile('${jsStr(rauthor.username)}')" class="font-heading font-semibold text-sm text-slate-700 hover:text-primary transition-colors cursor-pointer">${escapeHTML(rauthor.username)}</button>
+                        ${levelChipHTML(rauthor.username)}
+                        ${authorBadgeStripHTML(rauthor.username, 3)}
                         <span class="text-xs text-slate-400">${timeAgo(r.createdAt)}</span>
                         ${isAdminUser() ? `<button type="button" onclick="deleteReply(${thread.id}, ${r.id})" class="ml-auto text-xs font-heading font-semibold text-slate-400 hover:text-red-500 transition-colors cursor-pointer">Delete</button>` : ''}
                     </div>
@@ -4816,7 +4859,11 @@ function renderThreadDetail(thread) {
                 <div class="flex items-center gap-3 mb-4">
                     <button type="button" onclick="openMemberProfile('${jsStr(author.username)}')" class="cursor-pointer shrink-0" aria-label="View ${escapeAttr(author.username)}'s profile">${avatarHTML}</button>
                     <div>
-                        <button type="button" onclick="openMemberProfile('${jsStr(author.username)}')" class="font-heading font-semibold text-slate-700 hover:text-primary transition-colors cursor-pointer">${escapeHTML(author.username)}</button>
+                        <div class="flex flex-wrap items-center gap-1.5">
+                            <button type="button" onclick="openMemberProfile('${jsStr(author.username)}')" class="font-heading font-semibold text-slate-700 hover:text-primary transition-colors cursor-pointer">${escapeHTML(author.username)}</button>
+                            ${levelChipHTML(author.username)}
+                            ${authorBadgeStripHTML(author.username, 6)}
+                        </div>
                         <p class="text-xs text-slate-400">${timeAgo(thread.createdAt)}</p>
                     </div>
                     ${isAdminUser() ? `
@@ -5853,6 +5900,38 @@ function renderHomeStats() {
             actions_open: 0
         });
     });
+    renderHomeBadgeTeaser();
+}
+
+// Badge teaser: logged-in users see their badge progress on the home page.
+function renderHomeBadgeTeaser() {
+    const host = document.getElementById('home-badge-teaser');
+    if (!host) return;
+    const user = getCurrentUser();
+    if (!user || !supabaseSession) { host.classList.add('hidden'); return; }
+    host.classList.remove('hidden');
+    // Wait a tick for badges to load, then render.
+    const tryRender = () => {
+        const ids = (badgeDirectory[user.id] || []).map(b => b.badge_id);
+        const xp = badgeXP(ids);
+        const lv = levelFor(xp);
+        const earned = ids.length;
+        const total = BADGE_CATALOG.length;
+        const nextBadge = BADGE_CATALOG.find(b => !ids.includes(b.id));
+        host.innerHTML = `
+            <div class="au-badge-teaser" onclick="navigateTo('profile')" role="button" tabindex="0">
+                <div class="flex items-center gap-2">
+                    ${ids.slice(0, 5).map(id => badgeIconHTML(id, 28, false)).join('')}
+                    ${earned > 5 ? `<span class="text-xs font-heading font-bold text-slate-500">+${earned - 5}</span>` : ''}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-heading font-bold text-slate-900">${escapeHTML(lv.name)} · ${xp} xp</p>
+                    <p class="text-xs text-slate-500">${earned} of ${total} badges earned${nextBadge ? ` · Next: ${escapeHTML(nextBadge.name)}` : ' · All badges collected!'}</p>
+                </div>
+                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>`;
+    };
+    if (badgesLoaded) tryRender(); else setTimeout(tryRender, 1500);
 }
 
 // ============================================================
@@ -5878,6 +5957,26 @@ function momentumHTML(d) {
     const memberSeries = growth.map((g) => g.members);
     const signupSeries = growth.map((g) => g.signups);
     const gained = growth.length ? (growth[growth.length - 1].members - growth[0].members) : 0;
+
+    // 0. Personal badge showcase (logged-in user)
+    const me = getCurrentUser();
+    if (me && badgeDirectory[me.id]) {
+        const myIds = badgeDirectory[me.id].map(b => b.badge_id);
+        const myXp = badgeXP(myIds);
+        const myLv = levelFor(myXp);
+        const nextBadge = BADGE_CATALOG.find(b => !myIds.includes(b.id));
+        html += `<div class="workspace-panel rounded-[2rem] p-6 sm:p-8 mb-6" style="border: 1px solid rgba(232,179,60,.25); background: linear-gradient(135deg, var(--panel) 0%, rgba(232,179,60,.04) 100%);">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div>
+                    <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-1">Your badge collection</p>
+                    <h3 class="text-xl font-heading font-bold text-slate-900">${escapeHTML(myLv.name)} · ${myXp} xp · ${myIds.length} of ${BADGE_CATALOG.length} badges</h3>
+                </div>
+                ${nextBadge ? `<button onclick="navigateTo('profile')" class="px-4 py-2 bg-accent text-primary font-heading font-bold rounded-full text-sm hover:bg-accent-400 transition-colors min-h-[40px]">View all badges</button>` : ''}
+            </div>
+            <div class="flex flex-wrap gap-2 mb-3">${myIds.map(id => badgeIconHTML(id, 34, false)).join('')}</div>
+            ${nextBadge ? `<p class="text-sm text-slate-600">Next badge: <strong class="text-primary">${escapeHTML(nextBadge.name)}</strong> — ${escapeHTML(nextBadge.desc)} (+${nextBadge.xp} xp)</p>` : '<p class="text-sm text-accent-700 font-heading font-bold">All badges collected! You are a legend.</p>'}
+        </div>`;
+    }
 
     // 1. Headline KPIs
     let html = '<div class="stat-grid cols-4">'
@@ -6064,7 +6163,7 @@ function adminStatsHTML(d) {
         + statCardHTML({ label: 'Actions total', value: ac.total, small: true, sub: fmtNum(ac.upcoming) + ' upcoming · ' + fmtNum(ac.completed) + ' completed' })
         + statCardHTML({ label: 'Avg turnout', value: ac.avg_turnout, small: true, sub: 'Signups per action across the whole record' })
         + statCardHTML({ label: 'Suggestions', value: ac.suggestions, small: true, sub: fmtNum(ac.suggestions_open) + ' open · ' + fmtNum(ac.suggestions_promoted) + ' promoted' })
-        + statCardHTML({ label: 'Results posted', value: ac.results_posted, small: true, sub: fmtNum(ac.reminders_sent) + ' reminders sent · ' + fmtNum(ac.reminder_optins) + ' opted in' })
+        + statCardHTML({ label: 'Results posted', value: ac.results_posted, small: true, sub: fmtNum(ac.results_posted) + ' results shared with members' })
         + '</div>' + turnout);
 
     // ---- Casework ----
@@ -7136,6 +7235,45 @@ function badgeIconHTML(id, size, locked) {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${BADGE_GLYPHS[def.glyph] || BADGE_GLYPHS.star}</svg></span>`;
 }
 
+// Inline badge strip: shows top N earned badges as tiny hoverable icons with tooltips.
+// Used in forum thread cards, reply headers, and the mobile menu user chip.
+function authorBadgeStripHTML(username, max) {
+    const key = (username || '').toLowerCase();
+    const profile = appData.users[key];
+    const ids = profile?.id ? (badgeDirectory[profile.id] || []).map(b => b.badge_id) : null;
+    if (!ids || !ids.length) return '';
+    const top = ids.slice(0, max || 3);
+    return `<span class="au-badge-strip">${top.map(id => {
+        const def = badgeDef(id);
+        if (!def) return '';
+        const isLight = document.documentElement.dataset.theme === 'light';
+        const toneSrc = isLight ? BADGE_TONES_LIGHT : BADGE_TONES;
+        const tone = toneSrc[def.tone] || toneSrc.blue;
+        return `<span class="au-badge-inline" style="background:${tone.fill};color:${tone.ink};box-shadow:inset 0 0 0 1px ${tone.ring}" data-tip="${escapeAttr(def.name)}" title="${escapeAttr(def.name)} — ${escapeAttr(def.desc)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${BADGE_GLYPHS[def.glyph] || BADGE_GLYPHS.star}</svg></span>`;
+    }).join('')}</span>`;
+}
+
+// Mobile menu badge summary: level + badge count for the user chip.
+function mobileBadgeSummary(username) {
+    const key = (username || '').toLowerCase();
+    const profile = appData.users[key];
+    const ids = profile?.id ? (badgeDirectory[profile.id] || []).map(b => b.badge_id) : null;
+    if (!ids || !ids.length) return '';
+    const lv = levelFor(badgeXP(ids));
+    return `<span class="mm-user-badge">${escapeHTML(lv.name)} · ${ids.length}</span>`;
+}
+
+// Update the mobile menu user chip badge level after badges load.
+function updateMobileMenuBadge() {
+    const el = document.getElementById('mm-user-level');
+    if (!el || !currentUser) return;
+    const ids = (badgeDirectory[currentUser.id] || []).map(b => b.badge_id);
+    if (ids.length) {
+        const lv = levelFor(badgeXP(ids));
+        el.textContent = lv.name + ' · ' + ids.length;
+    }
+}
+
 function levelChipHTML(username) {
     const key = (username || '').toLowerCase();
     const profile = appData.users[key];
@@ -7167,7 +7305,6 @@ function standingPanelHTML(user) {
     const lv = levelFor(xp);
     const progress = lv.nextMin ? Math.min(100, Math.round(((xp - lv.min) / (lv.nextMin - lv.min)) * 100)) : 100;
     const earnedCount = ids.length;
-    const emails = user.actionEmails !== false;
     return `<section class="workspace-panel rounded-[2rem] p-6 sm:p-8" aria-labelledby="standing-heading">
       <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-6">
         <div>
@@ -7175,10 +7312,6 @@ function standingPanelHTML(user) {
           <h2 id="standing-heading" class="text-2xl font-heading font-bold text-slate-900">${escapeHTML(lv.name)} <span class="text-slate-400 font-semibold text-base">· ${xp} xp</span></h2>
           <p class="text-sm text-slate-600 mt-1 max-w-xl">${earnedCount} of ${BADGE_CATALOG.length} badges earned.${lv.next ? ` Next rank: <strong>${escapeHTML(lv.next)}</strong> at ${lv.nextMin} xp.` : ' Top rank reached.'}</p>
         </div>
-        <label class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-gray-50 border border-surface-border cursor-pointer min-h-[48px]">
-          <input type="checkbox" id="action-email-toggle" ${emails ? 'checked' : ''} onchange="setActionEmails(this.checked)" class="w-5 h-5 rounded cursor-pointer">
-          <span class="text-sm text-slate-700">Action reminder emails</span>
-        </label>
       </div>
       <div class="h-2 rounded-full bg-gray-100 overflow-hidden mb-7" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100" aria-label="Progress to next rank">
         <div class="au-xp-bar" style="width:${progress}%"></div>
@@ -7197,6 +7330,8 @@ async function loadMyBadges() {
         const gained = next.filter(b => !myBadges.some(old => old.badge_id === b.badge_id));
         myBadges = next;
         badgesLoaded = true;
+        // Update mobile menu chip with badge info now that badges are loaded.
+        updateMobileMenuBadge();
         if (currentUser) {
             const key = currentUser.username.toLowerCase();
             badgeDirectory[currentUser.id] = next;
@@ -7282,22 +7417,14 @@ function renderScoreboard() {
             </div>
           </div>
           <div class="flex items-center gap-2">
-            <div class="flex gap-1">${(top.length ? top : ['signed_on']).map(id => badgeIconHTML(id, 26, false)).join('')}</div>
-            <span class="text-xs text-slate-500 ml-auto">${m.badge_count} badge${m.badge_count === 1 ? '' : 's'} · ${m.signups} action${m.signups === 1 ? '' : 's'}</span>
+            <div class="flex gap-1">${(top.length ? top : ['signed_on']).map(id => badgeIconHTML(id, 30, false)).join('')}</div>
+            <span class="text-xs font-heading font-semibold text-primary ml-auto">${m.badge_count} badge${m.badge_count === 1 ? '' : 's'} · ${xp} xp</span>
           </div>
         </article>`;
     }).join('')}</div>`;
 }
 
-async function setActionEmails(enabled) {
-    if (!supabaseClient || !supabaseSession) return;
-    try {
-        const { error } = await supabaseClient.from('profiles').update({ action_emails: !!enabled }).eq('id', currentUser.id);
-        if (error) throw error;
-        currentUser.actionEmails = !!enabled;
-        showToast(enabled ? 'Action reminder emails on.' : 'Action reminder emails off.', 'success');
-    } catch (e) { showToast('Could not save that preference: ' + e.message, 'error'); }
-}
+
 
 // ---- Calendar + reminder strip -------------------------------------------------
 function icsEscape(v) { return String(v || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n'); }
