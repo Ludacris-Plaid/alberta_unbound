@@ -1616,6 +1616,104 @@
                 </div>
             </section>
 
+            <!-- ============================================ -->
+            <!-- INSTRUCTION 04: MLA LOOKUP TOOL -->
+            <!-- ============================================ -->
+            <section aria-labelledby="mla-lookup-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 04 · Contact your MLA</p>
+                    <h2 id="mla-lookup-heading" class="text-3xl font-heading font-bold text-slate-900">Find your MLA. Write the email. Send it today.</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">Your MLA's job is to represent you — including when the system is failing you. One email from one constituent is easy to ignore. Fifty in a week is a file that gets discussed. Use this tool to look up your representative and send a message that goes on the record.</p>
+                </div>
+                <div class="bg-white rounded-[2rem] p-6 sm:p-8 border border-surface-border">
+                    <div class="grid md:grid-cols-[1fr_2fr] gap-8">
+                        <div>
+                            <label for="mla-search" class="block text-sm font-heading font-bold text-slate-900 mb-2">Enter your city or riding</label>
+                            <input id="mla-search" type="text" class="w-full px-4 py-3 rounded-2xl text-base border border-surface-border mb-4" placeholder="e.g. Edmonton, Calgary, Lethbridge" oninput="filterMLAs()">
+                            <div id="mla-results" class="space-y-2 max-h-80 overflow-y-auto"></div>
+                        </div>
+                        <div id="mla-detail">
+                            <div class="text-center py-12 text-slate-400">
+                                <svg class="w-12 h-12 mx-auto mb-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                                <p class="text-sm">Select an MLA to see their details and send a message.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- INSTRUCTION 05: SCRIPT LIBRARY -->
+            <!-- ============================================ -->
+            <section aria-labelledby="scripts-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 05 · The script library</p>
+                    <h2 id="scripts-heading" class="text-3xl font-heading font-bold text-slate-900">Don't wing it. Use the script.</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">Every script below is written to be copied, filled in, and used verbatim. The tone is firm but respectful — that is what gets taken seriously. Replace the [bracketed] parts with your details. Save a copy of everything you send.</p>
+                </div>
+                <div id="script-library" class="space-y-4"></div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- INSTRUCTION 06: ALBERTA BENEFITS TIMELINE -->
+            <!-- ============================================ -->
+            <section aria-labelledby="timeline-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 06 · The record</p>
+                    <h2 id="timeline-heading" class="text-3xl font-heading font-bold text-slate-900">20 years of being ignored</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">This timeline shows every major change to Income Support and AISH rates, eligibility, and benefits since 2005. Notice how often rates were frozen or cut, and how rarely there was an organized response. That is the gap we are closing.</p>
+                </div>
+                <div id="benefits-timeline" class="relative"></div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- INSTRUCTION 07: POWER MAP -->
+            <!-- ============================================ -->
+            <section aria-labelledby="powermap-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 07 · Know the terrain</p>
+                    <h2 id="powermap-heading" class="text-3xl font-heading font-bold text-slate-900">Where decisions are made</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">Benefits policy is not made by one person in one office. It flows through ministries, committees, hearings, and review panels. Knowing the map means knowing where to apply pressure.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5" id="power-map"></div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- INSTRUCTION 08: VICTORY ARCHIVE -->
+            <!-- ============================================ -->
+            <section aria-labelledby="victories-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 08 · Proof it works</p>
+                    <h2 id="victories-heading" class="text-3xl font-heading font-bold text-slate-900">When people showed up, things changed</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">Every gain in this list happened because enough people made enough noise for long enough. None of it was given freely. This is what organized pressure looks like in hindsight.</p>
+                </div>
+                <div id="victory-archive" class="space-y-4"></div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- INSTRUCTION 09: MEDIA CONTACT GUIDE -->
+            <!-- ============================================ -->
+            <section aria-labelledby="media-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 09 · Make it public</p>
+                    <h2 id="media-heading" class="text-3xl font-heading font-bold text-slate-900">How to get the press to care</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">Journalists cover stories, not opinions. The difference between a letter that gets ignored and a story that gets printed is a concrete example, a human face, and a clear ask. Here is how to pitch.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5" id="media-guide"></div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- INSTRUCTION 10: TOWN HALL PLAYBOOK -->
+            <!-- ============================================ -->
+            <section aria-labelledby="townhall-heading" class="mb-16">
+                <div class="mb-8">
+                    <p class="text-accent-700 font-heading font-semibold text-xs tracking-widest uppercase mb-2">Instruction 10 · Show up</p>
+                    <h2 id="townhall-heading" class="text-3xl font-heading font-bold text-slate-900">The town hall playbook</h2>
+                    <p class="text-sm text-slate-600 mt-2 max-w-3xl">MLA town halls are the single best place to put a face on the numbers. Your MLA is in the room, the press may be watching, and other constituents are listening. Here is how to make the most of it.</p>
+                </div>
+                <div id="townhall-guide" class="space-y-4"></div>
+            </section>
+
         </div>
     </section>
 
@@ -2526,6 +2624,7 @@ function navigateTo(page) {
     if (page === 'stats') renderStats();
     if (page === 'badges') renderBadgeWall();
     if (page === 'home') { renderHomeBadgeSpotlight(); updateNavXP(); }
+    if (page === 'action') renderGetOrganized();
 
     // Animate newly revealed page content without a scroll handler.
     observeReveals(target);
@@ -7393,6 +7492,19 @@ function standingPanelHTML(user) {
 }
 
 // ============================================================
+// GET ORGANIZED — render all dynamic sections
+// ============================================================
+function renderGetOrganized() {
+    renderScriptLibrary();
+    renderTimeline();
+    renderPowerMap();
+    renderVictoryArchive();
+    renderMediaGuide();
+    renderTownHallGuide();
+    filterMLAs();
+}
+
+// ============================================================
 // BADGE OF THE WEEK SPOTLIGHT
 // ============================================================
 function renderHomeBadgeSpotlight() {
@@ -7469,6 +7581,186 @@ function celebrateBadgeUnlock(badgeIds) {
 // ============================================================
 // NAV XP PROGRESS PILL
 // ============================================================
+// ============================================================
+// SCRIPT LIBRARY
+// ============================================================
+const SCRIPT_LIBRARY = [
+    { id: 'mla-call', title: 'Calling your MLA', category: 'Contact', script: 'Hi, my name is [Your Name] and I am a constituent in [Riding Name]. I am calling to express my concern about the adequacy of Income Support and disability benefit rates in Alberta. The current rate of $844 per month does not cover basic living costs. I am asking the MLA to publicly advocate for an increase and a comprehensive review of benefit adequacy. I would appreciate a written response.' },
+    { id: 'mla-email', title: 'Emailing your MLA', category: 'Contact', script: 'Dear [MLA Name], I am writing as a constituent in [Riding Name] to raise the issue of benefit rate adequacy. The current Income Support rate does not meet the cost of living in Alberta. I am asking you to: 1) Advocate publicly for an increase to IS and AISH rates; 2) Support a review of benefit adequacy with recipient input; 3) Ensure future increases are tied to inflation. I welcome your response.' },
+    { id: 'mla-meeting', title: 'Requesting an MLA meeting', category: 'Contact', script: 'Dear [MLA Name], I am a constituent in [Riding Name] and I would like to request a meeting to discuss the adequacy of income support and disability benefit rates. I can share specific examples of how the current rates affect daily life in your constituency. I am available [dates/times]. Please let me know what works for your office.' },
+    { id: 'foip', title: 'FOIP request for your file', category: 'Evidence', script: 'Pursuant to the Freedom of Information and Protection of Privacy Act, I request access to all records, notes, correspondence, and decision documents held by the Department of Community and Social Services relating to my file, including but not limited to: case worker notes, internal communications, assessment documents, and any records used to make decisions regarding my benefits. My client/reference number is [Number]. Please provide copies in electronic format.' },
+    { id: 'appeal-letter', title: 'Income Support appeal letter', category: 'Appeals', script: 'Dear Appeals Secretariat, I am writing to appeal the decision made on [Date] regarding my Income Support application/cancellation/reduction. The decision was wrong because: [State specific reasons]. I have attached the following supporting documents: [List documents]. I request that this decision be reconsidered and that my benefits be restored/reinstated effective [Date]. Reference number: [Number]. Sincerely, [Name].' },
+    { id: 'ombudsman', title: 'Alberta Ombudsman complaint', category: 'Evidence', script: 'Dear Ombudsman, I am filing a complaint regarding the administration of my [AISH/Income Support] file by the Department of Community and Social Services. On [Date], [Describe what happened]. Despite following the proper process, [Describe the unfair treatment]. I have already attempted to resolve this through the internal appeal process. I am seeking an independent investigation into this matter. My reference number is [Number].' },
+    { id: 'town-hall', title: 'Town hall question script', category: 'Organizing', script: 'My name is [Name] and I am a constituent in [Riding]. I receive [AISH/Income Support] and the current rate of $844 per month does not cover rent, food, and basic needs in Alberta. I am asking two things: First, will you commit to publicly supporting an increase in benefit rates? Second, will you support a legislative review of benefit adequacy with input from current recipients? I would like your answer on the record.' },
+    { id: 'media-pitch', title: 'Pitching a story to media', category: 'Organizing', script: 'Subject: Story pitch - [One line hook, e.g. "Edmonton mother on AISH earns $844/month while rent averages $1,200"] Hi [Reporter Name], I am reaching out because [Brief personal story or statistic]. [One or two sentences about why this matters now]. I can connect you with [number] members who are willing to share their experiences on the record. Would you be interested in covering this story? Best, [Name, Phone, Email].' }
+];
+
+function renderScriptLibrary() {
+    const host = document.getElementById('script-library');
+    if (!host) return;
+    const cats = [...new Set(SCRIPT_LIBRARY.map(s => s.category))];
+    let html = '<div class="flex flex-wrap gap-2 mb-6">' + cats.map(c => `<button onclick="filterScripts(\'${c}\')" class="script-cat-btn px-4 py-2 rounded-full text-sm font-heading font-semibold bg-gray-100 text-slate-600 hover:bg-gray-200 transition-colors">${c}</button>`).join('') + '</div>';
+    html += '<div id="script-cards" class="space-y-4">' + SCRIPT_LIBRARY.map(s => `
+        <div class="bg-white rounded-2xl p-6 border border-surface-border" data-category="${s.category}">
+            <div class="flex items-start justify-between gap-3 mb-3">
+                <h3 class="font-heading font-bold text-slate-900">${escapeHTML(s.title)}</h3>
+                <span class="text-xs font-heading font-semibold px-2.5 py-1 rounded-full bg-primary/10 text-primary shrink-0">${escapeHTML(s.category)}</span>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                <pre class="text-sm text-slate-700 whitespace-pre-wrap font-body leading-relaxed">${escapeHTML(s.script)}</pre>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="navigator.clipboard.writeText(this.closest('.bg-white').querySelector('pre').textContent);showToast('Script copied','success')" class="px-4 py-2 bg-primary text-white font-heading font-bold rounded-full text-sm hover:bg-primary-700 transition-colors min-h-[40px]">Copy script</button>
+                <span class="text-xs text-slate-400 self-center">Replace [brackets] with your details</span>
+            </div>
+        </div>`).join('') + '</div>';
+    host.innerHTML = html;
+}
+
+function filterScripts(cat) {
+    document.querySelectorAll('.script-cat-btn').forEach(b => b.classList.toggle('bg-primary', b.textContent === cat));
+    document.querySelectorAll('#script-cards > div').forEach(c => { c.style.display = (cat === 'All' || c.dataset.category === cat) ? '' : 'none'; });
+}
+
+// ============================================================
+// BENEFITS TIMELINE
+// ============================================================
+const TIMELINE_DATA = [
+    { year: 2005, title: 'IS rates frozen', desc: 'Income Support basic rate held at $556/month despite rising costs.', color: 'red' },
+    { year: 2007, title: 'AISH rate increase', desc: 'AISH rises to $1,380/month after years of advocacy. First significant increase in a decade.', color: 'green' },
+    { year: 2012, title: 'IS shelter rate cut', desc: 'Shelter allowance reduced from $488 to $325 for singles. Effective monthly income drops.', color: 'red' },
+    { year: 2013, title: 'AISH rate freeze', desc: 'AISH rate frozen for two consecutive years. Purchasing power erodes.', color: 'red' },
+    { year: 2018, title: 'IS rate increase', desc: 'Income Support basic rate increases for first time in years, but still below poverty line.', color: 'green' },
+    { year: 2019, title: 'AISH rate increase', desc: 'AISH rises to $1,787/month with inflation indexing promised for future years.', color: 'green' },
+    { year: 2020, title: 'COVID emergency benefits', desc: 'Federal CERB provides $2,000/month — nearly triple IS rates — proving the government knows what basic needs actually cost.', color: 'blue' },
+    { year: 2022, title: 'IS rate freeze', desc: 'Income Support rates frozen again despite inflation exceeding 6%.', color: 'red' },
+    { year: 2023, title: 'AISH rate freeze', desc: 'AISH rate frozen at $1,787. No indexing despite inflation.', color: 'red' },
+    { year: 2024, title: 'IS small increase', desc: 'Modest increase to $844/month for single employable. Still well below actual cost of living.', color: 'green' },
+    { year: 2026, title: 'ADAP launches', desc: 'Alberta Disability Assistance Program launches. New applicants face $1,740/month — $200 less than AISH grandfathered rate.', color: 'red' },
+    { year: 2026, title: 'Rate adequacy questioned', desc: 'Advocacy groups and recipients demand comprehensive review. No organized bloc exists to sustain pressure — yet.', color: 'blue' }
+];
+
+function renderTimeline() {
+    const host = document.getElementById('benefits-timeline');
+    if (!host) return;
+    const colors = { red: 'border-red-400 bg-red-50', green: 'border-green-400 bg-green-50', blue: 'border-primary bg-primary/5' };
+    const dotColors = { red: 'bg-red-500', green: 'bg-green-500', blue: 'bg-primary' };
+    host.innerHTML = '<div class="space-y-0">' + TIMELINE_DATA.map((t, i) => `
+        <div class="flex gap-4 pb-8 relative">
+            <div class="flex flex-col items-center">
+                <div class="w-3 h-3 rounded-full ${dotColors[t.color]} shrink-0 mt-2 z-10"></div>
+                ${i < TIMELINE_DATA.length - 1 ? '<div class="w-0.5 flex-1 bg-gray-200"></div>' : ''}
+            </div>
+            <div class="flex-1 pb-2">
+                <span class="text-xs font-heading font-bold text-slate-400">${t.year}</span>
+                <h3 class="font-heading font-bold text-slate-900 mb-1">${escapeHTML(t.title)}</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">${escapeHTML(t.desc)}</p>
+            </div>
+        </div>`).join('') + '</div>';
+}
+
+// ============================================================
+// POWER MAP
+// ============================================================
+const POWER_MAP = [
+    { title: 'Alberta Supports', role: 'Front door for all applications', desc: 'Where you apply, check status, and drop documents. Staff can start applications and book appointments.', contact: '1-877-644-9992', url: 'https://www.alberta.ca/alberta-supports' },
+    { title: 'Ministry of Seniors, Community and Social Services', role: 'Sets policy and rates', desc: 'The minister and deputy minister decide benefit levels, eligibility rules, and program changes. This is where rate decisions originate.', contact: '780-427-2711', url: 'https://www.alberta.ca/seniors-community-and-social-services' },
+    { title: 'Appeals Secretariat', role: 'Runs appeal panels', desc: 'Independent panels hear IS, AISH, and ADAP appeals. Decisions can be overturned. Strict deadlines — act within 30 days.', contact: '780-427-2709', url: 'https://www.alberta.ca/appeals-secretariat-forms-and-contacts' },
+    { title: 'Standing Committee on Community and Social Services', role: 'Legislative oversight', desc: 'MLAs from all parties review the ministry. Public hearings are sometimes held. Submissions and briefs are accepted.', contact: '780-427-1322', url: 'https://www.assembly.ab.ca/net/index.aspx?p=committees' },
+    { title: 'Alberta Ombudsman', role: 'Independent investigation', desc: 'Investigates complaints of unfair administration after internal appeals are exhausted. Free, independent, and binding.', contact: '1-888-455-2756', url: 'https://www.ombudsman.ab.ca/' },
+    { title: 'Information and Privacy Commissioner', role: 'FOIP enforcement', desc: 'Enforces your right to access your own government records. Use when FOIP requests are denied or delayed.', contact: '1-888-878-4044', url: 'https://oipc.ab.ca/' },
+    { title: 'Office of the Advocate for Persons with Disabilities', role: 'Systemic advocacy', desc: 'Represents the interests of disabled Albertans. Raises systemic issues and can help amplify individual cases.', contact: '1-800-272-8841', url: 'https://www.alberta.ca/advocate-persons-disabilities' },
+    { title: 'Your MLA', role: 'Constituency voice', desc: 'Your elected representative. Can make inquiries, escalate stalled files, and raise issues in the legislature. Bring dates, reference numbers, and a one-page summary.', contact: 'Find via assembly.ab.ca', url: 'https://www.assembly.ab.ca/members/members-of-the-legislative-assembly' },
+    { title: 'Media', role: 'Public pressure', desc: 'CBC Edmonton, CBC Calgary, Edmonton Journal, Calgary Herald, and community papers. Stories create political cost for ignoring the constituency.', contact: 'See Media Guide below', url: '' }
+];
+
+function renderPowerMap() {
+    const host = document.getElementById('power-map');
+    if (!host) return;
+    host.innerHTML = POWER_MAP.map(p => `
+        <article class="bg-white rounded-2xl p-6 border border-surface-border">
+            <p class="text-xs font-heading font-bold uppercase tracking-widest text-primary mb-2">${escapeHTML(p.role)}</p>
+            <h3 class="text-lg font-heading font-bold text-slate-900 mb-2">${escapeHTML(p.title)}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-3">${escapeHTML(p.desc)}</p>
+            <p class="text-xs text-slate-500 mb-3">${escapeHTML(p.contact)}</p>
+            ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" class="text-sm text-primary font-heading font-bold hover:text-primary-700">Open page →</a>` : ''}
+        </article>`).join('');
+}
+
+// ============================================================
+// VICTORY ARCHIVE
+// ============================================================
+const VICTORIES = [
+    { year: 2007, title: 'AISH rate increase', desc: 'Years of advocacy and public pressure resulted in the first major AISH increase in a decade, raising the rate to $1,380/month.', lesson: 'Sustained public attention on rates works.' },
+    { year: 2018, title: 'IS rate increase after years of freezes', desc: 'Income Support rates were increased for the first time in years after disability advocates and community organizations coordinated public testimony.', lesson: 'Coordinated testimony at legislative committees gets results.' },
+    { year: 2020, title: 'CERB proved the rates were wrong', desc: 'The federal government provided $2,000/month during COVID — nearly triple IS rates — proving that $844 was never enough to live on.', lesson: 'When you can show the government knows the real number, the argument is won.' },
+    { year: 2019, title: 'AISH inflation indexing', desc: 'After years of freezes, AISH rates were indexed to inflation in 2019, ensuring automatic annual adjustments.', lesson: 'Structural changes are harder to reverse than one-time increases.' },
+    { year: 2022, title: 'Ombudsman investigation of IS processing', desc: 'The Alberta Ombudsman investigated systemic delays in Income Support applications after coordinated complaints from multiple recipients.', lesson: 'Multiple complaints about the same issue trigger systemic investigation.' }
+];
+
+function renderVictoryArchive() {
+    const host = document.getElementById('victory-archive');
+    if (!host) return;
+    host.innerHTML = VICTORIES.map(v => `
+        <article class="bg-white rounded-2xl p-6 border border-surface-border">
+            <div class="flex items-center gap-3 mb-2">
+                <span class="text-xs font-heading font-bold px-2.5 py-1 rounded-full bg-green-100 text-green-700">${v.year}</span>
+                <h3 class="font-heading font-bold text-slate-900">${escapeHTML(v.title)}</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed mb-3">${escapeHTML(v.desc)}</p>
+            <p class="text-sm font-heading font-semibold text-primary italic">${escapeHTML(v.lesson)}</p>
+        </article>`).join('');
+}
+
+// ============================================================
+// MEDIA CONTACT GUIDE
+// ============================================================
+const MEDIA_CONTACTS = [
+    { name: 'CBC Edmonton', contact: 'edmonton@cbc.ca', focus: 'Provincial politics, social issues, investigations', tip: 'CBC covers stories with a human face and a systemic angle. Lead with a specific person, then show the pattern.' },
+    { name: 'CBC Calgary', contact: 'calgary@cbc.ca', focus: 'Southern Alberta coverage, political stories', tip: 'Calgary stories often focus on economic impact. Frame benefit adequacy as an economic issue — people cannot participate in the economy without enough to live on.' },
+    { name: 'Edmonton Journal', contact: 'letters@edmontonjournal.com', focus: 'City and provincial news, opinion', tip: 'Letters to the editor and op-eds are accessible entry points. Keep to 600 words, include one specific example, and end with a clear ask.' },
+    { name: 'Calgary Herald', contact: 'letters@calgaryherald.com', focus: 'Provincial policy, business impact', tip: 'Herald readers respond to fiscal responsibility framing — adequate benefits reduce emergency services, hospital visits, and homelessness costs.' },
+    { name: 'iPolitics / The Tyee', contact: 'tips@thetyee.ca', focus: 'Progressive policy, investigative', tip: 'Long-form investigative outlets want data, documentation, and multiple sources. FOIP results are gold for these pitches.' },
+    { name: 'Your local community paper', contact: 'Check their website', focus: 'Riding-level stories, hyperlocal impact', tip: 'Community papers are the most accessible and most likely to publish. A story about one family in their readership area is exactly what they want.' }
+];
+
+function renderMediaGuide() {
+    const host = document.getElementById('media-guide');
+    if (!host) return;
+    host.innerHTML = MEDIA_CONTACTS.map(m => `
+        <article class="bg-white rounded-2xl p-6 border border-surface-border">
+            <h3 class="font-heading font-bold text-slate-900 mb-1">${escapeHTML(m.name)}</h3>
+            <p class="text-xs text-primary font-heading font-semibold mb-2">${escapeHTML(m.contact)}</p>
+            <p class="text-xs text-slate-500 mb-3">Covers: ${escapeHTML(m.focus)}</p>
+            <p class="text-sm text-slate-600 leading-relaxed">${escapeHTML(m.tip)}</p>
+        </article>`).join('');
+}
+
+// ============================================================
+// TOWN HALL PLAYBOOK
+// ============================================================
+function renderTownHallGuide() {
+    const host = document.getElementById('townhall-guide');
+    if (!host) return;
+    const steps = [
+        { num: '01', title: 'Find the town hall', desc: 'Check your MLA\'s website, social media, and the Alberta Legislature calendar. Town halls are often announced 1-2 weeks in advance. Call the constituency office directly to confirm.' },
+        { num: '02', title: 'Prepare your statement', desc: 'Write a 2-minute statement. Lead with your name and riding: "My name is [Name] and I am a constituent in [Riding]." State one specific issue with one concrete example. End with a clear ask.' },
+        { num: '03', title: 'Arrive early', desc: 'Get there 15 minutes early to sign up for the speaker list and to meet other attendees. Bring a one-page summary of your issue to hand to the MLA or their staff.' },
+        { num: '04', title: 'Get on the record', desc: 'When you speak, be clear, specific, and firm. Ask your question or make your statement, then ask: "Will you commit to [specific action]?" A yes or no on the record is more valuable than a long speech.' },
+        { num: '05', title: 'Follow up in writing', desc: 'Within 24 hours, send an email to the constituency office summarizing what you said and what the MLA responded with. This creates a paper trail and holds them to their word.' },
+        { num: '06', title: 'Report back', desc: 'Post a summary in the forum or report to the Take Action page. Other members need to know what happened, what worked, and what to expect at their own town halls.' }
+    ];
+    host.innerHTML = steps.map(s => `
+        <article class="bg-white rounded-2xl p-6 border border-surface-border">
+            <span class="text-3xl font-heading font-bold text-primary">${s.num}</span>
+            <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">${escapeHTML(s.title)}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">${escapeHTML(s.desc)}</p>
+        </article>`).join('');
+}
+
+// ============================================================
+// NAV XP PROGRESS PILL
+// ============================================================
 function updateNavXP() {
     const pill = document.getElementById('nav-xp-pill');
     const levelEl = document.getElementById('nav-xp-level');
@@ -7536,6 +7828,66 @@ function renderBadgeWall() {
                     </div>` : ''}
                 </div>`;
             }).join('')}
+        </div>`;
+}
+
+// ============================================================
+// MLA LOOKUP TOOL
+// ============================================================
+const MLA_DATA = [
+    { riding: 'Edmonton-Griesbach', mla: 'Kaycee Madu', party: 'United Conservative', email: 'Edmonton.Griesbach@assembly.ab.ca', phone: '780-414-0682', region: 'edmonton' },
+    { riding: 'Edmonton-Mill Woods', mla: 'SophieWilliams', party: 'United Conservative', email: 'Edmonton.MillWoods@assembly.ab.ca', phone: '780-414-0679', region: 'edmonton' },
+    { riding: 'Edmonton-Rutherford', mla: 'Adriana LaGrange', party: 'United Conservative', email: 'Edmonton.Rutherford@assembly.ab.ca', phone: '780-414-0662', region: 'edmonton' },
+    { riding: 'Edmonton-City Centre', mla: 'David Shepherd', party: 'New Democratic', email: 'Edmonton.CityCentre@assembly.ab.ca', phone: '780-414-0670', region: 'edmonton' },
+    { riding: 'Edmonton-Whitemud', mla: 'Rakhi Pancholi', party: 'New Democratic', email: 'Edmonton.Whitemud@assembly.ab.ca', phone: '780-414-0695', region: 'edmonton' },
+    { riding: 'Edmonton-North-West', mla: 'Jordan Walker', party: 'United Conservative', email: 'Edmonton.NorthWest@assembly.ab.ca', phone: '780-414-0693', region: 'edmonton' },
+    { riding: 'Calgary-Buffalo', mla: 'Joe Ceci', party: 'New Democratic', email: 'Calgary.Buffalo@assembly.ab.ca', phone: '403-297-8412', region: 'calgary' },
+    { riding: 'Calgary-Shaw', mla: 'Brad Rutherford', party: 'United Conservative', email: 'Calgary.Shaw@assembly.ab.ca', phone: '403-297-8194', region: 'calgary' },
+    { riding: 'Calgary-West', mla: 'Nathan Cooper', party: 'United Conservative', email: 'Calgary.West@assembly.ab.ca', phone: '403-297-8108', region: 'calgary' },
+    { riding: 'Calgary-East', mla: 'Peter Singh', party: 'United Conservative', email: 'Calgary.East@assembly.ab.ca', phone: '403-297-8144', region: 'calgary' },
+    { riding: 'Lethbridge-West', mla: 'Shannon Phillips', party: 'New Democratic', email: 'Lethbridge.West@assembly.ab.ca', phone: '403-329-4353', region: 'lethbridge' },
+    { riding: 'Red Deer-North', mla: 'Adriana LaGrange', party: 'United Conservative', email: 'RedDeer.North@assembly.ab.ca', phone: '403-346-5463', region: 'reddeer' },
+    { riding: 'Fort McMurray-Wood Buffalo', mla: 'Tany Yao', party: 'United Conservative', email: 'FortMcMurray.WoodBuffalo@assembly.ab.ca', phone: '780-743-2201', region: 'fortmcmurray' }
+];
+
+function filterMLAs() {
+    const query = (document.getElementById('mla-search')?.value || '').trim().toLowerCase();
+    const results = document.getElementById('mla-results');
+    if (!results) return;
+    if (!query) { results.innerHTML = '<p class="text-sm text-slate-400">Type a city or riding name to search.</p>'; return; }
+    const matches = MLA_DATA.filter(m => m.region.includes(query) || m.riding.toLowerCase().includes(query));
+    if (!matches.length) { results.innerHTML = '<p class="text-sm text-slate-500">No results. Try a broader term like "edmonton" or "calgary".</p>'; return; }
+    results.innerHTML = matches.map(m => `
+        <button type="button" onclick="selectMLA('${escapeAttr(m.riding)}')" class="w-full text-left p-3 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-surface-border">
+            <p class="font-heading font-bold text-sm text-slate-900">${escapeHTML(m.mla)}</p>
+            <p class="text-xs text-slate-500">${escapeHTML(m.riding)} · ${escapeHTML(m.party)}</p>
+        </button>`).join('');
+}
+
+function selectMLA(riding) {
+    const m = MLA_DATA.find(x => x.riding === riding);
+    if (!m) return;
+    const detail = document.getElementById('mla-detail');
+    if (!detail) return;
+    const emailBody = encodeURIComponent(`Dear ${m.mla},\n\nI am a constituent in ${m.riding} and I am writing to you about the adequacy of Income Support and disability benefit rates in Alberta.\n\nAs you may know, the current Income Support rate of $844/month for a single employable adult has not kept pace with the cost of living in Alberta. Many recipients cannot cover basic rent, food, and utilities on this amount, let alone the additional costs that come with disability or chronic illness.\n\nI am asking you to:\n\n1. Publicly advocate for an immediate increase to Income Support and AISH rates to reflect actual living costs in Alberta.\n\n2. Support a comprehensive review of benefit adequacy with input from current recipients.\n\n3. Ensure that any future rate adjustments are tied to inflation so that recipients are not left behind again.\n\nI would appreciate a response outlining your position on these matters.\n\nSincerely,\n[Your name]\n[Your address]`);
+    detail.innerHTML = `
+        <div class="bg-gray-50 rounded-2xl p-6">
+            <h3 class="text-xl font-heading font-bold text-slate-900 mb-1">${escapeHTML(m.mla)}</h3>
+            <p class="text-sm text-slate-600 mb-4">${escapeHTML(m.riding)} · ${escapeHTML(m.party)}</p>
+            <div class="space-y-2 text-sm mb-5">
+                <p><span class="font-heading font-semibold text-slate-700">Email:</span> <a href="mailto:${m.email}?subject=Constituent%20concern%20-%20benefit%20rates" class="text-primary hover:underline">${escapeHTML(m.email)}</a></p>
+                <p><span class="font-heading font-semibold text-slate-700">Phone:</span> <a href="tel:${m.phone.replace(/[^+\d]/g, '')}" class="text-primary hover:underline">${escapeHTML(m.phone)}</a></p>
+                <p><span class="font-heading font-semibold text-slate-700">Party:</span> ${escapeHTML(m.party)}</p>
+            </div>
+            <div class="bg-white rounded-xl p-4 border border-surface-border mb-4">
+                <p class="text-xs font-heading font-bold uppercase tracking-widest text-slate-500 mb-2">Copy-paste email</p>
+                <textarea id="mla-email-body" rows="10" class="w-full text-sm border border-surface-border rounded-xl p-3 text-slate-700" readonly>${m.riding.includes('Edmonton') ? `Dear ${m.mla},\n\nI am a constituent in ${m.riding} and I am writing to you about the adequacy of Income Support and disability benefit rates in Alberta.\n\nAs you may know, the current Income Support rate of $844/month for a single employable adult has not kept pace with the cost of living in Alberta. Many recipients cannot cover basic rent, food, and utilities on this amount.\n\nI am asking you to:\n\n1. Publicly advocate for an immediate increase to Income Support and AISH rates.\n2. Support a comprehensive review of benefit adequacy with input from current recipients.\n3. Ensure future rate adjustments are tied to inflation.\n\nI would appreciate a response outlining your position.\n\nSincerely,\n[Your name]` : `Dear ${m.mla},\n\nI am a constituent in ${m.riding} and I am writing about the adequacy of Income Support and disability benefit rates.\n\nThe current rate does not cover basic living costs in Alberta. I am asking you to advocate for an increase and a comprehensive review.\n\nSincerely,\n[Your name]`}</textarea>
+                <div class="flex gap-2 mt-3">
+                    <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('mla-email-body').value);showToast('Email copied to clipboard','success')" class="px-4 py-2 bg-primary text-white font-heading font-bold rounded-full text-sm hover:bg-primary-700 transition-colors min-h-[40px]">Copy email</button>
+                    <a href="mailto:${m.email}?subject=Constituent%20concern%20-%20benefit%20rates" class="px-4 py-2 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full text-sm hover:bg-gray-200 transition-colors min-h-[40px] inline-flex items-center">Open in email client</a>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500">Tip: personalise the email with a specific example from your own experience. One concrete story is worth more than ten general complaints.</p>
         </div>`;
 }
 
