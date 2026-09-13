@@ -832,6 +832,40 @@
         @media (max-width: 640px) { .modal-overlay:not(.hidden) .modal { max-height: min(84dvh, 36rem); padding: 1.5rem !important; border-radius: 1.25rem !important; } }
         /* Badge card light-mode adjustments */
         html[data-theme=light] .au-badge-card { background: #FFFFFF; }
+
+        /* ---- Badge of the Week spotlight ---- */
+        .au-spotlight { position: relative; overflow: hidden; border-radius: 2rem; background: linear-gradient(135deg, var(--panel) 0%, rgba(232,179,60,.06) 50%, var(--panel) 100%); border: 1px solid rgba(232,179,60,.2); }
+        .au-spotlight::before { content: ''; position: absolute; top: -50%; right: -20%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(232,179,60,.12) 0%, transparent 70%); pointer-events: none; }
+        .au-spotlight-badge { animation: au-spotlight-float 3s ease-in-out infinite alternate; }
+        @keyframes au-spotlight-float { from { transform: translateY(0) scale(1); } to { transform: translateY(-6px) scale(1.04); } }
+
+        /* ---- Navbar XP progress pill ---- */
+        .au-nav-xp { display: inline-flex; align-items: center; gap: .4rem; padding: .2rem .55rem; border-radius: 999px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); font-size: .6rem; font-weight: 700; letter-spacing: .06em; color: rgba(255,255,255,.75); cursor: pointer; transition: background .3s, border-color .3s; }
+        .au-nav-xp:hover { background: rgba(232,179,60,.15); border-color: rgba(232,179,60,.3); color: #E8B33C; }
+        .au-nav-xp-bar { width: 32px; height: 3px; border-radius: 999px; background: rgba(255,255,255,.15); overflow: hidden; }
+        .au-nav-xp-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #69B1D8, #E8B33C); transition: width .8s cubic-bezier(.32,.72,0,1); }
+        html[data-theme=light] .au-nav-xp { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.25); color: rgba(255,255,255,.9); }
+
+        /* ---- Confetti celebration ---- */
+        .au-confetti-piece { position: fixed; width: 8px; height: 8px; border-radius: 2px; pointer-events: none; z-index: 9999; animation: au-confetti-fall 1.8s cubic-bezier(.22,.61,.36,1) forwards; }
+        @keyframes au-confetti-fall {
+            0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+            100% { opacity: 0; transform: translateY(100vh) rotate(720deg) scale(.3); }
+        }
+        .au-celebration-overlay { position: fixed; inset: 0; z-index: 9998; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.55); backdrop-filter: blur(8px); opacity: 0; animation: au-celebrate-in .5s cubic-bezier(.32,.72,0,1) forwards; }
+        @keyframes au-celebrate-in { from { opacity: 0; } to { opacity: 1; } }
+        .au-celebrate-card { text-align: center; padding: 2.5rem; border-radius: 2rem; background: var(--panel); border: 1px solid rgba(232,179,60,.35); box-shadow: 0 30px 80px rgba(0,0,0,.4); animation: au-celebrate-pop .6s cubic-bezier(.32,.72,0,1) .2s both; }
+        @keyframes au-celebrate-pop { from { opacity: 0; transform: scale(.7) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .au-celebrate-badge { animation: au-celebrate-glow 1.5s ease-in-out infinite alternate; }
+        @keyframes au-celebrate-glow { from { filter: drop-shadow(0 0 8px rgba(232,179,60,.3)); } to { filter: drop-shadow(0 0 20px rgba(232,179,60,.6)); } }
+
+        /* ---- Badge wall ---- */
+        .au-wall-card { padding: 1.25rem; border-radius: 1.25rem; background: var(--panel-raised); border: 1px solid var(--line); transition: transform .4s cubic-bezier(.32,.72,0,1), border-color .4s, box-shadow .4s; }
+        .au-wall-card:hover { transform: translateY(-3px); border-color: rgba(232,179,60,.35); box-shadow: 0 12px 36px rgba(232,179,60,.08); }
+        .au-wall-card.is-earned { border-color: rgba(232,179,60,.35); background: linear-gradient(135deg, var(--panel-raised), rgba(232,179,60,.04)); }
+        .au-wall-earners { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .5rem; }
+        .au-wall-earner { width: 1.6rem; height: 1.6rem; border-radius: 999px; object-fit: cover; border: 2px solid var(--panel-raised); }
+        .au-wall-earner-initial { width: 1.6rem; height: 1.6rem; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: .55rem; font-weight: 700; color: #fff; background: linear-gradient(135deg, var(--blue), var(--gold)); border: 2px solid var(--panel-raised); }
         html[data-theme=light] .au-badge-card.is-earned { border-color: rgba(122,90,16,.28); }
         html[data-theme=light] .au-badge-xp { color: #5C6B7C; }
     </style>
@@ -1108,6 +1142,10 @@
 
             <!-- Theme and auth / profile area -->
             <div class="flex items-center gap-2" id="header-tools">
+                <div id="nav-xp-pill" class="au-nav-xp hidden" onclick="navigateTo('profile')" role="button" tabindex="0" title="Your XP progress">
+                    <span id="nav-xp-level"></span>
+                    <div class="au-nav-xp-bar"><div id="nav-xp-fill" class="au-nav-xp-fill" style="width:0%"></div></div>
+                </div>
                 <button id="theme-toggle" type="button" onclick="toggleTheme()" class="relative flex items-center justify-center rounded-full text-slate-600 hover:text-primary hover:bg-primary/5 transition-colors" aria-label="Switch to light mode" title="Switch theme">
                     <svg class="theme-sun absolute w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
                     <svg class="theme-moon absolute w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.7 8.7 0 1 0 12 12Z"/></svg>
@@ -1142,6 +1180,8 @@
             <button onclick="navigateFromMore('resources')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Resources</button>
             <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
             <button onclick="navigateFromMore('momentum')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors" role="menuitem">Our Momentum</button>
+            <span class="w-px h-4 bg-white/10" aria-hidden="true"></span>
+            <button onclick="navigateFromMore('badges')" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-accent-700 hover:bg-accent/10 transition-colors" role="menuitem">Badge Wall</button>
             <button onclick="navigateFromMore('stats')" id="nav-more-stats" class="nav-more-item px-4 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-primary/5 hover:text-primary transition-colors hidden" role="menuitem">Command Stats</button>
         </div>
     </div>
@@ -1183,6 +1223,7 @@
                 <button onclick="navigateTo('campaigns');closeMobileMenu()" class="mm-item" role="menuitem">Take Action</button>
                 <button onclick="navigateTo('manifesto');closeMobileMenu()" class="mm-item" role="menuitem">Manifesto</button>
                 <button onclick="navigateTo('resources');closeMobileMenu()" class="mm-item" role="menuitem">Resources</button>
+                <button onclick="navigateTo('badges');closeMobileMenu()" class="mm-item mm-gold" role="menuitem">Badge Wall</button>
             </div>
         </div>
     </div>
@@ -1256,6 +1297,11 @@
 
         <!-- Logged-in badge teaser -->
         <div id="home-badge-teaser" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-8"></div>
+
+        <!-- Badge of the Week spotlight -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <div id="home-badge-spotlight" class="au-spotlight p-6 sm:p-8"></div>
+        </div>
 
         <!-- Programs Grid -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
@@ -1421,6 +1467,7 @@
                             <p><button onclick="navigateTo('action')" class="hover:text-white transition-colors cursor-pointer">Get Organized</button></p>
                             <p><button onclick="navigateTo('campaigns')" class="hover:text-white transition-colors cursor-pointer">Take Action</button></p>
                             <p><button onclick="navigateTo('vault')" class="hover:text-white transition-colors cursor-pointer">The Vault</button></p>
+                            <p><button onclick="navigateTo('badges')" class="hover:text-white transition-colors cursor-pointer">Badge Wall</button></p>
                             <p><button onclick="navigateTo('manifesto')" class="hover:text-white transition-colors cursor-pointer">Manifesto</button></p>
                             <p><button onclick="navigateTo('resources')" class="hover:text-white transition-colors cursor-pointer">Resources</button></p>
                         </div>
@@ -2057,6 +2104,26 @@
         </div>
     </section>
 
+    <!-- ============================================ -->
+    <!-- BADGE WALL — public badge showcase -->
+    <!-- ============================================ -->
+    <section id="page-badges" class="page-section">
+        <div class="bg-primary-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+                <div class="max-w-4xl">
+                    <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">Badge Wall</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Earned, not given.</span><br>Every badge tells a story.</h1>
+                    <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">Badges are awarded for real participation — posting, organizing, documenting, and showing up. Nobody can buy one, and nobody can award themselves one.</p>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+            <div id="badge-wall-body">
+                <!-- JS fills this -->
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <!-- ==================== AUTH MODAL ==================== -->
@@ -2430,7 +2497,7 @@ function navigateTo(page) {
     currentPostIndex = null;
 
     // Keep only the current destination visibly active; secondary pages activate Tools.
-    const explorePages = ['vault', 'desk', 'action', 'campaigns', 'manifesto', 'resources', 'momentum', 'stats'];
+    const explorePages = ['vault', 'desk', 'action', 'campaigns', 'manifesto', 'resources', 'momentum', 'stats', 'badges'];
     const headerActive = page !== 'member' && page !== 'profile';
     document.querySelectorAll('.nav-link, .nav-more-item, #mobile-menu [role="menuitem"]').forEach(l => {
         const itemPage = l.dataset.page || (l.getAttribute('onclick') || '').match(/navigate(?:To|FromMore)\('([a-z]+)'\)/i)?.[1];
@@ -2457,6 +2524,8 @@ function navigateTo(page) {
     if (page === 'resources') renderResources();
     if (page === 'momentum') renderMomentum();
     if (page === 'stats') renderStats();
+    if (page === 'badges') renderBadgeWall();
+    if (page === 'home') { renderHomeBadgeSpotlight(); updateNavXP(); }
 
     // Animate newly revealed page content without a scroll handler.
     observeReveals(target);
@@ -2654,6 +2723,9 @@ function applyTheme(theme) {
         el.style.setProperty('--badge-fill', isLocked ? lk.fill : tone.fill);
         el.style.setProperty('--badge-ink', isLocked ? lk.ink : tone.ink);
     });
+    // Re-render pages that depend on theme-sensitive badge tones
+    if (currentPage === 'home') renderHomeBadgeSpotlight();
+    if (currentPage === 'badges') renderBadgeWall();
 }
 function toggleTheme() { applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'); }
 
@@ -7320,6 +7392,153 @@ function standingPanelHTML(user) {
     </section>`;
 }
 
+// ============================================================
+// BADGE OF THE WEEK SPOTLIGHT
+// ============================================================
+function renderHomeBadgeSpotlight() {
+    const host = document.getElementById('home-badge-spotlight');
+    if (!host) return;
+    // Rotate weekly based on the current week number
+    const weekNum = Math.floor(Date.now() / (7 * 86400000));
+    const eligible = BADGE_CATALOG.filter(b => b.xp > 0); // skip role badges
+    const spotlight = eligible[weekNum % eligible.length];
+    const isLight = document.documentElement.dataset.theme === 'light';
+    const toneSrc = isLight ? BADGE_TONES_LIGHT : BADGE_TONES;
+    const tone = toneSrc[spotlight.tone] || toneSrc.blue;
+    host.innerHTML = `
+        <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+            <div class="au-spotlight-badge shrink-0" style="width:72px;height:72px;border-radius:1.1rem;background:${tone.fill};box-shadow:inset 0 0 0 1.5px ${tone.ring}, 0 8px 24px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;color:${tone.ink}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:58%;height:58%">${BADGE_GLYPHS[spotlight.glyph] || BADGE_GLYPHS.star}</svg>
+            </div>
+            <div class="flex-1 text-center sm:text-left">
+                <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-1">Badge of the week</p>
+                <h3 class="text-xl font-heading font-bold text-slate-900 mb-1">${escapeHTML(spotlight.name)} <span class="text-sm font-semibold text-primary">+${spotlight.xp} xp</span></h3>
+                <p class="text-sm text-slate-600 leading-relaxed">${escapeHTML(spotlight.desc)}</p>
+            </div>
+            <button onclick="navigateTo('badges')" class="shrink-0 px-5 py-2.5 bg-primary text-white font-heading font-bold rounded-full text-sm hover:bg-primary-700 transition-colors min-h-[44px] active:scale-[0.98]">See all badges</button>
+        </div>`;
+}
+
+// ============================================================
+// BADGE UNLOCK CELEBRATION
+// ============================================================
+function celebrateBadgeUnlock(badgeIds) {
+    if (!badgeIds || !badgeIds.length) return;
+    const badge = badgeDef(badgeIds[0]);
+    if (!badge) return;
+    const isLight = document.documentElement.dataset.theme === 'light';
+    const toneSrc = isLight ? BADGE_TONES_LIGHT : BADGE_TONES;
+    const tone = toneSrc[badge.tone] || toneSrc.blue;
+
+    // Create confetti pieces
+    const colors = ['#E8B33C', '#69B1D8', '#E08A82', '#6B9B7A', '#FFFFFF'];
+    for (let i = 0; i < 40; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'au-confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.top = '-10px';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = (Math.random() * 0.8) + 's';
+        piece.style.animationDuration = (1.2 + Math.random() * 1) + 's';
+        piece.style.width = (5 + Math.random() * 6) + 'px';
+        piece.style.height = (5 + Math.random() * 6) + 'px';
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3000);
+    }
+
+    // Create celebration overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'au-celebration-overlay';
+    overlay.innerHTML = `
+        <div class="au-celebrate-card">
+            <div class="au-celebrate-badge mx-auto mb-4" style="width:80px;height:80px;border-radius:1.2rem;background:${tone.fill};box-shadow:inset 0 0 0 2px ${tone.ring};display:flex;align-items:center;justify-content:center;color:${tone.ink}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:55%;height:55%">${BADGE_GLYPHS[badge.glyph] || BADGE_GLYPHS.star}</svg>
+            </div>
+            <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-2">Badge unlocked!</p>
+            <h3 class="text-2xl font-heading font-bold text-slate-900 mb-2">${escapeHTML(badge.name)}</h3>
+            <p class="text-sm text-slate-600 mb-5">${escapeHTML(badge.desc)}</p>
+            <p class="text-lg font-heading font-bold text-primary">+${badge.xp} xp</p>
+            <button onclick="this.closest('.au-celebration-overlay').remove()" class="mt-5 px-6 py-2.5 bg-primary text-white font-heading font-bold rounded-full text-sm hover:bg-primary-700 transition-colors min-h-[44px]">Awesome</button>
+        </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.remove(), 8000);
+}
+
+// ============================================================
+// NAV XP PROGRESS PILL
+// ============================================================
+function updateNavXP() {
+    const pill = document.getElementById('nav-xp-pill');
+    const levelEl = document.getElementById('nav-xp-level');
+    const fillEl = document.getElementById('nav-xp-fill');
+    if (!pill || !levelEl || !fillEl) return;
+    const user = getCurrentUser();
+    if (!user) { pill.classList.add('hidden'); return; }
+    pill.classList.remove('hidden');
+    const ids = (badgeDirectory[user.id] || []).map(b => b.badge_id);
+    const xp = badgeXP(ids);
+    const lv = levelFor(xp);
+    const progress = lv.nextMin ? Math.min(100, Math.round(((xp - lv.min) / (lv.nextMin - lv.min)) * 100)) : 100;
+    levelEl.textContent = lv.name;
+    fillEl.style.width = progress + '%';
+    pill.title = lv.name + ' · ' + xp + ' xp' + (lv.next ? ' · Next: ' + lv.next + ' at ' + lv.nextMin : ' · Top rank');
+}
+
+// ============================================================
+// BADGE WALL PAGE
+// ============================================================
+function renderBadgeWall() {
+    const host = document.getElementById('badge-wall-body');
+    if (!host) return;
+    // Count how many users have each badge
+    const counts = {};
+    const earners = {};
+    Object.values(badgeDirectory).forEach(badges => {
+        badges.forEach(b => {
+            counts[b.badge_id] = (counts[b.badge_id] || 0) + 1;
+            if (!earners[b.badge_id]) earners[b.badge_id] = [];
+            // Find the username for this user_id
+            const uEntry = Object.entries(appData.users).find(([k, v]) => v.id === b.user_id);
+            if (uEntry) earners[b.badge_id].push(uEntry[1]);
+        });
+    });
+    const myIds = new Set((myBadges || []).map(b => b.badge_id));
+
+    host.innerHTML = `
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            ${BADGE_CATALOG.map(def => {
+                const count = counts[def.id] || 0;
+                const earned = myIds.has(def.id);
+                const isLight = document.documentElement.dataset.theme === 'light';
+                const toneSrc = isLight ? BADGE_TONES_LIGHT : BADGE_TONES;
+                const tone = toneSrc[def.tone] || toneSrc.blue;
+                const earnerList = (earners[def.id] || []).slice(0, 8);
+                return `<div class="au-wall-card ${earned ? 'is-earned' : ''}">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div style="width:40px;height:40px;border-radius:.7rem;background:${tone.fill};box-shadow:inset 0 0 0 1px ${tone.ring};display:flex;align-items:center;justify-content:center;color:${tone.ink};flex-shrink:0">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:55%;height:55%">${BADGE_GLYPHS[def.glyph] || BADGE_GLYPHS.star}</svg>
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-heading font-bold text-sm text-slate-900">${escapeHTML(def.name)}</p>
+                            <p class="text-[11px] text-slate-500">${def.xp} xp · ${count} earned</p>
+                        </div>
+                        ${earned ? '<span class="ml-auto text-xs font-heading font-bold text-accent-700 bg-accent/10 px-2 py-0.5 rounded-full">Yours</span>' : ''}
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-3">${escapeHTML(def.desc)}</p>
+                    ${earnerList.length ? `<div class="au-wall-earners">
+                        ${earnerList.map(u => u.avatar
+                            ? `<img src="${escapeAttr(u.avatar)}" alt="" class="au-wall-earner">
+                            `<div class="au-wall-earner-initial">${escapeHTML((u.username || '?').charAt(0).toUpperCase())}</div>`
+                        ).join('')}
+                        ${count > 8 ? `<span class="text-[10px] text-slate-500 font-heading font-bold">+${count - 8}</span>` : ''}
+                    </div>` : ''}
+                </div>`;
+            }).join('')}
+        </div>`;
+}
+
 async function loadMyBadges() {
     if (!supabaseClient || !supabaseSession) return;
     try {
@@ -7340,7 +7559,9 @@ async function loadMyBadges() {
         if (before && gained.length) {
             const names = gained.map(b => badgeDef(b.badge_id)?.name).filter(Boolean).join(', ');
             if (names) showToast(`Badge unlocked: ${names}`, 'success');
+            celebrateBadgeUnlock(gained.map(b => b.badge_id));
         }
+        updateNavXP();
         // Standings read from the scoreboard view, which reflects the badges just awarded.
         if (before !== next.length) loadScoreboard();
         refreshBadgeSurfaces();
@@ -7352,6 +7573,8 @@ function refreshBadgeSurfaces() {
     if (currentPage === 'member') renderMemberProfile();
     if (currentPage === 'campaigns') renderTakeAction();
     if (currentPage === 'forum') renderForum();
+    if (currentPage === 'badges') renderBadgeWall();
+    updateNavXP();
 }
 
 let badgeCheckTimer = null;
