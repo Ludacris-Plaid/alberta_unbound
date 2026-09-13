@@ -7529,8 +7529,8 @@ function renderBadgeWall() {
                     <p class="text-xs text-slate-600 leading-relaxed mb-3">${escapeHTML(def.desc)}</p>
                     ${earnerList.length ? `<div class="au-wall-earners">
                         ${earnerList.map(u => u.avatar
-                            ? `<img src="${escapeAttr(u.avatar)}" alt="" class="au-wall-earner">
-                            `<div class="au-wall-earner-initial">${escapeHTML((u.username || '?').charAt(0).toUpperCase())}</div>`
+                            ? `<img src="${escapeAttr(u.avatar)}" alt="" class="au-wall-earner">`
+                            : `<div class="au-wall-earner-initial">${escapeHTML((u.username || '?').charAt(0).toUpperCase())}</div>`
                         ).join('')}
                         ${count > 8 ? `<span class="text-[10px] text-slate-500 font-heading font-bold">+${count - 8}</span>` : ''}
                     </div>` : ''}
