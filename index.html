@@ -1142,10 +1142,6 @@
 
             <!-- Theme and auth / profile area -->
             <div class="flex items-center gap-2" id="header-tools">
-                <div id="nav-xp-pill" class="au-nav-xp hidden" onclick="navigateTo('profile')" role="button" tabindex="0" title="Your XP progress">
-                    <span id="nav-xp-level"></span>
-                    <div class="au-nav-xp-bar"><div id="nav-xp-fill" class="au-nav-xp-fill" style="width:0%"></div></div>
-                </div>
                 <button id="theme-toggle" type="button" onclick="toggleTheme()" class="relative flex items-center justify-center rounded-full text-slate-600 hover:text-primary hover:bg-primary/5 transition-colors" aria-label="Switch to light mode" title="Switch theme">
                     <svg class="theme-sun absolute w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" stroke-width="1.5"/><path stroke-linecap="round" stroke-width="1.5" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
                     <svg class="theme-moon absolute w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5a8.7 8.7 0 1 0 12 12Z"/></svg>
@@ -1293,14 +1289,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Logged-in badge teaser -->
-        <div id="home-badge-teaser" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 mb-8"></div>
-
-        <!-- Badge of the Week spotlight -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-            <div id="home-badge-spotlight" class="au-spotlight p-6 sm:p-8"></div>
         </div>
 
         <!-- Programs Grid -->
@@ -2726,7 +2714,6 @@ function navigateTo(page) {
     if (page === 'momentum') renderMomentum();
     if (page === 'stats') renderStats();
     if (page === 'badges') renderBadgeWall();
-    if (page === 'home') { renderHomeBadgeSpotlight(); updateNavXP(); }
     if (page === 'action') renderGetOrganized();
 
     // Animate newly revealed page content without a scroll handler.
@@ -2926,8 +2913,8 @@ function applyTheme(theme) {
         el.style.setProperty('--badge-ink', isLocked ? lk.ink : tone.ink);
     });
     // Re-render pages that depend on theme-sensitive badge tones
-    if (currentPage === 'home') renderHomeBadgeSpotlight();
     if (currentPage === 'badges') renderBadgeWall();
+    if (currentPage === 'profile') renderProfile();
 }
 function toggleTheme() { applyTheme(document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'); }
 
@@ -5452,7 +5439,7 @@ async function renderProfile() {
     const userReplies = appData.threads.flatMap(t => (t.replies || []).filter(r => r.author.toLowerCase() === user.username.toLowerCase()));
     const initial = user.username.charAt(0).toUpperCase();
     const avatarHTML = user.avatar ? `<img src="${user.avatar}" alt="${escapeHTML(user.username)}'s avatar" class="avatar-preview object-cover">` : `<div class="avatar-preview avatar-default flex items-center justify-center text-white font-bold text-3xl">${initial}</div>`;
-    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Diary</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div><section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Diary is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
+    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Diary</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div>${workspaceBadgeTeaserHTML()}${workspaceBadgeSpotlightHTML()}<section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Diary is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
     enhanceProfileWorkspace();
     const standingHost = document.getElementById('profile-content');
     if (standingHost && !standingHost.querySelector('[data-standing]')) {
@@ -6172,41 +6159,9 @@ function renderHomeStats() {
             guides: (appData.posts || []).length,
             forum_posts: (appData.threads || []).reduce((n, t) => n + 1 + (t.replies || []).length, 0),
             actions_open: 0
-        });
-    });
-    renderHomeBadgeTeaser();
+        });    });
 }
 
-// Badge teaser: logged-in users see their badge progress on the home page.
-function renderHomeBadgeTeaser() {
-    const host = document.getElementById('home-badge-teaser');
-    if (!host) return;
-    const user = getCurrentUser();
-    if (!user || !supabaseSession) { host.classList.add('hidden'); return; }
-    host.classList.remove('hidden');
-    // Wait a tick for badges to load, then render.
-    const tryRender = () => {
-        const ids = (badgeDirectory[user.id] || []).map(b => b.badge_id);
-        const xp = badgeXP(ids);
-        const lv = levelFor(xp);
-        const earned = ids.length;
-        const total = BADGE_CATALOG.length;
-        const nextBadge = BADGE_CATALOG.find(b => !ids.includes(b.id));
-        host.innerHTML = `
-            <div class="au-badge-teaser" onclick="navigateTo('profile')" role="button" tabindex="0">
-                <div class="flex items-center gap-2">
-                    ${ids.slice(0, 5).map(id => badgeIconHTML(id, 28, false)).join('')}
-                    ${earned > 5 ? `<span class="text-xs font-heading font-bold text-slate-500">+${earned - 5}</span>` : ''}
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-heading font-bold text-slate-900">${escapeHTML(lv.name)} · ${xp} xp</p>
-                    <p class="text-xs text-slate-500">${earned} of ${total} badges earned${nextBadge ? ` · Next: ${escapeHTML(nextBadge.name)}` : ' · All badges collected!'}</p>
-                </div>
-                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </div>`;
-    };
-    if (badgesLoaded) tryRender(); else setTimeout(tryRender, 1500);
-}
 
 // ============================================================
 // MOMENTUM PAGE (members) — proof that organizing is working
@@ -6831,8 +6786,10 @@ async function loadWeeklyActions() {
         renderTakeAction();
     } catch (e) {
         console.warn('action load failed', e);
+        actionsLoaded = true;
+        renderTakeAction();
         const fa = document.getElementById('featured-action');
-        if (fa) fa.innerHTML = '<div class="desk-card rounded-[2rem] p-8 text-center"><p class="text-slate-600">Actions couldn\'t load. Refresh to try again.</p></div>';
+        if (fa) fa.insertAdjacentHTML('beforeend', '<p class="text-xs text-slate-400 mt-3 text-center">Live actions could not be loaded — showing templates and guides below. Refresh to retry.</p>');
     }
 }
 
@@ -7005,9 +6962,21 @@ function renderActionCalendar() {
     host.innerHTML = html;
 }
 
+function renderTakeActionStaticParts() {
+    renderImpactDashboard();
+    renderActionPlaybook();
+    renderActionTemplates();
+    renderVictoryLap();
+    renderRecruitToolkit();
+    renderResponseGuide();
+    renderActionCalendar();
+    renderScoreboard();
+}
+
 function renderTakeAction() {
     const fa = document.getElementById('featured-action');
     if (!fa) return;
+    renderTakeActionStaticParts();
     const now = Date.now();
     const upcoming = weeklyActions
         .filter(a => a.status !== 'completed' && new Date(a.at).getTime() > now - 24 * 3600 * 1000)
@@ -7730,6 +7699,57 @@ function badgesGridHTML(earnedIds, opts) {
     }).join('')}</div>`;
 }
 
+function workspaceBadgeSpotlightHTML() {
+    const earned = new Set((myBadges || []).map(b => b.badge_id));
+    const eligible = BADGE_CATALOG.filter(b => b.xp > 0 && !earned.has(b.id));
+    const weekNum = Math.floor(Date.now() / (7 * 86400000));
+    const pick = (eligible.length ? eligible : BADGE_CATALOG.filter(b => b.xp > 0))[weekNum % (eligible.length || 1)] || BADGE_CATALOG[0];
+    const isLight = document.documentElement.dataset.theme === 'light';
+    const toneSrc = isLight ? BADGE_TONES_LIGHT : BADGE_TONES;
+    const tone = toneSrc[pick.tone] || toneSrc.blue;
+    const hasIt = earned.has(pick.id);
+    return `<section class="workspace-panel au-spotlight p-6 sm:p-8" aria-labelledby="workspace-spotlight-heading">
+        <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+            <div class="au-spotlight-badge shrink-0" style="width:72px;height:72px;border-radius:1.1rem;background:${tone.fill};box-shadow:inset 0 0 0 1.5px ${tone.ring}, 0 8px 24px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;color:${tone.ink}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:58%;height:58%">${BADGE_GLYPHS[pick.glyph] || BADGE_GLYPHS.star}</svg>
+            </div>
+            <div class="flex-1 text-center sm:text-left">
+                <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-1">Badge of the week</p>
+                <h3 id="workspace-spotlight-heading" class="text-xl font-heading font-bold text-slate-900 mb-1">${escapeHTML(pick.name)} <span class="text-sm font-semibold text-primary">+${pick.xp} xp</span> ${hasIt ? '<span class="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700">You earned this</span>' : ''}</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">${escapeHTML(pick.desc)}</p>
+            </div>
+            <button onclick="document.querySelector('[data-standing]')?.scrollIntoView({behavior:'smooth',block:'start'})" class="shrink-0 px-5 py-2.5 bg-primary text-white font-heading font-bold rounded-full text-sm hover:bg-primary-700 transition-colors min-h-[44px] active:scale-[0.98]">See your badges</button>
+        </div>
+    </section>`;
+}
+
+function workspaceBadgeTeaserHTML() {
+    const user = getCurrentUser();
+    if (!user || !supabaseSession) return '';
+    const ids = (badgeDirectory[user.id] || []).map(b => b.badge_id);
+    const xp = badgeXP(ids);
+    const lv = levelFor(xp);
+    const earned = ids.length;
+    const total = BADGE_CATALOG.length;
+    const nextBadge = BADGE_CATALOG.find(b => !ids.includes(b.id));
+    const progress = lv.nextMin ? Math.min(100, Math.round(((xp - lv.min) / (lv.nextMin - lv.min)) * 100)) : 100;
+    return `<section class="workspace-panel rounded-[2rem] p-6 sm:p-8" aria-labelledby="workspace-badge-teaser-heading">
+        <div class="flex items-center justify-between gap-4 mb-4">
+            <div>
+                <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-1">Your badges</p>
+                <h3 id="workspace-badge-teaser-heading" class="text-lg font-heading font-bold text-slate-900">${escapeHTML(lv.name)} · ${xp} xp</h3>
+                <p class="text-xs text-slate-500">${earned} of ${total} badges earned${nextBadge ? ` · Next: ${escapeHTML(nextBadge.name)}` : ' · All badges collected!'}</p>
+            </div>
+            <div class="au-nav-xp-bar w-20 h-1.5"><div class="au-nav-xp-fill" style="width:${progress}%"></div></div>
+        </div>
+        <div class="flex items-center gap-2">
+            ${ids.slice(0, 6).map(id => badgeIconHTML(id, 30, false)).join('')}
+            ${earned > 6 ? `<span class="text-xs font-heading font-bold text-slate-500">+${earned - 6}</span>` : ''}
+            ${earned ? '' : '<span class="text-xs text-slate-500">No badges yet — forum posts and actions earn xp.</span>'}
+        </div>
+    </section>`;
+}
+
 function standingPanelHTML(user) {
     const ids = (myBadges || []).map(b => b.badge_id);
     const xp = badgeXP(ids);
@@ -7762,33 +7782,6 @@ function renderGetOrganized() {
     renderMediaGuide();
     renderTownHallGuide();
     filterMLAs();
-}
-
-// ============================================================
-// BADGE OF THE WEEK SPOTLIGHT
-// ============================================================
-function renderHomeBadgeSpotlight() {
-    const host = document.getElementById('home-badge-spotlight');
-    if (!host) return;
-    // Rotate weekly based on the current week number
-    const weekNum = Math.floor(Date.now() / (7 * 86400000));
-    const eligible = BADGE_CATALOG.filter(b => b.xp > 0); // skip role badges
-    const spotlight = eligible[weekNum % eligible.length];
-    const isLight = document.documentElement.dataset.theme === 'light';
-    const toneSrc = isLight ? BADGE_TONES_LIGHT : BADGE_TONES;
-    const tone = toneSrc[spotlight.tone] || toneSrc.blue;
-    host.innerHTML = `
-        <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-            <div class="au-spotlight-badge shrink-0" style="width:72px;height:72px;border-radius:1.1rem;background:${tone.fill};box-shadow:inset 0 0 0 1.5px ${tone.ring}, 0 8px 24px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;color:${tone.ink}">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:58%;height:58%">${BADGE_GLYPHS[spotlight.glyph] || BADGE_GLYPHS.star}</svg>
-            </div>
-            <div class="flex-1 text-center sm:text-left">
-                <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-1">Badge of the week</p>
-                <h3 class="text-xl font-heading font-bold text-slate-900 mb-1">${escapeHTML(spotlight.name)} <span class="text-sm font-semibold text-primary">+${spotlight.xp} xp</span></h3>
-                <p class="text-sm text-slate-600 leading-relaxed">${escapeHTML(spotlight.desc)}</p>
-            </div>
-            <button onclick="navigateTo('badges')" class="shrink-0 px-5 py-2.5 bg-primary text-white font-heading font-bold rounded-full text-sm hover:bg-primary-700 transition-colors min-h-[44px] active:scale-[0.98]">See all badges</button>
-        </div>`;
 }
 
 // ============================================================
@@ -8019,26 +8012,6 @@ function renderTownHallGuide() {
 }
 
 // ============================================================
-// NAV XP PROGRESS PILL
-// ============================================================
-function updateNavXP() {
-    const pill = document.getElementById('nav-xp-pill');
-    const levelEl = document.getElementById('nav-xp-level');
-    const fillEl = document.getElementById('nav-xp-fill');
-    if (!pill || !levelEl || !fillEl) return;
-    const user = getCurrentUser();
-    if (!user) { pill.classList.add('hidden'); return; }
-    pill.classList.remove('hidden');
-    const ids = (badgeDirectory[user.id] || []).map(b => b.badge_id);
-    const xp = badgeXP(ids);
-    const lv = levelFor(xp);
-    const progress = lv.nextMin ? Math.min(100, Math.round(((xp - lv.min) / (lv.nextMin - lv.min)) * 100)) : 100;
-    levelEl.textContent = lv.name;
-    fillEl.style.width = progress + '%';
-    pill.title = lv.name + ' · ' + xp + ' xp' + (lv.next ? ' · Next: ' + lv.next + ' at ' + lv.nextMin : ' · Top rank');
-}
-
-// ============================================================
 // BADGE WALL PAGE
 // ============================================================
 function renderBadgeWall() {
@@ -8173,7 +8146,6 @@ async function loadMyBadges() {
             if (names) showToast(`Badge unlocked: ${names}`, 'success');
             celebrateBadgeUnlock(gained.map(b => b.badge_id));
         }
-        updateNavXP();
         // Standings read from the scoreboard view, which reflects the badges just awarded.
         if (before !== next.length) loadScoreboard();
         refreshBadgeSurfaces();
@@ -8186,7 +8158,6 @@ function refreshBadgeSurfaces() {
     if (currentPage === 'campaigns') renderTakeAction();
     if (currentPage === 'forum') renderForum();
     if (currentPage === 'badges') renderBadgeWall();
-    updateNavXP();
 }
 
 let badgeCheckTimer = null;
@@ -8240,7 +8211,8 @@ function renderScoreboard() {
     const medals = ['1', '2', '3'];
     wrap.innerHTML = `<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">${scoreboard.slice(0, 8).map((m, i) => {
         const ids = (badgeDirectory[m.id] || []).map(b => b.badge_id);
-        const lv = levelFor(badgeXP(ids) || m.badge_count * 15);
+        const xpVal = badgeXP(ids) || (m.badge_count * 15);
+        const lv = levelFor(xpVal);
         const top = ['signed_on', 'whip', 'case_keeper', 'roughneck', 'steward', 'chair'].filter(id => (badgeDirectory[m.id] || []).some(b => b.badge_id === id)).slice(0, 3);
         return `<article class="au-score-card">
           <div class="flex items-center gap-3 mb-3">
@@ -8253,19 +8225,10 @@ function renderScoreboard() {
           </div>
           <div class="flex items-center gap-2">
             <div class="flex gap-1">${(top.length ? top : ['signed_on']).map(id => badgeIconHTML(id, 30, false)).join('')}</div>
-            <span class="text-xs font-heading font-semibold text-primary ml-auto">${m.badge_count} badge${m.badge_count === 1 ? '' : 's'} · ${xp} xp</span>
+            <span class="text-xs font-heading font-semibold text-primary ml-auto">${m.badge_count} badge${m.badge_count === 1 ? '' : 's'} \u00b7 ${xpVal} xp</span>
           </div>
         </article>`;
     }).join('')}</div>`;
-
-    // Render new sections
-    renderImpactDashboard();
-    renderActionPlaybook();
-    renderActionTemplates();
-    renderVictoryLap();
-    renderRecruitToolkit();
-    renderResponseGuide();
-    renderActionCalendar();
 }
 
 
@@ -8320,6 +8283,9 @@ cssReadyThenReveal();
 initSupabaseAuth(); // async — restores a live session and re-renders
 loadForumRemote();  // async — swaps in remote threads when the backend is live
 loadBlogRemote();   // async — swaps in database posts when the backend is live
+// Take Action static content renders offline (templates, playbook, recruit kit, etc.)
+// so the page is never empty before the first backend round-trip.
+renderTakeActionStaticParts();
 
 // Deep-link boot: land directly on #thread/7, #blog/3, or #member/name from a URL.
 // (Password-reset links are handled earlier and win over routing.)
