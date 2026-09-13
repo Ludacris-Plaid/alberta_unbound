@@ -339,6 +339,19 @@
             --gold: #F2B544;
             --red: #E08A82;
             --success: #75AFCB;
+            /* Gold CTA fill and its text share one token pair so the ink stays readable
+               wherever the gold lands (navy panels, cream pages, the nav bar). */
+            --accent-fill: #E8B33C;
+            --accent-fill-ink: #0B2035;
+            /* Action buttons carry a solid gold fill at rest so they stay clearly
+               visible on the navy panels, then reverse to ink with gold text on hover. */
+            --btn-rest-bg: #E8B33C;
+            --btn-rest-ink: #0B2035;
+            --btn-rest-rim: rgba(232, 179, 60, .55);
+            --btn-hover-bg: #0B2035;
+            --btn-hover-ink: #E8B33C;
+            --btn-hover-rim: rgba(232, 179, 60, .65);
+            --btn-hover-chip: rgba(232, 179, 60, .22);
         }
         html[data-theme=light] {
             --ink: #F6F3EC;
@@ -357,6 +370,17 @@
             --red-small: #8C2F28;
             --gold-small: #3F2D07;
             --success: #176B92;
+            --accent-fill: #E8B33C;
+            --accent-fill-ink: #0B2035;
+            /* Light mode keeps the brand navy fill (reads well on cream) and gains
+               the same gold hover fill as every other button. */
+            --btn-rest-bg: #102B4E;
+            --btn-rest-ink: #FFFFFF;
+            --btn-rest-rim: rgba(16, 42, 67, .20);
+            --btn-hover-bg: #E8B33C;
+            --btn-hover-ink: #0B2035;
+            --btn-hover-rim: transparent;
+            --btn-hover-chip: rgba(11, 32, 53, .16);
         }
         html, body { background: var(--ink) !important; color: var(--copy) !important; }
         body::before { background-image: radial-gradient(currentColor .55px, transparent .55px); color: rgba(220,237,248,.12); }
@@ -366,10 +390,11 @@
         .bg-primary, .bg-primary-900 { background-color: #102B4E !important; }
         .text-primary { color: var(--brand-text) !important; }
         .border-primary { border-color: var(--brand-bg) !important; }
-        .bg-accent { background-color: var(--gold) !important; }
-        /* Gold CTA: ink text on gold in both themes (light blue/navy text on gold fails contrast) */
-        .bg-accent.text-primary, button.bg-accent.text-primary, a.bg-accent.text-primary { color: #0B2035 !important; }
-        html[data-theme=light] .bg-accent.text-primary, html[data-theme=light] button.bg-accent.text-primary, html[data-theme=light] a.bg-accent.text-primary { color: #FFF8E5 !important; }
+        .bg-accent { background-color: var(--accent-fill) !important; }
+        /* Gold CTA: ink text on the gold fill in both themes (light text on the bright
+           gold fails contrast, and the fill is the bright gold in every theme). */
+        .bg-accent.text-primary, button.bg-accent.text-primary, a.bg-accent.text-primary,
+        .bg-accent.text-white, button.bg-accent.text-white, a.bg-accent.text-white { color: var(--accent-fill-ink) !important; }
 
         .text-accent, .text-accent-700, .text-accent-800 { color: var(--gold) !important; }
         .bg-warm\\/10, .bg-primary\\/5, .bg-primary\\/10 { background-color: color-mix(in srgb, var(--blue) 10%, transparent) !important; }
@@ -382,17 +407,26 @@
         [class~="bg-primary/5"], [class~="bg-primary/10"], [class~="bg-warm/10"] { background-color: color-mix(in srgb, var(--blue) 10%, transparent) !important; }
         [class~="bg-accent/10"] { background-color: color-mix(in srgb, var(--gold) 14%, transparent) !important; }
         [class~="bg-red-50"], [class~="bg-red-100"] { background-color: color-mix(in srgb, var(--red) 12%, transparent) !important; }
-        /* Slick gold hover system: buttons warm to gold with lift + glow; gold buttons reverse to ink. */
+        /* Slick gold hover system: buttons warm to gold with lift + glow; gold buttons reverse to ink.
+           In dark mode rest buttons would be invisible on the navy panel, so give them a visible gold-lifted base
+           until hover. */
         button.bg-primary, a.bg-primary, button.bg-accent, a.bg-accent, button[class~="bg-white/10"], a[class~="bg-white/10"] {
             transition: background-color .4s cubic-bezier(.32,.72,0,1), color .4s cubic-bezier(.32,.72,0,1), border-color .4s cubic-bezier(.32,.72,0,1), transform .4s cubic-bezier(.32,.72,0,1), box-shadow .4s cubic-bezier(.32,.72,0,1) !important;
         }
+        button.bg-primary, a.bg-primary {
+            background-color: var(--btn-rest-bg) !important;
+            color: var(--btn-rest-ink) !important;
+            border: 1px solid var(--btn-rest-rim) !important;
+            box-shadow: 0 6px 14px rgba(0,0,0,.28), 0 0 0 1px color-mix(in srgb, var(--btn-rest-bg) 24%, transparent) !important;
+        }
         button.bg-primary:hover, a.bg-primary:hover {
-            background-color: #E8B33C !important;
-            color: #0B2035 !important;
+            background-color: var(--btn-hover-bg) !important;
+            color: var(--btn-hover-ink) !important;
+            border-color: var(--btn-hover-rim) !important;
             transform: translateY(-2px) !important;
             box-shadow: 0 6px 14px rgba(16,42,67,.18), 0 16px 38px rgba(232,179,60,.30) !important;
         }
-        button.bg-primary:hover [class~="bg-primary/10"], a.bg-primary:hover [class~="bg-primary/10"] { background-color: rgba(11,32,53,.16) !important; }
+        button.bg-primary:hover [class~="bg-primary/10"], a.bg-primary:hover [class~="bg-primary/10"] { background-color: var(--btn-hover-chip) !important; }
         button[class~="bg-white/10"]:hover, a[class~="bg-white/10"]:hover {
             background-color: rgba(232,179,60,.14) !important;
             border-color: rgba(232,179,60,.65) !important;
@@ -404,10 +438,18 @@
         button.bg-primary:active, a.bg-primary:active, button.bg-accent:active, a.bg-accent:active, button[class~="bg-white/10"]:active, a[class~="bg-white/10"]:active { transform: translateY(0) scale(.98) !important; }
         .bg-orange-50, [class~="bg-orange-50"] { background-color: color-mix(in srgb, var(--gold) 14%, transparent) !important; }
         .text-orange-600, .text-orange-700 { color: var(--gold) !important; }
-        /* Gold (Vault-style) buttons reverse: ink core, gold text, gold ring. */
+        /* Gold (Vault-style) buttons reverse: ink core, gold text, gold ring.
+           Also make gold buttons visible at rest in dark mode, since pure ink blends into the panel. */
+        button.bg-accent, a.bg-accent {
+            background-color: var(--accent-fill) !important;
+            color: var(--accent-fill-ink) !important;
+            border: 1px solid color-mix(in srgb, var(--accent-fill) 45%, transparent) !important;
+            box-shadow: 0 6px 14px rgba(0,0,0,.28), 0 0 0 1px color-mix(in srgb, var(--accent-fill) 22%, transparent) !important;
+        }
         button.bg-accent:hover, a.bg-accent:hover {
             background-color: #0B2035 !important;
             color: #E8B33C !important;
+            border-color: transparent !important;
             box-shadow: inset 0 0 0 1.5px rgba(232,179,60,.65), 0 16px 38px rgba(11,32,53,.35) !important;
             transform: translateY(-2px) !important;
         }
@@ -891,7 +933,8 @@
             border-radius: 6px;
         }
         /* Gold-on-gold elements get an ink ring instead */
-        .bg-accent:focus-visible, button.bg-accent:focus-visible, a.bg-accent:focus-visible {
+        .bg-accent:focus-visible, button.bg-accent:focus-visible, a.bg-accent:focus-visible,
+        button.bg-primary:focus-visible, a.bg-primary:focus-visible {
             outline-color: #0B2035 !important;
         }
 
@@ -6187,6 +6230,8 @@ function momentumHTML(d) {
     const signupSeries = growth.map((g) => g.signups);
     const gained = growth.length ? (growth[growth.length - 1].members - growth[0].members) : 0;
 
+    let html = '';
+
     // 0. Personal badge showcase (logged-in user)
     const me = getCurrentUser();
     if (me && badgeDirectory[me.id]) {
@@ -6208,7 +6253,7 @@ function momentumHTML(d) {
     }
 
     // 1. Headline KPIs
-    let html = '<div class="stat-grid cols-4">'
+    html += '<div class="stat-grid cols-4">'
         + statCardHTML({
             label: 'Members organized', value: t.members, tone: 'gold', signal: true,
             sub: gained > 0 ? '+' + fmtNum(gained) + ' in the last 12 weeks' : 'Every account is one more voice.'
