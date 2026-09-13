@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Alberta Unbound is an independent, non-partisan platform for benefits navigation, shared knowledge, and organized public accountability.">
+
+    <!-- Social preview: without these a shared link renders as a bare URL. -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Alberta Unbound">
+    <meta property="og:title" content="Alberta Unbound — Practical tools. Shared knowledge. Public pressure.">
+    <meta property="og:description" content="Practical tools, shared knowledge, and organized public pressure for Albertans navigating AISH, Income Support, disability benefits, housing, and health programs.">
+    <meta property="og:url" content="https://alberta-unbound.vercel.app/">
+    <meta property="og:image" content="https://alberta-unbound.vercel.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Alberta Unbound — practical tools, shared knowledge, and public pressure for Albertans navigating the benefits system.">
+    <meta property="og:locale" content="en_CA">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alberta Unbound — Practical tools. Shared knowledge. Public pressure.">
+    <meta name="twitter:description" content="Practical tools, shared knowledge, and organized public pressure for Albertans navigating AISH, Income Support, and disability benefits.">
+    <meta name="twitter:image" content="https://alberta-unbound.vercel.app/assets/og-image.png">
     <title>Alberta Unbound — Practical tools. Shared knowledge. Public pressure.</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="apple-touch-icon" href="assets/favicon.svg">
@@ -144,7 +160,7 @@
         @media (min-width: 768px) {
             #mobile-menu-btn { display: none !important; }
         }
-        #mobile-menu-btn .menu-lines { position: relative; display: block; width: 18px; height: 14px; }
+        #mobile-menu-btn .menu-lines { position: relative; display: block; width: 28px; height: 14px; }
         /* top centers the bars' static position (height 1.5px -> half is .75px), so the +/-6px offsets stay symmetrical around the button's midline */
         #mobile-menu-btn .menu-line { position: absolute; top: calc(50% - .75px); left: 0; right: 0; height: 1.5px; border-radius: 999px; background: currentColor; transition: transform .5s cubic-bezier(.32,.72,0,1), opacity .35s cubic-bezier(.32,.72,0,1); }
         #mobile-menu-btn .menu-line:nth-child(1) { transform: translateY(-6px); } #mobile-menu-btn .menu-line:nth-child(2) { transform: translateY(0); } #mobile-menu-btn .menu-line:nth-child(3) { transform: translateY(6px); }
@@ -236,14 +252,14 @@
         #page-action .text-accent-700, #page-action .text-accent-800 { color: var(--gold) !important; }
         #page-home > div.bg-gradient-to-r { background: #102B4E !important; }
         /* Footer stays a navy island in both themes (like the nav) so its white/slate text stays legible. */
-        #page-home footer, html[data-theme=light] #page-home footer, html[data-theme=dark] #page-home footer { background: #0B2035 !important; }
+        footer, html[data-theme=light] footer, html[data-theme=dark] footer { background: #0B2035 !important; }
         /* Footer text stays light-on-navy in both themes (same pattern as the nav). */
-        #page-home footer .text-slate-400, html[data-theme=light] #page-home footer .text-slate-400, html[data-theme=dark] #page-home footer .text-slate-400 { color: rgba(220,237,248,.80) !important; }
-        #page-home footer .text-slate-500, html[data-theme=light] #page-home footer .text-slate-500, html[data-theme=dark] #page-home footer .text-slate-500 { color: rgba(220,237,248,.62) !important; }
-        #page-home footer .text-slate-300, html[data-theme=light] #page-home footer .text-slate-300, html[data-theme=dark] #page-home footer .text-slate-300 { color: rgba(220,237,248,.95) !important; }
-        #page-home footer a, #page-home footer button { color: inherit; }
-        #page-home footer a:hover, #page-home footer button:hover { color: #FFFFFF !important; }
-        #page-home footer .border-slate-800 { border-color: rgba(220,237,248,.16) !important; }
+        footer .text-slate-400, html[data-theme=light] footer .text-slate-400, html[data-theme=dark] footer .text-slate-400 { color: rgba(220,237,248,.80) !important; }
+        footer .text-slate-500, html[data-theme=light] footer .text-slate-500, html[data-theme=dark] footer .text-slate-500 { color: rgba(220,237,248,.62) !important; }
+        footer .text-slate-300, html[data-theme=light] footer .text-slate-300, html[data-theme=dark] footer .text-slate-300 { color: rgba(220,237,248,.95) !important; }
+        footer a, footer button { color: inherit; }
+        footer a:hover, footer button:hover { color: #FFFFFF !important; }
+        footer .border-slate-800 { border-color: rgba(220,237,248,.16) !important; }
         #page-home .grid.sm\\:grid-cols-2 > div { background: var(--panel-raised) !important; border: 1px solid var(--line) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 24px 75px rgba(0,0,0,.18) !important; transition: transform .7s cubic-bezier(.32,.72,0,1), border-color .5s cubic-bezier(.32,.72,0,1), box-shadow .7s cubic-bezier(.32,.72,0,1); }
         #page-home .grid.sm\\:grid-cols-2 > div:hover { transform: translateY(-5px); border-color: rgba(26,82,118,.35) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 30px 80px rgba(0,0,0,.28) !important; }
         #page-desk > div:first-child { background: #102B4E !important; }
@@ -477,14 +493,14 @@
         .bg-primary [class~="bg-primary/10"] { background-color: rgba(255,255,255,.30) !important; }
         #page-home > div.bg-gradient-to-r { background: var(--panel-soft) !important; }
         /* Footer stays a navy island in both themes (like the nav) so its white/slate text stays legible. */
-        #page-home footer, html[data-theme=light] #page-home footer, html[data-theme=dark] #page-home footer { background: #0B2035 !important; }
+        footer, html[data-theme=light] footer, html[data-theme=dark] footer { background: #0B2035 !important; }
         /* Footer text stays light-on-navy in both themes (same pattern as the nav). */
-        #page-home footer .text-slate-400, html[data-theme=light] #page-home footer .text-slate-400, html[data-theme=dark] #page-home footer .text-slate-400 { color: rgba(220,237,248,.80) !important; }
-        #page-home footer .text-slate-500, html[data-theme=light] #page-home footer .text-slate-500, html[data-theme=dark] #page-home footer .text-slate-500 { color: rgba(220,237,248,.62) !important; }
-        #page-home footer .text-slate-300, html[data-theme=light] #page-home footer .text-slate-300, html[data-theme=dark] #page-home footer .text-slate-300 { color: rgba(220,237,248,.95) !important; }
-        #page-home footer a, #page-home footer button { color: inherit; }
-        #page-home footer a:hover, #page-home footer button:hover { color: #FFFFFF !important; }
-        #page-home footer .border-slate-800 { border-color: rgba(220,237,248,.16) !important; }
+        footer .text-slate-400, html[data-theme=light] footer .text-slate-400, html[data-theme=dark] footer .text-slate-400 { color: rgba(220,237,248,.80) !important; }
+        footer .text-slate-500, html[data-theme=light] footer .text-slate-500, html[data-theme=dark] footer .text-slate-500 { color: rgba(220,237,248,.62) !important; }
+        footer .text-slate-300, html[data-theme=light] footer .text-slate-300, html[data-theme=dark] footer .text-slate-300 { color: rgba(220,237,248,.95) !important; }
+        footer a, footer button { color: inherit; }
+        footer a:hover, footer button:hover { color: #FFFFFF !important; }
+        footer .border-slate-800 { border-color: rgba(220,237,248,.16) !important; }
         #page-home .grid.md\\:grid-cols-2 > div, #page-home .grid.lg\\:grid-cols-4 > div, #home-blog-preview > article, #page-action .grid > div, #blog-posts-container > article, #forum-threads > div, #thread-detail > article, #profile-content > div, #page-home .grid.sm\\:grid-cols-2 > div, #page-desk .desk-card, #page-vault #vault-content > div, .workspace-panel {
             background: var(--panel) !important;
             border-color: var(--line) !important;
@@ -544,6 +560,15 @@
             user-select: none;
         }
         html[data-theme=light] .spray-stamp-text { color: #C03324; }
+        html[data-theme=dark] .spray-stamp-text { color: #EF7A68; }
+        /* Vault lock chip measured 3.86:1 on the dark panel and would invert badly in
+           light mode, so each theme gets its own readable pairing. */
+        .vault-lock-chip { background: rgba(49,91,134,.10); border: 1px solid rgba(49,91,134,.30); color: #1E3E5E; }
+        html[data-theme=dark] .vault-lock-chip { background: rgba(224,138,130,.16); border: 1px solid rgba(224,138,130,.36); color: #F0A79F; }
+        /* Touch targets: expands the hit area of small inline controls to ~44px without
+           shifting any layout. Used on dense links where real padding would break rhythm. */
+        .tap44 { position: relative; }
+        .tap44::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: max(100%, 44px); height: max(100%, 44px); }
         /* rough spray halo behind the text */
         .spray-stamp-text::before {
             content: ''; position: absolute; inset: -1.1rem -2.2rem;
@@ -670,7 +695,10 @@
         html[data-theme=light] .text-slate-900 { color: var(--copy) !important; }
         html[data-theme=light] .text-slate-700 { color: color-mix(in srgb, var(--copy) 88%, var(--muted)) !important; }
         html[data-theme=light] .text-slate-600, html[data-theme=light] .text-slate-500 { color: var(--muted) !important; }
-        html[data-theme=light] .text-slate-400 { color: color-mix(in srgb, var(--muted) 75%, var(--ink)) !important; }
+        /* Muted metadata on light cards: 75%-of-muted measured 3.38:1, below the 4.5:1
+           floor for small text. Use the full muted ink in light mode; dark surfaces
+           (the footer, navy panels) keep their own lighter override below. */
+        html[data-theme=light] .text-slate-400 { color: var(--muted) !important; }
         html[data-theme=light] input, html[data-theme=light] select, html[data-theme=light] textarea { color: var(--copy) !important; background-color: var(--panel) !important; border-color: var(--line-bright) !important; }
 
         /* Final route-specific normalization prevents legacy page selectors from reintroducing old tones. */
@@ -711,11 +739,13 @@
         html[data-theme=light] .bg-red-50 { background-color: color-mix(in srgb, var(--red-small) 12%, transparent) !important; }
         html[data-theme=light] .text-red-400 { color: var(--red-small) !important; }
         html[data-theme=dark] .text-red-400 { color: var(--red) !important; }
-        /* Safety-callout cards on navy heroes: inner text must stay light in light mode too. */
+        /* Safety-callout cards: the surface is light in light mode and dark in dark mode,
+           so the copy follows --copy instead of being forced white (which measured
+           1.05:1 against the cream light-mode panel). */
         html[data-theme=light] #page-action .bg-red-950\/40 p, html[data-theme=light] #page-action .bg-red-950\/40 h2,
         html[data-theme=light] #page-action .bg-red-950\/40 .text-slate-600, html[data-theme=light] #page-action .bg-red-950\/40 .text-slate-500,
         html[data-theme=light] #page-desk .bg-red-950\/40 p, html[data-theme=light] #page-desk .bg-red-950\/40 h2,
-        html[data-theme=light] #page-desk .bg-red-950\/40 .text-slate-600, html[data-theme=light] #page-desk .bg-red-950\/40 .text-slate-500 { color: rgba(255,255,255,.85) !important; }
+        html[data-theme=light] #page-desk .bg-red-950\/40 .text-slate-600, html[data-theme=light] #page-desk .bg-red-950\/40 .text-slate-500 { color: var(--copy) !important; }
         #page-action .bg-red-950\\/40, #page-desk .bg-red-950\\/40 { background-color: color-mix(in srgb, var(--panel) 88%, transparent) !important; border-color: var(--line) !important; }
         #page-action .bg-red-50, #page-action .bg-red-100, #page-desk .bg-red-50, #page-desk .bg-red-100 { background-color: color-mix(in srgb, var(--blue) 12%, transparent) !important; }
         #page-desk .checklist-item[aria-pressed="true"] .check-icon { border-color: var(--brand-bg) !important; background: var(--brand-bg) !important; color: #FFFFFF !important; }
@@ -1146,6 +1176,7 @@
 
 
 <!-- ==================== NAVBAR ==================== -->
+<header role="banner" class="site-header">
 <nav class="fixed top-5 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-40 rounded-full bg-black/60 backdrop-blur-xl ring-1 ring-white/10" role="navigation" aria-label="Main navigation">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
@@ -1226,6 +1257,7 @@
     </div>
 
 </nav>
+</header>
 
     <!-- Mobile menu: OUTSIDE the transformed nav so position:fixed spans the real viewport -->
     <div id="mobile-menu" class="hidden" role="menu" aria-label="Site pages">
@@ -1390,7 +1422,7 @@
                         <p class="text-primary font-heading font-semibold text-sm tracking-widest uppercase mb-3">How we work</p>
                         <h2 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 mb-4">Alberta Unbound turns shared experience into practical power.</h2>
                         <p class="text-slate-600 leading-relaxed mb-6">We bring together Albertans who are navigating income support, disability benefits, housing, health benefits, and the public systems around them. We share what we learn, make room for disagreement, and turn individual problems into informed, democratic pressure for better outcomes.</p>
-                        <button onclick="navigateTo('action')" class="inline-flex items-center gap-2 text-primary font-heading font-bold hover:text-primary-700 transition-colors cursor-pointer">
+                        <button onclick="navigateTo('action')" class="tap44 inline-flex items-center gap-2 text-primary font-heading font-bold hover:text-primary-700 transition-colors cursor-pointer">
                             See how we organize
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </button>
@@ -1460,65 +1492,6 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="bg-slate-900 text-white py-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid md:grid-cols-4 gap-8 mb-8">
-                    <div class="md:col-span-2">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-9 h-9" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" class="w-full h-full" role="img" aria-label="Alberta Unbound logo">
-                                    <rect x="2" y="2" width="60" height="60" rx="16" fill="#0B2035"/>
-                                    <rect x="5" y="5" width="54" height="54" rx="13" fill="none" stroke="#E8B33C" stroke-opacity=".5" stroke-width="1"/>
-                                    <rect x="8" y="8" width="48" height="14" rx="4" fill="#16406B"/>
-                                    <rect x="28" y="8" width="8" height="14" fill="#CE3B2C"/>
-                                    <rect x="8" y="12.5" width="48" height="5" fill="#CE3B2C"/>
-                                    <g stroke="#F2B544" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M41.5 31h4.5M22.5 31h-4.5M38.6 25.4l3-3M25.4 25.4l-3-3M38.6 36.6l3 3M25.4 36.6l-3 3"/></g>
-                                    <circle cx="32" cy="31" r="6.5" fill="#F2B544"/>
-                                    <polygon points="24,46 38,34 52,46" fill="#2E5D8A"/>
-                                    <polygon points="38,34 41.4,38.2 38,37 34.8,38" fill="#E8EDF4"/>
-                                    <polygon points="12,46 24,33 36,46" fill="#4A7BA8"/>
-                                    <polygon points="24,33 26.6,37.4 24,36 21.4,37.2" fill="#E8EDF4"/>
-                                    <rect x="8" y="44" width="48" height="10" rx="3" fill="#2F6B4F"/>
-                                    <g stroke="#F2B544" stroke-width="1.6" stroke-linecap="round" fill="none"><path d="M22 52.5v-6M32 52.5v-6M42 52.5v-6M22 47.5l-2.4-2M22 47.5l2.4-2M22 50.5l-2.4-2M22 50.5l2.4-2M32 47.5l-2.4-2M32 47.5l2.4-2M32 50.5l-2.4-2M32 50.5l2.4-2M42 47.5l-2.4-2M42 47.5l2.4-2M42 50.5l-2.4-2M42 50.5l2.4-2"/></g>
-                                    <circle cx="32" cy="37.5" r="1.8" fill="#FDB813"/>
-                                </svg>
-                            </div>
-                            <span class="font-heading font-bold text-lg">Alberta Unbound</span>
-                        </div>
-                        <p class="text-slate-400 text-sm max-w-md">Alberta Unbound is a badlands-born, patch-tested coalition of Albertans who know the difference between working hard and being worked over. We fight for income justice, disability rights, and humane support. We are independent, non-partisan, and committed to the dignity and agency of the people using these systems.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-semibold mb-3 text-sm uppercase tracking-wider text-slate-300">Navigate</h4>
-                        <div class="space-y-2 text-sm text-slate-400">
-                            <p><button onclick="navigateTo('home')" class="hover:text-white transition-colors cursor-pointer">Home</button></p>
-                            <p><button onclick="navigateTo('blog')" class="hover:text-white transition-colors cursor-pointer">Blog</button></p>
-                            <p><button onclick="navigateTo('forum')" class="hover:text-white transition-colors cursor-pointer">Forum</button></p>
-                            <p><button onclick="navigateTo('desk')" class="hover:text-white transition-colors cursor-pointer">Case Diary</button></p>
-                            <p><button onclick="navigateTo('action')" class="hover:text-white transition-colors cursor-pointer">Get Organized</button></p>
-                            <p><button onclick="navigateTo('campaigns')" class="hover:text-white transition-colors cursor-pointer">Take Action</button></p>
-                            <p><button onclick="navigateTo('vault')" class="hover:text-white transition-colors cursor-pointer">The Vault</button></p>
-                            <p><button onclick="navigateTo('badges')" class="hover:text-white transition-colors cursor-pointer">Badge Wall</button></p>
-                            <p><button onclick="navigateTo('manifesto')" class="hover:text-white transition-colors cursor-pointer">Manifesto</button></p>
-                            <p><button onclick="navigateTo('resources')" class="hover:text-white transition-colors cursor-pointer">Resources</button></p>
-                        </div>
-                    </div>
-                    <div>
-                        <h4 class="font-heading font-semibold mb-3 text-sm uppercase tracking-wider text-slate-300">Official Links</h4>
-                        <div class="space-y-2 text-sm text-slate-400">
-                            <p><a href="https://www.alberta.ca/aish" target="_blank" rel="noopener" class="hover:text-white transition-colors">AISH (Official)</a></p>
-                            <p><a href="https://www.alberta.ca/alberta-disability-assistance-program" target="_blank" rel="noopener" class="hover:text-white transition-colors">ADAP (Official)</a></p>
-                            <p><a href="https://www.alberta.ca/income-support" target="_blank" rel="noopener" class="hover:text-white transition-colors">Income Support</a></p>
-                            <p><a href="https://www.alberta.ca/alberta-supports" target="_blank" rel="noopener" class="hover:text-white transition-colors">Alberta Supports</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
-                    <p>Alberta Unbound is an independent, non-partisan platform and is not affiliated with the Government of Alberta.</p>
-                    <p class="mt-1">We stand with people navigating poverty, disability, illness, and insecure work. Always verify official information at <a href="https://www.alberta.ca" class="underline hover:text-slate-300 transition-colors" target="_blank" rel="noopener">alberta.ca</a>.</p>
-                </div>
-            </div>
-        </footer>
     </section>
 
     <!-- ============================================ -->
@@ -1624,25 +1597,25 @@
                         <span class="text-3xl font-heading font-bold text-red-500">01</span>
                         <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Find your people</h3>
                         <p class="text-sm text-slate-600 leading-relaxed mb-4">Post a riding-level thread in the forum: "Anyone else in Edmonton-Rutherford on AISH?" Five members in one riding is the seed of a constituency group.</p>
-                        <button type="button" onclick="navigateTo('forum')" class="text-primary font-heading font-bold text-sm hover:text-primary-700">Open the forum →</button>
+                        <button type="button" onclick="navigateTo('forum')" class="tap44 text-primary font-heading font-bold text-sm hover:text-primary-700">Open the forum →</button>
                     </article>
                     <article class="bg-white rounded-2xl p-6 border border-surface-border">
                         <span class="text-3xl font-heading font-bold text-red-500">02</span>
                         <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Know your MLA</h3>
                         <p class="text-sm text-slate-600 leading-relaxed mb-4">Look up your MLA, their critic roles, committee seats, and last statements on disability. Ten minutes of reading makes every later contact sharper.</p>
-                        <a href="https://www.assembly.ab.ca/net/index.aspx?p=mla_report" target="_blank" rel="noopener noreferrer" class="text-primary font-heading font-bold text-sm hover:text-primary-700">MLA directory →</a>
+                        <a href="https://www.assembly.ab.ca/net/index.aspx?p=mla_report" target="_blank" rel="noopener noreferrer" class="tap44 text-primary font-heading font-bold text-sm hover:text-primary-700">MLA directory →</a>
                     </article>
                     <article class="bg-white rounded-2xl p-6 border border-surface-border">
                         <span class="text-3xl font-heading font-bold text-red-500">03</span>
                         <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Build the habit of records</h3>
                         <p class="text-sm text-slate-600 leading-relaxed mb-4">Use the Case Diary to log every call, name, and deadline — both to win your own case and to spot the patterns that become campaigns.</p>
-                        <button type="button" onclick="navigateTo('desk')" class="text-primary font-heading font-bold text-sm hover:text-primary-700">Open your case file →</button>
+                        <button type="button" onclick="navigateTo('desk')" class="tap44 text-primary font-heading font-bold text-sm hover:text-primary-700">Open your case file →</button>
                     </article>
                     <article class="bg-white rounded-2xl p-6 border border-surface-border">
                         <span class="text-3xl font-heading font-bold text-red-500">04</span>
                         <h3 class="text-xl font-heading font-bold text-slate-900 mt-3 mb-2">Show up coordinated</h3>
                         <p class="text-sm text-slate-600 leading-relaxed mb-4">When the weekly action drops, do it the same week as everyone else. One email is a complaint; two hundred in five days is a pattern the press can print.</p>
-                        <button type="button" onclick="navigateTo('action')" class="text-primary font-heading font-bold text-sm hover:text-primary-700">See this week's action →</button>
+                        <button type="button" onclick="navigateTo('action')" class="tap44 text-primary font-heading font-bold text-sm hover:text-primary-700">See this week's action →</button>
                     </article>
                 </div>
             </section>
@@ -2146,7 +2119,7 @@
     <section id="page-blog" class="page-section">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
             <div class="mb-12">
-                <button onclick="navigateTo('home')" class="flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors mb-6 cursor-pointer">
+                <button onclick="navigateTo('home')" class="tap44 flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors mb-6 cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                     Back to Home
                 </button>
@@ -2207,7 +2180,7 @@
 
         <!-- Thread View (hidden by default) -->
         <div id="thread-view" class="hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-            <button onclick="closeThreadView()" class="flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors mb-6 cursor-pointer">
+            <button onclick="closeThreadView()" class="tap44 flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors mb-6 cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 Back to Forum
             </button>
@@ -2270,7 +2243,7 @@
             <div class="max-w-4xl mb-10"><p class="text-primary font-heading font-semibold text-sm tracking-widest uppercase mb-3">The resource centre</p><h1 class="text-4xl sm:text-5xl font-heading font-bold text-slate-900 mb-4">Find the right door.</h1><p class="text-lg text-slate-600 leading-relaxed">An Alberta-wide directory of <span id="resource-count" class="font-heading font-bold text-primary">dozens of</span> verified programs, lines, and offices — crisis support, income and disability benefits, federal programs, appeals, legal help, housing, food, and health. Contact details can change, so verify before relying on them.</p></div>
             <div class="workspace-panel rounded-[2rem] p-5 sm:p-6 mb-8"><div class="grid md:grid-cols-[1fr_15rem] gap-3"><div><label for="resource-search" class="sr-only">Search resources</label><input id="resource-search" type="search" oninput="renderResources()" class="w-full px-4 py-3 rounded-2xl text-base" placeholder="Try “appeal”, “rent”, “dental”, “crisis”, “CPP”, “wheelchair”..."></div><div><label for="resource-filter" class="sr-only">Filter resources</label><select id="resource-filter" onchange="renderResources()" class="w-full px-4 py-3 rounded-2xl text-base"><option value="all">All categories</option><option value="urgent">Immediate help</option><option value="benefits">Provincial benefits</option><option value="federal">Federal programs</option><option value="appeals">Appeals and disputes</option><option value="advocacy">Advocacy and legal</option><option value="housing">Housing and food</option><option value="health">Health services</option><option value="community">Community support</option></select></div></div></div>
             <div id="resource-directory" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-            <div class="mt-10 rounded-[2rem] workspace-panel p-6 sm:p-8"><p class="text-xs text-accent-700 font-heading font-bold uppercase tracking-widest mb-2">Use this directory well</p><h2 class="text-2xl font-heading font-bold text-slate-900 mb-3">Save the date, the name, and the next step</h2><p class="text-sm text-slate-600 leading-relaxed">When you contact an office, write down the date, time, person or department, reference number, documents requested, and promised follow-up. Add the details to your private member journal so you do not have to reconstruct the story later.</p><button onclick="navigateTo('profile')" class="mt-5 inline-flex items-center gap-2 text-primary font-heading font-bold hover:text-primary-700 transition-colors">Open your private workspace <span aria-hidden="true">→</span></button></div>
+            <div class="mt-10 rounded-[2rem] workspace-panel p-6 sm:p-8"><p class="text-xs text-accent-700 font-heading font-bold uppercase tracking-widest mb-2">Use this directory well</p><h2 class="text-2xl font-heading font-bold text-slate-900 mb-3">Save the date, the name, and the next step</h2><p class="text-sm text-slate-600 leading-relaxed">When you contact an office, write down the date, time, person or department, reference number, documents requested, and promised follow-up. Add the details to your private member journal so you do not have to reconstruct the story later.</p><button onclick="navigateTo('profile')" class="tap44 mt-5 inline-flex items-center gap-2 text-primary font-heading font-bold hover:text-primary-700 transition-colors">Open your private workspace <span aria-hidden="true">→</span></button></div>
         </div>
     </section>
 
@@ -2357,6 +2330,68 @@
     </section>
 
 </main>
+
+<!-- ==================== SITE FOOTER ==================== -->
+<!-- Sibling of <main> rather than a child of a page section: it previously sat inside
+     #page-home, so every other tab rendered with no footer at all. -->
+<footer role="contentinfo" class="bg-slate-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9" aria-hidden="true">
+                        <svg viewBox="0 0 64 64" class="w-full h-full" role="img" aria-label="Alberta Unbound logo">
+                            <rect x="2" y="2" width="60" height="60" rx="16" fill="#0B2035"/>
+                            <rect x="5" y="5" width="54" height="54" rx="13" fill="none" stroke="#E8B33C" stroke-opacity=".5" stroke-width="1"/>
+                            <rect x="8" y="8" width="48" height="14" rx="4" fill="#16406B"/>
+                            <rect x="28" y="8" width="8" height="14" fill="#CE3B2C"/>
+                            <rect x="8" y="12.5" width="48" height="5" fill="#CE3B2C"/>
+                            <g stroke="#F2B544" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M41.5 31h4.5M22.5 31h-4.5M38.6 25.4l3-3M25.4 25.4l-3-3M38.6 36.6l3 3M25.4 36.6l-3 3"/></g>
+                            <circle cx="32" cy="31" r="6.5" fill="#F2B544"/>
+                            <polygon points="24,46 38,34 52,46" fill="#2E5D8A"/>
+                            <polygon points="38,34 41.4,38.2 38,37 34.8,38" fill="#E8EDF4"/>
+                            <polygon points="12,46 24,33 36,46" fill="#4A7BA8"/>
+                            <polygon points="24,33 26.6,37.4 24,36 21.4,37.2" fill="#E8EDF4"/>
+                            <rect x="8" y="44" width="48" height="10" rx="3" fill="#2F6B4F"/>
+                            <g stroke="#F2B544" stroke-width="1.6" stroke-linecap="round" fill="none"><path d="M22 52.5v-6M32 52.5v-6M42 52.5v-6M22 47.5l-2.4-2M22 47.5l2.4-2M22 50.5l-2.4-2M22 50.5l2.4-2M32 47.5l-2.4-2M32 47.5l2.4-2M32 50.5l-2.4-2M32 50.5l2.4-2M42 47.5l-2.4-2M42 47.5l2.4-2M42 50.5l-2.4-2M42 50.5l2.4-2"/></g>
+                            <circle cx="32" cy="37.5" r="1.8" fill="#FDB813"/>
+                        </svg>
+                    </div>
+                    <span class="font-heading font-bold text-lg">Alberta Unbound</span>
+                </div>
+                <p class="text-slate-400 text-sm max-w-md">Alberta Unbound is a badlands-born, patch-tested coalition of Albertans who know the difference between working hard and being worked over. We fight for income justice, disability rights, and humane support. We are independent, non-partisan, and committed to the dignity and agency of the people using these systems.</p>
+            </div>
+            <div>
+                <h2 class="font-heading font-semibold mb-3 text-sm uppercase tracking-wider text-slate-300">Navigate</h2>
+                <div class="space-y-2 text-sm text-slate-400">
+                    <p><button onclick="navigateTo('home')" class="tap44 hover:text-white transition-colors cursor-pointer">Home</button></p>
+                    <p><button onclick="navigateTo('blog')" class="tap44 hover:text-white transition-colors cursor-pointer">Blog</button></p>
+                    <p><button onclick="navigateTo('forum')" class="tap44 hover:text-white transition-colors cursor-pointer">Forum</button></p>
+                    <p><button onclick="navigateTo('desk')" class="tap44 hover:text-white transition-colors cursor-pointer">Case Diary</button></p>
+                    <p><button onclick="navigateTo('action')" class="tap44 hover:text-white transition-colors cursor-pointer">Get Organized</button></p>
+                    <p><button onclick="navigateTo('campaigns')" class="tap44 hover:text-white transition-colors cursor-pointer">Take Action</button></p>
+                    <p><button onclick="navigateTo('vault')" class="tap44 hover:text-white transition-colors cursor-pointer">The Vault</button></p>
+                    <p><button onclick="navigateTo('badges')" class="tap44 hover:text-white transition-colors cursor-pointer">Badge Wall</button></p>
+                    <p><button onclick="navigateTo('manifesto')" class="tap44 hover:text-white transition-colors cursor-pointer">Manifesto</button></p>
+                    <p><button onclick="navigateTo('resources')" class="tap44 hover:text-white transition-colors cursor-pointer">Resources</button></p>
+                </div>
+            </div>
+            <div>
+                <h2 class="font-heading font-semibold mb-3 text-sm uppercase tracking-wider text-slate-300">Official Links</h2>
+                <div class="space-y-2 text-sm text-slate-400">
+                    <p><a href="https://www.alberta.ca/aish" target="_blank" rel="noopener" class="tap44 hover:text-white transition-colors">AISH (Official)</a></p>
+                    <p><a href="https://www.alberta.ca/alberta-disability-assistance-program" target="_blank" rel="noopener" class="tap44 hover:text-white transition-colors">ADAP (Official)</a></p>
+                    <p><a href="https://www.alberta.ca/income-support" target="_blank" rel="noopener" class="tap44 hover:text-white transition-colors">Income Support</a></p>
+                    <p><a href="https://www.alberta.ca/alberta-supports" target="_blank" rel="noopener" class="tap44 hover:text-white transition-colors">Alberta Supports</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+            <p>Alberta Unbound is an independent, non-partisan platform and is not affiliated with the Government of Alberta.</p>
+            <p class="mt-1">We stand with people navigating poverty, disability, illness, and insecure work. Always verify official information at <a href="https://www.alberta.ca" class="underline hover:text-slate-300 transition-colors" target="_blank" rel="noopener">alberta.ca</a>.</p>
+        </div>
+    </div>
+</footer>
 
 <!-- ==================== AUTH MODAL ==================== -->
 <div id="auth-modal" class="hidden modal-overlay" role="dialog" aria-modal="true" aria-label="Login or create account">
@@ -2721,6 +2756,10 @@ let forumRemote = false;
 // NAVIGATION
 // ============================================================
 function navigateTo(page) {
+    // An unrecognised or legacy hash must never strand the visitor on an empty page:
+    // every section gets its .active class removed below, so bail out to home first.
+    if (!document.getElementById('page-' + page)) page = 'home';
+    const prevPage = currentPage;
     currentPage = page;
     document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
     const target = document.getElementById('page-' + page);
@@ -2773,7 +2812,13 @@ function navigateTo(page) {
     // manage their own hashes). Skipped while a hash route is applying itself.
     if (!suppressHashSync) {
         const want = '#' + page;
-        if (location.hash !== want && !location.hash.startsWith(want + '/')) history.replaceState({ au: true }, '', want);
+        if (location.hash !== want && !location.hash.startsWith(want + '/')) {
+            // Switching tabs pushes an entry so the browser Back button walks back through
+            // the tabs actually visited. The first render, hash-route application and
+            // same-page re-renders replace instead, so they never stack up.
+            if (prevPage && prevPage !== page) history.pushState({ au: true }, '', want);
+            else history.replaceState({ au: true }, '', want);
+        }
     }
 }
 
@@ -4429,7 +4474,7 @@ function renderBlog() {
                 <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 mb-3">${escapeHTML(post.title)}</h2>
                 <p class="text-slate-600 mb-4">${escapeHTML(post.excerpt)}</p>
                 <div class="flex items-center gap-4">
-                    <button onclick="showBlogPost(${i})" class="text-primary font-heading font-semibold text-sm hover:text-primary-700 transition-colors cursor-pointer flex items-center gap-1">
+                    <button onclick="showBlogPost(${i})" class="text-primary font-heading font-semibold text-sm hover:text-primary-700 transition-colors cursor-pointer flex items-center gap-1 min-h-[44px]">
                         Read full guide
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </button>
@@ -4498,7 +4543,7 @@ function showBlogPost(index, opts = {}) {
 
     const fmtRT = rt => (/read\s*$/i.test((rt || '').trim()) ? (rt || '').trim() : (rt || '') + ' read');
     container.innerHTML = `
-        <article class="bg-white rounded-2xl border border-surface-border p-6 sm:p-8 lg:p-12">                <button onclick="closeBlogPost()" class="flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors mb-6 cursor-pointer">
+        <article class="bg-white rounded-2xl border border-surface-border p-6 sm:p-8 lg:p-12">                <button onclick="closeBlogPost()" class="tap44 flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors mb-6 cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                 All Guides
             </button>
@@ -4761,7 +4806,7 @@ function renderForum(category) {
                         <h3 class="font-heading font-bold text-slate-900 mb-1">${escapeHTML(t.title)}</h3>
                         <p class="text-sm text-slate-500 line-clamp-2 mb-2">${escapeHTML(t.content.substring(0, 150))}${t.content.length > 150 ? '...' : ''}</p>
                         <div class="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-                            <span class="inline-flex items-center gap-1.5">by <button type="button" onclick="event.stopPropagation();openMemberProfile('${jsStr(author.username)}')" class="font-semibold text-slate-600 hover:text-primary hover:underline underline-offset-2 cursor-pointer transition-colors">${escapeHTML(author.username)}</button>${levelChipHTML(author.username)}${authorBadgeStripHTML(author.username, 3)}</span>
+                            <span class="inline-flex items-center gap-1.5">by <button type="button" onclick="event.stopPropagation();openMemberProfile('${jsStr(author.username)}')" class="tap44 font-semibold text-slate-600 hover:text-primary hover:underline underline-offset-2 cursor-pointer transition-colors">${escapeHTML(author.username)}</button>${levelChipHTML(author.username)}${authorBadgeStripHTML(author.username, 3)}</span>
                             <span>${timeAgo(t.createdAt)}</span>
                             <span class="flex items-center gap-1">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
@@ -4771,7 +4816,7 @@ function renderForum(category) {
                                 <button type="button" onclick="event.stopPropagation();togglePinThread(${t.id})" class="text-xs text-slate-400 hover:text-primary underline underline-offset-2 cursor-pointer transition-colors" aria-label="${t.pinned ? 'Unpin' : 'Pin'} this discussion">${t.pinned ? 'Unpin' : 'Pin'}</button>
                                 <button type="button" onclick="event.stopPropagation();deleteThread(${t.id})" class="text-xs text-slate-400 hover:text-red-500 underline underline-offset-2 cursor-pointer transition-colors" aria-label="Delete this discussion">Delete</button>
                             ` : ''}
-                            <button type="button" onclick="event.stopPropagation();openReportModal(${t.id})" class="ml-auto text-xs text-slate-400 hover:text-primary underline underline-offset-2" aria-label="Report this discussion">Report</button>
+                            <button type="button" onclick="event.stopPropagation();openReportModal(${t.id})" class="ml-auto tap44 text-xs text-slate-400 hover:text-primary underline underline-offset-2" aria-label="Report this discussion">Report</button>
                         </div>
                     </div>
                 </div>
@@ -5464,7 +5509,7 @@ async function renderProfile() {
         target.innerHTML = `
         <div class="workspace-panel rounded-[2rem] p-8 sm:p-12 text-center max-w-3xl mx-auto">
             <p class="text-primary font-heading font-semibold text-xs tracking-widest uppercase mb-2">Members only</p>
-            <h2 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 mb-3">Your profile</h2>
+            <h1 class="text-2xl sm:text-3xl font-heading font-bold text-slate-900 mb-3">Your profile</h1>
             <p class="text-slate-600 leading-relaxed mb-8 max-w-xl mx-auto">Create a free account to join the forum, build your public profile with avatar and bio, and unlock the Case Diary — a private case file with a dated timeline, evidence index, contacts, and deadline tracking.</p>
             <div class="grid sm:grid-cols-2 gap-3 mb-8 text-left">
                 <div class="rounded-2xl bg-gray-50 p-4"><strong class="block text-slate-900 font-heading text-sm">Public profile</strong><span class="text-xs text-slate-600">Avatar and bio the community sees — your case details never appear.</span></div>
@@ -5671,7 +5716,7 @@ function renderResources() {
     });
     const countLine = document.getElementById('resource-count');
     if (countLine) countLine.textContent = `${matches.length} of ${DIRECTORY_RESOURCES.length} resources`;
-    container.innerHTML = matches.length ? matches.map(item => { const resourceIndex = DIRECTORY_RESOURCES.indexOf(item); return `<article class="resource-directory-card workspace-panel rounded-[2rem] p-6"><div class="flex items-start justify-between gap-3"><span class="text-xs font-heading font-bold uppercase tracking-widest text-primary">${escapeHTML(item.type)}</span><span class="text-xs text-slate-500">Verify current details</span></div><h2 class="text-xl font-heading font-bold text-slate-900 mt-3">${escapeHTML(item.name)}</h2><p class="text-sm text-slate-600 leading-relaxed mt-2">${escapeHTML(item.description)}</p><div class="flex flex-wrap gap-2 mt-3">${item.region ? `<span class="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-heading font-semibold">${escapeHTML(item.region)}</span>` : ''}${item.hours ? `<span class="text-xs px-2.5 py-1 rounded-full bg-accent/10 text-accent-800 font-heading font-semibold">${escapeHTML(item.hours)}</span>` : ''}</div>${item.phone ? `<a href="tel:${item.phone.replace(/[^+\d]/g, '')}" class="block text-sm text-primary font-heading font-bold mt-4">${escapeHTML(item.phone)}</a>` : ''}<div class="flex flex-wrap items-center gap-3 mt-4"><a href="${item.url}" target="_blank" rel="noopener" class="inline-flex text-sm text-primary font-heading font-bold hover:text-primary-700">Open current information ↗</a><button type="button" onclick="saveResourceToWorkspace(${resourceIndex})" class="text-sm text-slate-600 font-heading font-semibold hover:text-primary">Save to workspace</button></div><p class="text-xs text-slate-500 mt-4">Official and community details can change. Check the source before relying on it.</p></article>`; }).join('') : `    <div class="md:col-span-2 lg:col-span-3 text-center py-12"><p class="text-lg font-heading font-bold text-slate-900 mb-2">Nothing matches "${escapeHTML(query)}"</p><p class="text-sm text-slate-600 mb-4">Try a broader term — "rent", "appeal", "dental", "crisis" — or clear the category filter.</p><button type="button" onclick="document.getElementById('resource-search').value='';document.getElementById('resource-filter').value='all';renderResources();" class="px-5 py-2.5 rounded-full bg-primary text-white font-heading font-bold min-h-[44px]">Show all ${DIRECTORY_RESOURCES.length} resources</button></div>`;
+    container.innerHTML = matches.length ? matches.map(item => { const resourceIndex = DIRECTORY_RESOURCES.indexOf(item); return `<article class="resource-directory-card workspace-panel rounded-[2rem] p-6"><div class="flex items-start justify-between gap-3"><span class="text-xs font-heading font-bold uppercase tracking-widest text-primary">${escapeHTML(item.type)}</span><span class="text-xs text-slate-500">Verify current details</span></div><h2 class="text-xl font-heading font-bold text-slate-900 mt-3">${escapeHTML(item.name)}</h2><p class="text-sm text-slate-600 leading-relaxed mt-2">${escapeHTML(item.description)}</p><div class="flex flex-wrap gap-2 mt-3">${item.region ? `<span class="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-heading font-semibold">${escapeHTML(item.region)}</span>` : ''}${item.hours ? `<span class="text-xs px-2.5 py-1 rounded-full bg-accent/10 text-accent-800 font-heading font-semibold">${escapeHTML(item.hours)}</span>` : ''}</div>${item.phone ? `<a href="tel:${item.phone.replace(/[^+\d]/g, '')}" class="block text-sm text-primary font-heading font-bold mt-4">${escapeHTML(item.phone)}</a>` : ''}<div class="flex flex-wrap items-center gap-3 mt-4"><a href="${item.url}" target="_blank" rel="noopener" class="inline-flex items-center min-h-[44px] text-sm text-primary font-heading font-bold hover:text-primary-700">Open current information ↗</a><button type="button" onclick="saveResourceToWorkspace(${resourceIndex})" class="inline-flex items-center min-h-[44px] text-sm text-slate-600 font-heading font-semibold hover:text-primary">Save to workspace</button></div><p class="text-xs text-slate-500 mt-4">Official and community details can change. Check the source before relying on it.</p></article>`; }).join('') : `    <div class="md:col-span-2 lg:col-span-3 text-center py-12"><p class="text-lg font-heading font-bold text-slate-900 mb-2">Nothing matches "${escapeHTML(query)}"</p><p class="text-sm text-slate-600 mb-4">Try a broader term — "rent", "appeal", "dental", "crisis" — or clear the category filter.</p><button type="button" onclick="document.getElementById('resource-search').value='';document.getElementById('resource-filter').value='all';renderResources();" class="px-5 py-2.5 rounded-full bg-primary text-white font-heading font-bold min-h-[44px]">Show all ${DIRECTORY_RESOURCES.length} resources</button></div>`;
     // The directory is core content: show it immediately instead of scroll-gating it.
     revealAllNow(container);
 }
@@ -6594,7 +6639,7 @@ function vaultLockedHTML(user, isMember) {
     const teasers = VAULT_TEASERS.map(t => `
         <article class="rounded-[2rem] p-6 sm:p-8">
             <div class="flex items-center justify-between mb-3">
-                <span class="inline-block text-xs font-heading font-semibold px-3 py-1 rounded-full bg-red-500/15 text-red-400">LOCKED</span>
+                <span class="vault-lock-chip inline-block text-xs font-heading font-semibold px-3 py-1 rounded-full">LOCKED</span>
                 <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
             </div>
             <h3 class="text-xl font-heading font-bold text-slate-900 mb-2">${escapeHTML(t.title)}</h3>
@@ -7085,7 +7130,7 @@ function renderTakeAction() {
         fa.innerHTML = `
         <div class="desk-card rounded-[2rem] p-8 sm:p-10 text-center">
           <p class="text-xs font-heading font-bold uppercase tracking-[0.25em] text-primary mb-3">This week's action</p>
-          <h3 class="text-2xl font-heading font-extrabold text-slate-900 mb-2">Next action is being planned</h3>
+          <h2 class="text-2xl font-heading font-extrabold text-slate-900 mb-2">Next action is being planned</h2>
           <p class="text-slate-600 max-w-xl mx-auto mb-5">Nothing is scheduled yet. Pitch an action below — the highest-voted pitches get picked up by the team and turned into the next weekly action.</p>
           <button type="button" onclick="openSuggestionModal()" class="px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Pitch an action</button>
           ${isMod() ? '<p class="text-xs text-slate-500 mt-4">Mod tip: create the next action from the suggestion floor or directly via the console.</p>' : ''}
