@@ -238,7 +238,7 @@
         #page-home .grid.md\\:grid-cols-2 > div, #page-home .grid.lg\\:grid-cols-4 > div, #home-blog-preview > article, #page-action .grid > div { transition: transform .7s cubic-bezier(.32,.72,0,1), border-color .5s cubic-bezier(.32,.72,0,1), box-shadow .7s cubic-bezier(.32,.72,0,1); }
 
         /* Agency-scale rhythm and cinematic page surfaces. */
-        #page-home > div:not(:first-child), #page-action > div:not(:first-child), #page-blog > div, #page-forum > div, #page-profile > div { padding-top: clamp(6rem, 10vw, 10rem) !important; padding-bottom: clamp(6rem, 10vw, 10rem) !important; }
+        #page-home > div:not(:first-child), #page-action > div:not(:first-child), #page-blog > div:not(:first-child), #page-forum > div:not(:first-child), #page-profile > div { padding-top: clamp(6rem, 10vw, 10rem) !important; padding-bottom: clamp(6rem, 10vw, 10rem) !important; }
         #page-home > div:first-child { min-height: min(55rem, calc(100dvh - 2rem)); display: flex; align-items: center; background: #102B4E !important; }
         #page-action > div:first-child { background: #102B4E !important; }
         #page-action .text-red-100, #page-action .text-red-200 { color: var(--copy) !important; }
@@ -485,7 +485,11 @@
         /* Consistent route surfaces; no light-mode page gets a leftover dark card. */
         /* Branded surfaces stay deep navy in both themes; gold inside them stays luminous. */
         .bg-primary, .bg-primary-900, #page-home > div:first-child, #page-desk > div:first-child, #page-action > div:first-child, #page-vault > div:first-child, #page-manifesto > div:first-child { background-color: #102B4E !important; }
-        .bg-primary .text-accent, .bg-primary-900 .text-accent, #page-home > div:first-child .text-accent, #page-desk > div:first-child .text-accent, #page-action > div:first-child .text-accent, #page-vault > div:first-child .text-accent, #page-manifesto > div:first-child .text-accent { color: #E8B33C !important; }
+        .bg-primary .text-accent, .bg-primary-900 .text-accent, #page-home > div:first-child .text-accent, #page-desk > div:first-child .text-accent, #page-action > div:first-child .text-accent, #page-vault > div:first-child .text-accent, #page-manifesto > div:first-child .text-accent, #page-member .text-accent, #page-profile .bg-primary .text-accent, #page-profile .bg-primary-900 .text-accent, #page-blog > div:first-child .text-accent, #page-forum > div:first-child .text-accent { color: #E8B33C !important; }
+        /* A .text-primary label nested in a navy card would inherit the light-mode brand
+           navy (#14507F) and vanish. Mirror the nav's fix: on-brand text inside a navy
+           surface stays the luminous blue in every theme. */
+        .bg-primary .text-primary, .bg-primary-900 .text-primary { color: #69B1D8 !important; }
         .bg-primary .bg-accent, .bg-primary-900 .bg-accent, nav[role="navigation"] .bg-accent, #page-home > div:first-child .bg-accent, #page-desk > div:first-child .bg-accent, #page-action > div:first-child .bg-accent, #page-vault > div:first-child .bg-accent, #page-manifesto > div:first-child .bg-accent { background-color: #E8B33C !important; color: #0B2035 !important; }
         nav[role="navigation"] .bg-accent [class~="bg-primary/10"] { background-color: rgba(255,255,255,.30) !important; }
         .bg-primary button.bg-accent:hover, .bg-primary-900 button.bg-accent:hover, #page-home > div:first-child button.bg-accent:hover, #page-desk > div:first-child button.bg-accent:hover, #page-action > div:first-child button.bg-accent:hover, #page-vault > div:first-child button.bg-accent:hover, #page-manifesto > div:first-child button.bg-accent:hover { background-color: #0B2035 !important; color: #E8B33C !important; box-shadow: inset 0 0 0 1.5px rgba(232,179,60,.65), 0 16px 38px rgba(11,32,53,.35) !important; transform: translateY(-2px) !important; }
@@ -2117,16 +2121,19 @@
     <!-- BLOG PAGE -->
     <!-- ============================================ -->
     <section id="page-blog" class="page-section">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-            <div class="mb-12">
-                <button onclick="navigateTo('home')" class="tap44 flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors mb-6 cursor-pointer">
+        <div class="bg-primary-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+                <button onclick="navigateTo('home')" class="tap44 flex items-center gap-2 text-sm text-white/60 hover:text-accent transition-colors mb-6 cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                     Back to Home
                 </button>
-                <h1 class="text-4xl sm:text-5xl font-heading font-bold text-slate-900 mb-4">Understand the system. Make informed decisions.</h1>
-                <p class="text-lg text-slate-600 max-w-3xl">These plain-language guides help you prepare, document what happens, find current sources, and choose a next step. They are practical information—not legal advice or a promise of eligibility.</p>
+                <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">The Guides · Plain language</p>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Understand the system.</span><br>Make informed decisions.</h1>
+                <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">These plain-language guides help you prepare, document what happens, find current sources, and choose a next step. They are practical information—not legal advice or a promise of eligibility.</p>
+                <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Step-by-step</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Official sources</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Appeal-ready</span></div>
             </div>
-
+        </div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div id="blog-posts-container" class="space-y-8">
                 <!-- JS fills this -->
             </div>
@@ -2137,18 +2144,19 @@
     <!-- FORUM PAGE -->
     <!-- ============================================ -->
     <section id="page-forum" class="page-section">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
-                <div>
-                    <h1 class="text-3xl sm:text-4xl font-heading font-bold text-slate-900 mb-2">Community Forum</h1>
-                    <p class="text-slate-600">Share your story, compare experiences, and disagree in good faith. This forum is for practical knowledge and democratic debate—not an echo chamber.</p>
-                </div>
-                <button onclick="showNewThreadModal()" id="new-thread-btn" class="px-6 py-3 bg-primary text-white font-heading font-semibold rounded-xl hover:bg-primary-700 transition-colors cursor-pointer min-h-[48px] min-w-[48px] flex items-center gap-2">
+        <div class="bg-primary-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+                <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">The Forum · Debate in good faith</p>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Community.</span><br>Disagreement welcome.</h1>
+                <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">Share your story, compare experiences, and disagree in good faith. This forum is for practical knowledge and democratic debate—not an echo chamber.</p>
+                <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">No viewpoint moderation</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Conduct rules apply</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Moderated in the open</span></div>
+                <button onclick="showNewThreadModal()" id="new-thread-btn" class="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-accent text-primary font-heading font-bold rounded-full transition-colors cursor-pointer min-h-[48px] min-w-[48px]">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                     New Discussion
                 </button>
             </div>
-
+        </div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <section class="workspace-panel rounded-[2rem] p-5 sm:p-6 mb-8" aria-labelledby="forum-standards-heading"><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">How this forum works</p><h2 id="forum-standards-heading" class="text-xl font-heading font-bold text-slate-900 mb-2">Strong disagreement is welcome. Targeted harm is not.</h2><p class="text-sm text-slate-600 leading-relaxed">Conservative, libertarian, social-liberal, social-democratic, socialist, centrist, pro-government, anti-government, and undecided views can all be part of the conversation. Political opinions are not removed for being unpopular. Threats, discrimination, doxxing, targeted harassment, privacy violations, impersonation, spam, and instructions for serious wrongdoing are different: report them so moderators can review the conduct.</p></section>
 
             <div id="forum-moderation-bar"></div>
@@ -2244,7 +2252,7 @@
                 <p class="text-accent font-heading font-semibold text-sm tracking-widest uppercase mb-4">The Resource Centre · Alberta-wide</p>
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold leading-tight mb-6"><span class="text-accent">Every door,</span><br>every number, one address.</h1>
                 <p class="text-lg sm:text-xl text-white/75 leading-relaxed max-w-3xl">An Alberta-wide directory of verified programs, lines, and offices — crisis support, income and disability benefits, federal programs, appeals, legal help, housing, food, and health. Contact details can change, so verify before relying on them.</p>
-                <p class="mt-5 font-heading font-semibold text-sm uppercase tracking-wider text-accent"><span id="resource-count">50 resources</span> in the directory</p>
+                <p class="mt-5 font-heading font-semibold text-sm uppercase tracking-wider text-accent"><span id="resource-count">50</span> of <span id="resource-total">50</span> in the directory</p>
                 <div class="flex flex-wrap gap-3 mt-8 text-xs font-heading font-semibold uppercase tracking-wider text-white/65"><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Searchable</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Province-wide</span><span class="px-3 py-2 rounded-full bg-white/10 border border-white/10">Save to your workspace</span></div>
             </div>
         </div>
@@ -5152,8 +5160,9 @@ function renderMemberProfile() {
                 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">
                     ${memberAvatarHTML(author, 'w-20 h-20 shrink-0 border-2 border-white/30 text-3xl font-heading')}
                     <div class="text-center sm:text-left min-w-0">
+                        <p class="text-accent font-heading font-semibold text-xs tracking-widest uppercase mb-2">Member profile</p>
                         <h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(uname)}</h1>
-                        <p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(author.joined || '2026')}</p>
+                        <p class="text-accent font-heading font-semibold text-sm mt-1">Member since ${escapeHTML(author.joined || '2026')}</p>
                         ${author.bio
                             ? `<p class="text-white/85 mt-3 max-w-xl text-sm leading-relaxed">${escapeHTML(author.bio)}</p>`
                             : `<p class="text-white/50 mt-3 text-sm italic">This member hasn't written a bio yet.</p>`}
@@ -5535,7 +5544,7 @@ async function renderProfile() {
     const userReplies = appData.threads.flatMap(t => (t.replies || []).filter(r => r.author.toLowerCase() === user.username.toLowerCase()));
     const initial = user.username.charAt(0).toUpperCase();
     const avatarHTML = user.avatar ? `<img src="${user.avatar}" alt="${escapeHTML(user.username)}'s avatar" class="avatar-preview object-cover">` : `<div class="avatar-preview avatar-default flex items-center justify-center text-white font-bold text-3xl">${initial}</div>`;
-    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-white/70 text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Diary</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div>${workspaceBadgeTeaserHTML()}${workspaceBadgeSpotlightHTML()}<section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Diary is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
+    target.innerHTML = `<div class="space-y-6"><div class="workspace-panel rounded-[2rem] overflow-hidden"><div class="bg-primary p-8 sm:p-10 text-white"><div class="flex flex-col sm:flex-row items-center sm:items-start gap-5">${avatarHTML}<div class="text-center sm:text-left"><p class="text-accent font-heading font-semibold text-xs tracking-widest uppercase mb-2">Your workspace</p><h1 class="text-2xl sm:text-3xl font-heading font-bold">${escapeHTML(user.username)}</h1><p class="text-accent font-heading font-semibold text-sm mt-1">Member since ${escapeHTML(user.joined || '2026')}</p>${user.bio ? `<p class="text-white/80 mt-3 max-w-md">${escapeHTML(user.bio)}</p>` : ''}${user.region || user.interests ? `<p class="text-white/65 text-xs mt-3">${escapeHTML([user.region, user.interests].filter(Boolean).join(' · '))}</p>` : ''}</div><button onclick="openProfileEditModal()" class="sm:ml-auto mt-4 sm:mt-0 px-5 py-2.5 bg-white/15 text-white font-heading font-semibold rounded-xl hover:bg-white/25 transition-colors cursor-pointer text-sm min-h-[44px] border border-white/20">Edit profile</button></div></div><div class="grid grid-cols-2 divide-x divide-gray-100 border-b border-surface-border"><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">${userThreads.length + userReplies.length}</p><p class="text-xs text-slate-500 mt-1">Forum posts</p></div><div class="p-5 text-center"><p class="text-2xl font-heading font-bold text-primary">Private</p><p class="text-xs text-slate-500 mt-1">Your case file</p></div></div><div class="flex flex-col sm:flex-row gap-3 p-6 sm:p-8"><button onclick="navigateTo('desk')" class="flex-1 px-6 py-3 bg-primary text-white font-heading font-bold rounded-full hover:bg-primary-700 transition-colors min-h-[48px]">Open Case Diary</button><button onclick="navigateTo('forum')" class="flex-1 px-6 py-3 bg-gray-100 text-slate-700 font-heading font-semibold rounded-full hover:bg-gray-200 transition-colors min-h-[48px]">Open forum</button></div></div>${workspaceBadgeTeaserHTML()}${workspaceBadgeSpotlightHTML()}<section class="workspace-panel rounded-[2rem] p-6 sm:p-8"><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="text-primary font-heading font-bold text-xs uppercase tracking-widest mb-2">Community activity</p><h2 class="text-xl font-heading font-bold text-slate-900">Your public contributions</h2><p class="text-sm text-slate-600 mt-1">Only posts and replies appear here. Everything in your Case Diary is private.</p></div><button onclick="navigateTo('forum')" class="px-5 py-2.5 bg-primary text-white font-heading font-semibold rounded-full min-h-[44px]">Open forum</button></div></section></div>`;
     enhanceProfileWorkspace();
     const standingHost = document.getElementById('profile-content');
     if (standingHost && !standingHost.querySelector('[data-standing]')) {
@@ -5710,6 +5719,12 @@ const DIRECTORY_RESOURCES = [
     { name: 'Alberta Supports in-person offices', category: 'community', type: 'Official', description: 'Walk-in offices across the province where you can start applications, drop off documents, and speak with a worker face to face.', phone: '1-877-644-9992', url: 'https://www.alberta.ca/alberta-supports-centres', tags: 'office in person walk in documents appointment', region: 'Alberta-wide' },
     { name: 'Verify it: alberta.ca program index', category: 'community', type: 'Official', description: 'When any detail here looks out of date — rates, thresholds, forms, phone numbers — the official program index is the source of truth. Programs change; check before you act.', phone: '', url: 'https://www.alberta.ca/', tags: 'official index verify programs source of truth', region: 'Alberta-wide' }
 ];
+// Tracks the number currently painted in the hero counter so the next search can
+// tween from it rather than restarting from zero on every keystroke. Seeded from
+// the directory length so the first render (unfiltered) is a no-op rather than an
+// animation from zero, which matters for readers who disable motion.
+let resourceCount = { current: DIRECTORY_RESOURCES.length };
+
 function renderResources() {
     const container = document.getElementById('resource-directory');
     if (!container) return;
@@ -5722,8 +5737,14 @@ function renderResources() {
         const hay = `${item.name} ${item.description} ${item.tags} ${item.phone} ${item.region || ''} ${item.hours || ''}`.toLowerCase();
         return words.every(w => hay.includes(w));
     });
-    const countLine = document.getElementById('resource-count');
-    if (countLine) countLine.textContent = `${matches.length} of ${DIRECTORY_RESOURCES.length}`;
+    const countEl = document.getElementById('resource-count');
+    const totalEl = document.getElementById('resource-total');
+    if (countEl) {
+        animateRatio(countEl, totalEl, resourceCount.current, matches.length, DIRECTORY_RESOURCES.length);
+        resourceCount.current = matches.length;
+    } else if (totalEl) {
+        totalEl.textContent = fmtNum(DIRECTORY_RESOURCES.length);
+    }
     container.innerHTML = matches.length ? matches.map(item => { const resourceIndex = DIRECTORY_RESOURCES.indexOf(item); return `<article class="resource-directory-card workspace-panel rounded-[2rem] p-6"><div class="flex items-start justify-between gap-3"><span class="text-xs font-heading font-bold uppercase tracking-widest text-primary">${escapeHTML(item.type)}</span><span class="text-xs text-slate-500">Verify current details</span></div><h2 class="text-xl font-heading font-bold text-slate-900 mt-3">${escapeHTML(item.name)}</h2><p class="text-sm text-slate-600 leading-relaxed mt-2">${escapeHTML(item.description)}</p><div class="flex flex-wrap gap-2 mt-3">${item.region ? `<span class="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-heading font-semibold">${escapeHTML(item.region)}</span>` : ''}${item.hours ? `<span class="text-xs px-2.5 py-1 rounded-full bg-accent/10 text-accent-800 font-heading font-semibold">${escapeHTML(item.hours)}</span>` : ''}</div>${item.phone ? `<a href="tel:${item.phone.replace(/[^+\d]/g, '')}" class="block text-sm text-primary font-heading font-bold mt-4">${escapeHTML(item.phone)}</a>` : ''}<div class="flex flex-wrap items-center gap-3 mt-4"><a href="${item.url}" target="_blank" rel="noopener" class="inline-flex items-center min-h-[44px] text-sm text-primary font-heading font-bold hover:text-primary-700">Open current information ↗</a><button type="button" onclick="saveResourceToWorkspace(${resourceIndex})" class="inline-flex items-center min-h-[44px] text-sm text-slate-600 font-heading font-semibold hover:text-primary">Save to workspace</button></div><p class="text-xs text-slate-500 mt-4">Official and community details can change. Check the source before relying on it.</p></article>`; }).join('') : `    <div class="md:col-span-2 lg:col-span-3 text-center py-12"><p class="text-lg font-heading font-bold text-slate-900 mb-2">Nothing matches "${escapeHTML(query)}"</p><p class="text-sm text-slate-600 mb-4">Try a broader term — "rent", "appeal", "dental", "crisis" — or clear the category filter.</p><button type="button" onclick="document.getElementById('resource-search').value='';document.getElementById('resource-filter').value='all';renderResources();" class="px-5 py-2.5 rounded-full bg-primary text-white font-heading font-bold min-h-[44px]">Show all ${DIRECTORY_RESOURCES.length} resources</button></div>`;
     // The directory is core content: show it immediately instead of scroll-gating it.
     revealAllNow(container);
@@ -6106,6 +6127,31 @@ function animateStat(el, target, delay) {
     setTimeout(() => requestAnimationFrame(tick), delay || 0);
 }
 
+// Live-search counter (Resources hero): tween an "X of Y" ratio between the value
+// already on screen and the new one, so typing scrubs the number instead of
+// snapping it. Deliberately NOT hydrateCounters(): that helper marks a node with
+// data-counted and skips it forever after, which would freeze the counter on the
+// second keystroke.
+function animateRatio(matchEl, totalEl, from, to, total) {
+    const steps = [matchEl, totalEl].filter(Boolean);
+    const write = (m, t) => {
+        if (matchEl) matchEl.textContent = fmtNum(m);
+        if (totalEl) totalEl.textContent = fmtNum(t);
+    };
+    if (prefersReducedMotion() || from === to) { write(to, total); return; }
+    const dur = 380; // brief: this fires on every keystroke
+    let start = null;
+    const tick = (now) => {
+        if (start === null) start = now;
+        const p = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        write(Math.round(from + (to - from) * eased), total);
+        if (p < 1) requestAnimationFrame(tick);
+        else write(to, total);
+    };
+    requestAnimationFrame(tick);
+}
+
 // Hydrate every [data-count] inside root, staggered so the row cascades.
 function hydrateCounters(root) {
     const nodes = (root || document).querySelectorAll('[data-count]');
@@ -6296,7 +6342,7 @@ function momentumHTML(d) {
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
                     <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-1">Your badge collection</p>
-                    <h3 class="text-xl font-heading font-bold text-slate-900">${escapeHTML(myLv.name)} · ${myXp} xp · ${myIds.length} of ${BADGE_CATALOG.length} badges</h3>
+                    <h2 class="text-xl font-heading font-bold text-slate-900">${escapeHTML(myLv.name)} · ${myXp} xp · ${myIds.length} of ${BADGE_CATALOG.length} badges</h2>
                 </div>
                 ${nextBadge ? `<button onclick="navigateTo('profile')" class="px-4 py-2 bg-accent text-primary font-heading font-bold rounded-full text-sm hover:bg-accent-400 transition-colors min-h-[40px]">View all badges</button>` : ''}
             </div>
@@ -7835,7 +7881,7 @@ function workspaceBadgeTeaserHTML() {
         <div class="flex items-center justify-between gap-4 mb-4">
             <div>
                 <p class="text-xs font-heading font-bold uppercase tracking-widest text-accent-700 mb-1">Your badges</p>
-                <h3 id="workspace-badge-teaser-heading" class="text-lg font-heading font-bold text-slate-900">${escapeHTML(lv.name)} · ${xp} xp</h3>
+                <h2 id="workspace-badge-teaser-heading" class="text-lg font-heading font-bold text-slate-900">${escapeHTML(lv.name)} · ${xp} xp</h2>
                 <p class="text-xs text-slate-500">${earned} of ${total} badges earned${nextBadge ? ` · Next: ${escapeHTML(nextBadge.name)}` : ' · All badges collected!'}</p>
             </div>
             <div class="au-nav-xp-bar w-20 h-1.5"><div class="au-nav-xp-fill" style="width:${progress}%"></div></div>
