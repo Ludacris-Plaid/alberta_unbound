@@ -19,7 +19,7 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
 });
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, // service role — server side only
+  Deno.env.get("SUPABASE_ANON_KEY")!,
 );
 
 serve(async (req) => {
@@ -28,8 +28,22 @@ serve(async (req) => {
   }
 
   try {
-    const { userId, email } = await req.json();
-    if (!userId) return new Response("Missing userId", { status: 400 });
+    const data = await req.json();
+    const { userId, email } = data;
+    
+    // Validate userId
+    if (!userId || typeof userId !== 'string') {
+      return new Response("Invalid userId", { status: 400 });
+    }
+    
+    // Validate email
+    if (!email || typeof email !== 'string') {
+      return new Response("Invalid email", { status: 400 });
+    }
+    
+    if (email.length > 254) {
+      return new Response("Email too long", { status: 400 });
+    }
 
     // Verify the caller owns this userId (defends against gifting subscriptions).
     const authHeader = req.headers.get("Authorization") || "";
@@ -57,6 +71,6 @@ serve(async (req) => {
     });
   } catch (err) {
     console.error("create-checkout error", err);
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500 });
+    return new Response(JSON.stringify({ error: String(err), details: err.message }), { status: 500 });
   }
 });

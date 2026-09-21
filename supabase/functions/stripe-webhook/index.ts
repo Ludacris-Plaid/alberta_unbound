@@ -21,7 +21,7 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, {
 });
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+  Deno.env.get("SUPABASE_ANON_KEY")!,
 );
 
 serve(async (req) => {
@@ -48,66 +48,95 @@ serve(async (req) => {
     }).eq("id", userId);
   };
 
-  try {
-    switch (event.type) {
+  const processWebhookEvent = async (eventType: string) => {
+    try {
+      await processEvent(eventType);
+    } catch (err) {
+      console.error(`Error processing ${eventType}:`, err);
+      // Stripe will retry the webhook if this fails
+    }
+  };
+
+  const processEvent = async (eventType: string) => {
+    switch (eventType) {
       case "checkout.session.completed": {
-        const session = event.data.object as Stripe.Checkout.Session;
-        const userId = session.client_reference_id || session.metadata?.userId;
-        if (userId) {
-          await supabase.from("subscriptions").upsert({
-            user_id: userId,
-            stripe_customer_id: typeof session.customer === "string" ? session.customer : undefined,
-            stripe_subscription_id: typeof session.subscription === "string" ? session.subscription : undefined,
-            status: "active",
-            current_period_end: session.subscription ? new Date(Date.now() + 31 * 86400e3).toISOString() : undefined,
-          });
-          await setMember(userId, true);
+        try {
+          const session = event.data.object as Stripe.Checkout.Session;
+          const userId = session.client_reference_id || session.metadata?.userId;
+          if (userId) {
+            await supabase.from("subscriptions").upsert({
+              user_id: userId,
+              stripe_customer_id: typeof session.customer === "string" ? session.customer : undefined,
+              stripe_subscription_id: typeof session.subscription === "string" ? session.subscription : undefined,
+              status: "active",
+              current_period_end: session.subscription ? new Date(session.current_period_end).toISOString() : undefined,
+            });
+            await setMember(userId, true);
+          }
+        } catch (err) {
+          console.error("checkout.session.completed error", err);
         }
         break;
       }
 
       case "customer.subscription.updated": {
-        const sub = event.data.object as Stripe.Subscription;
-        const active = sub.status === "active" || sub.status === "trialing";
-        const { data: row } = await supabase.from("subscriptions")
-          .select("user_id").eq("stripe_subscription_id", sub.id).maybeSingle();
-        if (row) {
-          await supabase.from("subscriptions").update({
-            status: sub.status,
-            current_period_end: new Date(sub.current_period_end * 1000).toISOString(),
-          }).eq("stripe_subscription_id", sub.id);
-          await setMember(row.user_id, active);
+        try {
+          const sub = event.data.object as Stripe.Subscription;
+          const active = sub.status === "active" || sub.status === "trialing";
+          const { data: row } = await supabase.from("subscriptions")
+            .select("user_id").eq("stripe_subscription_id", sub.id).maybeSingle();
+          if (row) {
+            await supabase.from("subscriptions").update({
+              status: sub.status,
+              current_period_end: new Date(sub.current_period_end * 1000).toISOString(),
+            }).eq("stripe_subscription_id", sub.id);
+            await setMember(row.user_id, active);
+          }
+        } catch (err) {
+          console.error("subscription.updated error", err);
         }
         break;
       }
 
       case "customer.subscription.deleted": {
-        const sub = event.data.object as Stripe.Subscription;
-        const { data: row } = await supabase.from("subscriptions")
-          .select("user_id").eq("stripe_subscription_id", sub.id).maybeSingle();
-        if (row) {
-          await supabase.from("subscriptions").update({ status: "canceled" })
-            .eq("stripe_subscription_id", sub.id);
-          await setMember(row.user_id, false);
+        try {
+          const sub = event.data.object as Stripe.Subscription;
+          const { data: row } = await supabase.from("subscriptions")
+            .select("user_id").eq("stripe_subscription_id", sub.id).maybeSingle();
+          if (row) {
+            await supabase.from("subscriptions").update({ status: "canceled" })
+              .eq("stripe_subscription_id", sub.id);
+            await setMember(row.user_id, false);
+          }
+        } catch (err) {
+          console.error("subscription.deleted error", err);
         }
         break;
       }
 
       case "invoice.payment_failed": {
-        const invoice = event.data.object as Stripe.Invoice;
-        const subId = typeof invoice.subscription === "string" ? invoice.subscription : undefined;
-        if (subId) {
-          const { data: row } = await supabase.from("subscriptions")
-            .select("user_id").eq("stripe_subscription_id", subId).maybeSingle();
-          if (row) {
-            await supabase.from("subscriptions").update({ status: "past_due" })
-              .eq("stripe_subscription_id", subId);
-            await setMember(row.user_id, false);
+        try {
+          const invoice = event.data.object as Stripe.Invoice;
+          const subId = typeof invoice.subscription === "string" ? invoice.subscription : undefined;
+          if (subId) {
+            const { data: row } = await supabase.from("subscriptions")
+              .select("user_id").eq("stripe_subscription_id", subId).maybeSingle();
+            if (row) {
+              await supabase.from("subscriptions").update({ status: "past_due" })
+                .eq("stripe_subscription_id", subId);
+              await setMember(row.user_id, false);
+            }
           }
+        } catch (err) {
+          console.error("payment_failed error", err);
         }
         break;
       }
     }
+  };
+
+  try {
+    await processWebhookEvent(event.type);
   } catch (err) {
     console.error("webhook handler error", err);
     return new Response(JSON.stringify({ error: String(err) }), { status: 500 });
